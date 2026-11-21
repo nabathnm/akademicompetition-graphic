@@ -364,4 +364,130 @@ export interface AnimatedSearchBarProps {
   className?: string;
 }
 
+// ---------------------------------------------------------------------------
+// AnimatedCard Types
+// ---------------------------------------------------------------------------
+
+export type AnimatedCardAnimation =
+  | 'fade'
+  | 'slide-up'
+  | 'slide-down'
+  | 'slide-left'
+  | 'slide-right'
+  | 'scale'
+  | 'pop'
+  | 'flip'
+  | 'blur'
+  | 'float'
+  | 'expand'
+  | 'collapse';
+
+export type AnimatedCardVariant =
+  | 'default'
+  | 'outlined'
+  | 'elevated'
+  | 'flat'
+  | 'image-card'
+  | 'horizontal'
+  | 'compact';
+
+export type AnimatedCardState =
+  | 'idle'
+  | 'focused'
+  | 'selected'
+  | 'highlighted'
+  | 'expanded'
+  | 'collapsed'
+  | 'disabled';
+
+export type AnimatedCardSize = 'sm' | 'md' | 'lg' | 'small' | 'medium' | 'large';
+
+export interface AnimatedCardProps {
+  /** Optional custom React children rendered inside the content area */
+  children?: React.ReactNode;
+  /** Primary card headline or title */
+  title?: string | React.ReactNode;
+  /** Secondary card description or body text */
+  description?: string | React.ReactNode;
+  /** Visual presentation style (default: 'default') */
+  variant?: AnimatedCardVariant;
+  /** Proportional size preset (default: 'md') */
+  size?: AnimatedCardSize;
+  /** Entrance animation variant (default: 'fade') */
+  animation?: AnimatedCardAnimation;
+  /** Starting frame for entrance animation (default: 0) */
+  startFrame?: number;
+  /** Duration in frames for entrance animation (default: 14) */
+  durationInFrames?: number;
+  /** Frame at which exit animation begins */
+  exitFrame?: number;
+  /** Duration in frames for exit animation (default: 12) */
+  exitDurationInFrames?: number;
+  /** Additional frame delay offset (e.g. for collection stagger) */
+  delay?: number;
+  /** Easing curve for transitions (default: 'easeOutCubic') */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring physics preset for pop / bounce animation (default: 'snappy') */
+  springPreset?: SpringPresetName;
+  /** Translation distance in pixels for slide/float animations (default: 24) */
+  distance?: number;
+  /** Initial scale factor for scale/pop/expand animations (default: 0.92) */
+  initialScale?: number;
+  /** Initial rotation in degrees for flip animations (default: 15) */
+  initialRotation?: number;
+  /** Explicit interaction state override */
+  state?: AnimatedCardState;
+  /** Frame at which focused state activates */
+  focusFrame?: number;
+  /** Frame at which selected state activates */
+  selectFrame?: number;
+  /** Frame at which highlighted state activates */
+  highlightFrame?: number;
+  /** Frame at which expanded state activates */
+  expandFrame?: number;
+  /** Frame at which collapsed state activates */
+  collapseFrame?: number;
+  /** Custom background color override */
+  backgroundColor?: string;
+  /** Custom border color override */
+  borderColor?: string;
+  /** Custom border radius override */
+  borderRadius?: number | string;
+  /** Custom box shadow override */
+  shadow?: string;
+  /** Custom padding override */
+  padding?: number | string;
+  /** Custom card width override */
+  width?: number | string;
+  /** Custom card height override */
+  height?: number | string;
+  /** Image URL or image element */
+  image?: string | React.ReactNode;
+  /** Image layout positioning (default: 'top') */
+  imagePosition?: 'top' | 'left' | 'right' | 'bottom' | 'cover';
+  /** Card icon element or Lucide icon */
+  icon?: LucideIcon | React.ReactNode;
+  /** Optional corner or header status badge */
+  badge?: string | React.ReactNode;
+  /** Background color for status badge */
+  badgeColor?: string;
+  /** Custom header element */
+  header?: React.ReactNode;
+  /** Custom footer element */
+  footer?: React.ReactNode;
+  /** Custom action element (e.g. CTA button) */
+  action?: React.ReactNode;
+  /** Outer container style overrides */
+  style?: React.CSSProperties;
+  /** Content area style overrides */
+  contentStyle?: React.CSSProperties;
+  /** Title typography style overrides */
+  titleStyle?: React.CSSProperties;
+  /** Description typography style overrides */
+  descriptionStyle?: React.CSSProperties;
+  /** CSS class name */
+  className?: string;
+}
+
+
 

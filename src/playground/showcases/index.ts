@@ -14,3 +14,4 @@ export * from './SplitTextShowcase';
 export * from './AnimatedInputShowcase';
 export * from './AnimatedButtonShowcase';
 export * from './AnimatedSearchBarShowcase';
+export * from './AnimatedCardShowcase';

@@ -9,3 +9,5 @@ export * from './animatedButtonStyle';
 export * from './AnimatedButton';
 export * from './animatedSearchBarStyle';
 export * from './AnimatedSearchBar';
+export * from './animatedCardStyle';
+export * from './AnimatedCard';

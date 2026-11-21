@@ -198,6 +198,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 3. UI Components
   {
+    id: 'ui-animated-card',
+    name: 'AnimatedCard',
+    category: 'ui',
+    description: 'Versatile card component with 12 animation variants, 7 visual presentation styles, and 7 interaction states',
+    variants: ['default', 'outlined', 'elevated', 'flat', 'image-card', 'horizontal', 'compact'],
+    status: 'ready',
+  },
+  {
     id: 'ui-animated-search-bar',
     name: 'AnimatedSearchBar',
     category: 'ui',
