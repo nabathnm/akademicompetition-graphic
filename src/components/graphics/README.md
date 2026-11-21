@@ -3,6 +3,7 @@
 Vector shapes, coordinate grids, and ambient visual backdrops for commercial motion graphics.
 
 ## Available Components
+- `ParticleSystem`: Deterministic seeded particle system supporting geometric particle shapes (circle, square, ring, star, triangle, cross), spatial topologies (random, grid, radial, circular, custom), and procedural motion modes (float, rise, fall, drift, burst, vortex). See [docs/PARTICLE_SYSTEM.md](../../../docs/PARTICLE_SYSTEM.md).
 - `AnimatedPath`: Flexible SVG path component supporting custom vector paths (`d`), open and closed shapes, progressive forward and reverse stroke drawing, sequenced fill reveals, stroke width animations, and deterministic motion-along-path tracking. See [docs/ANIMATED_PATH.md](../../../docs/ANIMATED_PATH.md).
 - `AnimatedArrow`: Configurable vector arrow component supporting straight, diagonal, and curved Bezier paths, single/double arrowheads, 5 arrowhead styles (triangle, chevron, stealth, barb, circle), and sequenced reveals. See [docs/ANIMATED_ARROW.md](../../../docs/ANIMATED_ARROW.md).
 - `AnimatedCircle`: Specialized radial SVG circle component supporting filled circles, outlines, rings, partial arcs, circular progress indicators, and concentric compositions with frame-based animations (`scale-in`, `draw-in`, `radial-reveal`, `ring-expansion`, `pulse`, `progress`, `rotate`). See [docs/ANIMATED_CIRCLE.md](../../../docs/ANIMATED_CIRCLE.md).

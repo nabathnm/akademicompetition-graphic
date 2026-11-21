@@ -785,4 +785,149 @@ export interface AnimatedPathProps {
   className?: string;
 }
 
+// ---------------------------------------------------------------------------
+// ParticleSystem Types
+// ---------------------------------------------------------------------------
+
+export type ParticleShape =
+  | 'circle'
+  | 'square'
+  | 'ring'
+  | 'star'
+  | 'triangle'
+  | 'cross'
+  | 'custom';
+
+export type ParticleDistribution =
+  | 'random'
+  | 'grid'
+  | 'radial'
+  | 'circular'
+  | 'custom';
+
+export type ParticleMotionMode =
+  | 'float'
+  | 'rise'
+  | 'fall'
+  | 'drift'
+  | 'radial-expansion'
+  | 'burst'
+  | 'vortex'
+  | 'none';
+
+export type ParticleDirection =
+  | 'up'
+  | 'down'
+  | 'left'
+  | 'right'
+  | 'radial'
+  | 'omni'
+  | 'drift';
+
+export interface ParticleBounds {
+  width: number;
+  height: number;
+}
+
+export interface ParticleOrigin {
+  x: number;
+  y: number;
+}
+
+export interface ParticleDefinition {
+  id: number;
+  initialX: number;
+  initialY: number;
+  size: number;
+  color: string;
+  baseOpacity: number;
+  shape: ParticleShape;
+  angle: number;
+  speed: number;
+  rotationSpeed: number;
+  phase: number;
+  wobbleSpeed: number;
+  wobbleAmp: number;
+  lifeOffset: number;
+}
+
+export interface ParticleLiveState {
+  id: number;
+  x: number;
+  y: number;
+  rotation: number;
+  scale: number;
+  opacity: number;
+  size: number;
+  color: string;
+  shape: ParticleShape;
+}
+
+export interface ParticleSystemConfig {
+  /** Deterministic pseudo-random seed (string or number, default: 42) */
+  seed?: string | number;
+  /** Total number of particles to simulate (default: 40) */
+  particleCount?: number;
+  /** Geometric particle shape or array of shapes for mixed fields */
+  shape?: ParticleShape | ParticleShape[];
+  /** Spatial distribution algorithm across bounds (default: 'random') */
+  distribution?: ParticleDistribution;
+  /** Motion simulation mode (default: 'float') */
+  motionMode?: ParticleMotionMode;
+  /** Direction preset for linear motion ('up' | 'down' | 'left' | 'right' | 'radial' | 'omni' | 'drift') */
+  direction?: ParticleDirection;
+  /** Custom trajectory angle in degrees override */
+  angle?: number;
+  /** Simulation viewport dimensions in pixels (default: { width: 400, height: 300 }) */
+  bounds?: ParticleBounds;
+  /** Custom emission center/origin point */
+  origin?: ParticleOrigin;
+  /** Particle size in pixels or [min, max] range (default: [3, 8]) */
+  size?: number | [number, number];
+  /** Color or array of colors randomly distributed to particles */
+  color?: string | string[];
+  /** Particle opacity or [min, max] range (default: [0.3, 0.9]) */
+  opacity?: number | [number, number];
+  /** Particle movement speed multiplier or [min, max] range (default: 1) */
+  speed?: number | [number, number];
+  /** Angular rotation speed in deg/frame or [min, max] range (default: [-2, 2]) */
+  rotationSpeed?: number | [number, number];
+  /** Sinusoidal sway/wobble configuration or toggle (default: true) */
+  wobble?: boolean | { frequency?: number; amplitude?: number };
+  /** Dynamic scale breathing variation over lifetime (default: true) */
+  scaleVariation?: boolean | [number, number];
+  /** Whether particles fade in at birth and fade out at loop boundary (default: true) */
+  fadeInOut?: boolean;
+  /** Whether particle movement loops continuously across frames (default: true) */
+  loop?: boolean;
+  /** Frame delay before particle animation triggers (default: 0) */
+  delay?: number;
+  /** Duration in frames for a single motion lifecycle cycle (default: 60) */
+  durationInFrames?: number;
+  /** Custom initial particle coordinates for 'custom' distribution */
+  customPositions?: Array<{ x: number; y: number }>;
+}
+
+export interface ParticleSystemProps extends ParticleSystemConfig {
+  /** Master animation toggle (default: true) */
+  animate?: boolean;
+  /** Custom renderer callback for individual particles */
+  renderParticle?: (particle: ParticleLiveState, index: number) => React.ReactNode;
+  /** Frame trigger for exit transition */
+  exitFrame?: number;
+  /** Duration in frames for exit transition (default: 15) */
+  exitDurationInFrames?: number;
+  /** Exit transition type */
+  exitAnimation?: 'fade-out' | 'scale-out';
+  /** Outer container CSS styling */
+  style?: React.CSSProperties;
+  /** Inner SVG canvas CSS styling */
+  svgStyle?: React.CSSProperties;
+  /** Custom CSS class */
+  className?: string;
+  /** Child elements rendered inside/over the particle canvas */
+  children?: React.ReactNode;
+}
+
+
 

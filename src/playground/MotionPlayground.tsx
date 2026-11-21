@@ -32,6 +32,8 @@ import { AnimatedLineShowcase } from './showcases/AnimatedLineShowcase';
 import { AnimatedCircleShowcase } from './showcases/AnimatedCircleShowcase';
 import { AnimatedArrowShowcase } from './showcases/AnimatedArrowShowcase';
 import { AnimatedPathShowcase } from './showcases/AnimatedPathShowcase';
+import { ParticleSystemShowcase } from './showcases/ParticleSystemShowcase';
+import { DeviceFrameShowcase } from './showcases/DeviceFrameShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -50,6 +52,8 @@ import { AnimatedLine } from '../components/graphics/AnimatedLine';
 import { AnimatedCircle } from '../components/graphics/AnimatedCircle';
 import { AnimatedArrow } from '../components/graphics/AnimatedArrow';
 import { AnimatedPath } from '../components/graphics/AnimatedPath';
+import { ParticleSystem } from '../components/graphics/ParticleSystem';
+import { DeviceFrame } from '../components/mockups/DeviceFrame';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -92,7 +96,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
-  const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'all'>('all');
+  const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'particle-system' | 'all'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -381,6 +385,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
               { id: 'animated-line', label: 'AnimatedLine' },
               { id: 'animated-shape', label: 'AnimatedShape' },
               { id: 'animated-path', label: 'AnimatedPath' },
+              { id: 'particle-system', label: 'ParticleSystem' },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -458,6 +463,25 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </div>
           )}
 
+          {(graphicsTab === 'all' || graphicsTab === 'particle-system') && (
+            <div style={{ marginTop: graphicsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {graphicsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.amber, marginBottom: Spacing.scale.sm }}>
+                  SECTION F: PARTICLESYSTEM COMPONENT SUITE
+                </div>
+              )}
+              <ParticleSystemShowcase />
+            </div>
+          )}
+
+
+        </div>
+      )}
+
+      {/* 0.4 Mockups Components Showcase Mode */}
+      {viewMode === 'mockups' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: Spacing.scale.xl }}>
+          <DeviceFrameShowcase />
         </div>
       )}
 
@@ -1153,9 +1177,94 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                           ● PRODUCTION READY COMPONENT
                         </span>
                       </div>
+                    ) : item.id === 'graphic-particle-system' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 120,
+                        }}
+                      >
+                        <ParticleSystem
+                          seed="overview-preview-particles"
+                          particleCount={25}
+                          shape={['circle', 'star']}
+                          motionMode="float"
+                          color={[Colors.accent.cyan, Colors.accent.amber, '#ffffff']}
+                          bounds={{ width: 200, height: 80 }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'mockup-device-frame' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <DeviceFrame
+                          width={110}
+                          height={170}
+                          frameThickness={5}
+                          borderRadius={16}
+                          notch="dynamic-island"
+                          notchWidth={28}
+                          notchHeight={7}
+                          shadow="subtle"
+                          animation="spring"
+                          delay={0}
+                          durationInFrames={20}
+                        >
+                          <div
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              backgroundColor: Colors.dark.surface2,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <span style={{ fontSize: 9, color: Colors.accent.cyan, fontWeight: 700 }}>
+                              App View
+                            </span>
+                          </div>
+                        </DeviceFrame>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
                     ) : (
                       <PlaceholderShowcase definition={item} />
                     )}
+
 
                   </ShowcaseCard>
                 ))}

@@ -288,6 +288,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 4. Mockups
   {
+    id: 'mockup-device-frame',
+    name: 'DeviceFrame',
+    category: 'mockups',
+    description: 'Foundational device mockup frame supporting concentric screen radius, 2D depth shadows, hardware buttons, notch cutouts, glare overlays, and Remotion entrance kinetics',
+    variants: ['spring', 'pop', 'slide-in', 'scale-in', 'rotate', 'fade-in'],
+    status: 'ready',
+  },
+  {
     id: 'mockup-phone',
     name: 'PhoneFrame',
     category: 'mockups',
@@ -390,6 +398,23 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     ],
     status: 'ready',
   },
+  {
+    id: 'graphic-particle-system',
+    name: 'ParticleSystem',
+    category: 'graphics',
+    description: 'Deterministic seeded particle system supporting geometric particle shapes, custom spatial distributions, and procedural motion kinetics',
+    variants: [
+      'float',
+      'rise',
+      'fall',
+      'drift',
+      'burst',
+      'vortex',
+      'sparkles',
+    ],
+    status: 'ready',
+  },
+
   {
     id: 'graphic-grid-bg',
     name: 'GridBackground',

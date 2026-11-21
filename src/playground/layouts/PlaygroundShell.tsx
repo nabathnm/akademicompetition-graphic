@@ -157,6 +157,17 @@ export const PlaygroundShell: React.FC<PlaygroundShellProps> = ({
             style={{
               padding: '3px 10px',
               borderRadius: Spacing.radius.xs,
+              backgroundColor: viewMode === 'mockups' ? Colors.dark.surfaceElevated : 'transparent',
+              color: viewMode === 'mockups' ? Colors.accent.amber : Colors.text.tertiary,
+              fontWeight: viewMode === 'mockups' ? 600 : 400,
+            }}
+          >
+            Mockups
+          </span>
+          <span
+            style={{
+              padding: '3px 10px',
+              borderRadius: Spacing.radius.xs,
               backgroundColor: viewMode === 'graphics' ? Colors.dark.surfaceElevated : 'transparent',
               color: viewMode === 'graphics' ? Colors.accent.cyan : Colors.text.tertiary,
               fontWeight: viewMode === 'graphics' ? 600 : 400,

@@ -13,3 +13,5 @@ export * from './animatedArrowStyle';
 export * from './AnimatedArrow';
 export * from './animatedPathStyle';
 export * from './AnimatedPath';
+export * from './particleSystemStyle';
+export * from './ParticleSystem';
