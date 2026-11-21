@@ -198,6 +198,22 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 3. UI Components
   {
+    id: 'ui-animated-checkbox',
+    name: 'AnimatedCheckbox',
+    category: 'ui',
+    description: 'Frame-accurate interactive checkbox with progressive SVG checkmark drawing and spring selection feedback',
+    variants: ['default', 'rounded', 'square', 'filled', 'outlined', 'minimal'],
+    status: 'ready',
+  },
+  {
+    id: 'ui-animated-toggle',
+    name: 'AnimatedToggle',
+    category: 'ui',
+    description: 'Frame-accurate interactive toggle and switch component with spring overshoot and visual variants',
+    variants: ['default', 'minimal', 'outlined', 'filled', 'labeled'],
+    status: 'ready',
+  },
+  {
     id: 'ui-animated-notification',
     name: 'AnimatedNotification',
     category: 'ui',

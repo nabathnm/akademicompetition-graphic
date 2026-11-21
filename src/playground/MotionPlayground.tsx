@@ -25,6 +25,8 @@ import { AnimatedButtonShowcase } from './showcases/AnimatedButtonShowcase';
 import { AnimatedSearchBarShowcase } from './showcases/AnimatedSearchBarShowcase';
 import { AnimatedCardShowcase } from './showcases/AnimatedCardShowcase';
 import { AnimatedNotificationShowcase } from './showcases/AnimatedNotificationShowcase';
+import { AnimatedToggleShowcase } from './showcases/AnimatedToggleShowcase';
+import { AnimatedCheckboxShowcase } from './showcases/AnimatedCheckboxShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -36,6 +38,8 @@ import { AnimatedButton } from '../components/ui/AnimatedButton';
 import { AnimatedSearchBar } from '../components/ui/AnimatedSearchBar';
 import { AnimatedCard } from '../components/ui/AnimatedCard';
 import { AnimatedNotification } from '../components/ui/AnimatedNotification';
+import { AnimatedToggle } from '../components/ui/AnimatedToggle';
+import { AnimatedCheckbox } from '../components/ui/AnimatedCheckbox';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -77,7 +81,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
   variantB = 'Smooth (damping: 20, mass: 1.0, stiffness: 120)',
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
-  const [uiTab, setUiTab] = React.useState<'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
+  const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -119,6 +123,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All UI Components' },
+              { id: 'animated-checkbox', label: 'AnimatedCheckbox (Phase 3.7)' },
+              { id: 'animated-toggle', label: 'AnimatedToggle (Phase 3.6)' },
               { id: 'animated-notification', label: 'AnimatedNotification (Phase 3.5)' },
               { id: 'animated-card', label: 'AnimatedCard (Phase 3.4)' },
               { id: 'animated-search-bar', label: 'AnimatedSearchBar (Phase 3.3)' },
@@ -127,7 +133,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setUiTab(tab.id as 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all')}
+                onClick={() => setUiTab(tab.id as 'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all')}
                 style={{
                   padding: '6px 14px',
                   backgroundColor: uiTab === tab.id ? Colors.accent.brand : Colors.dark.surface2,
@@ -144,11 +150,33 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ))}
           </div>
 
-          {(uiTab === 'all' || uiTab === 'animated-notification') && (
+          {(uiTab === 'all' || uiTab === 'animated-checkbox') && (
             <div>
               {uiTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: ANIMATEDCHECKBOX COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedCheckboxShowcase />
+            </div>
+          )}
+
+          {(uiTab === 'all' || uiTab === 'animated-toggle') && (
+            <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {uiTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
+                  SECTION B: ANIMATEDTOGGLE COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedToggleShowcase />
+            </div>
+          )}
+
+          {(uiTab === 'all' || uiTab === 'animated-notification') && (
+            <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.electricViolet, marginBottom: Spacing.scale.sm }}>
-                  SECTION A: ANIMATEDNOTIFICATION COMPONENT SUITE
+                  SECTION C: ANIMATEDNOTIFICATION COMPONENT SUITE
                 </div>
               )}
               <AnimatedNotificationShowcase />
@@ -159,7 +187,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.amber, marginBottom: Spacing.scale.sm }}>
-                  SECTION B: ANIMATEDCARD COMPONENT SUITE
+                  SECTION D: ANIMATEDCARD COMPONENT SUITE
                 </div>
               )}
               <AnimatedCardShowcase />
@@ -170,7 +198,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
-                  SECTION C: ANIMATEDSEARCHBAR COMPONENT SUITE
+                  SECTION E: ANIMATEDSEARCHBAR COMPONENT SUITE
                 </div>
               )}
               <AnimatedSearchBarShowcase />
@@ -181,7 +209,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brand, marginBottom: Spacing.scale.sm }}>
-                  SECTION D: ANIMATEDBUTTON COMPONENT SUITE
+                  SECTION F: ANIMATEDBUTTON COMPONENT SUITE
                 </div>
               )}
               <AnimatedButtonShowcase />
@@ -192,7 +220,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
-                  SECTION E: ANIMATEDINPUT COMPONENT SUITE
+                  SECTION G: ANIMATEDINPUT COMPONENT SUITE
                 </div>
               )}
               <AnimatedInputShowcase />
@@ -579,6 +607,74 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             fontFamily: Typography.fontFamily.mono,
                             color: Colors.accent.emerald,
                             marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'ui-animated-checkbox' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 120,
+                        }}
+                      >
+                        <AnimatedCheckbox
+                          size="medium"
+                          animationVariant="combined"
+                          defaultChecked={false}
+                          checked={true}
+                          checkFrame={12}
+                          durationInFrames={12}
+                          label="Trip PIN Verified"
+                          description="4-digit security code confirmed"
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'ui-animated-toggle' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 120,
+                        }}
+                      >
+                        <AnimatedToggle
+                          size="medium"
+                          animationVariant="combined"
+                          defaultChecked={false}
+                          checked={true}
+                          toggleFrame={12}
+                          durationInFrames={12}
+                          label="Auto-Accept Rides"
+                          description="Priority driver mode"
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
                           }}
                         >
                           ● PRODUCTION READY COMPONENT

@@ -590,6 +590,245 @@ export interface AnimatedNotificationProps {
   className?: string;
 }
 
+// ---------------------------------------------------------------------------
+// AnimatedToggle Types
+// ---------------------------------------------------------------------------
+
+export type AnimatedToggleVisualVariant =
+  | 'default'
+  | 'minimal'
+  | 'outlined'
+  | 'filled'
+  | 'labeled';
+
+export type AnimatedToggleAnimationVariant =
+  | 'slide'
+  | 'scale'
+  | 'spring'
+  | 'elastic'
+  | 'fade'
+  | 'color-transition'
+  | 'combined';
+
+export type AnimatedToggleVariant =
+  | AnimatedToggleVisualVariant
+  | AnimatedToggleAnimationVariant;
+
+export type AnimatedToggleSize =
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'sm'
+  | 'md'
+  | 'lg';
+
+export type AnimatedToggleState = 'off' | 'on' | 'disabled' | 'loading';
+
+export interface ToggleSizeMetrics {
+  trackWidth: number;
+  trackHeight: number;
+  thumbSize: number;
+  padding: number;
+  travelDistance: number;
+  fontSize: number;
+  labelGap: number;
+  iconSize: number;
+}
+
+export interface AnimatedToggleProps {
+  /** Target or active checked state. When toggleFrame is set, switches to this state */
+  checked?: boolean;
+  /** Initial checked state prior to toggleFrame */
+  defaultChecked?: boolean;
+  /** Starting baseline frame (default: 0) */
+  startFrame?: number;
+  /** Frame at which toggle transition occurs */
+  toggleFrame?: number;
+  /** Duration in frames for transition animation (default: 12) */
+  durationInFrames?: number;
+  /** Visual presentation style or animation variant shorthand (default: 'default') */
+  variant?: AnimatedToggleVariant;
+  /** Explicit visual variant */
+  visualVariant?: AnimatedToggleVisualVariant;
+  /** Explicit animation behavior variant (default: 'combined') */
+  animationVariant?: AnimatedToggleAnimationVariant;
+  /** Size preset (default: 'medium') */
+  size?: AnimatedToggleSize;
+  /** Explicit interaction state override */
+  state?: AnimatedToggleState;
+  /** Custom easing function or preset name */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring preset key */
+  springPreset?: SpringPresetName;
+  /** Track color when toggle is ON (default: emerald #0E8345) */
+  onColor?: string;
+  /** Track color when toggle is OFF (default: surface3 #2E2E33) */
+  offColor?: string;
+  /** Thumb color (default: #FFFFFF) */
+  thumbColor?: string;
+  /** Thumb color when toggle is ON (defaults to thumbColor) */
+  thumbOnColor?: string;
+  /** Disabled track/thumb color */
+  disabledColor?: string;
+  /** Custom border radius override */
+  borderRadius?: number | string;
+  /** Custom track width override */
+  trackWidth?: number;
+  /** Custom track height override */
+  trackHeight?: number;
+  /** Custom thumb size override */
+  thumbSize?: number;
+  /** Whether to show text label (default: true if label is provided) */
+  showLabel?: boolean;
+  /** Text label displayed inside or beside track when ON (default: 'ON') */
+  onLabel?: string;
+  /** Text label displayed inside or beside track when OFF (default: 'OFF') */
+  offLabel?: string;
+  /** Primary label text */
+  label?: string | React.ReactNode;
+  /** Secondary description text */
+  description?: string | React.ReactNode;
+  /** Leading icon placed before label or track */
+  leadingIcon?: LucideIcon | React.ReactNode;
+  /** Position of the external label relative to toggle track ('left' | 'right', default: 'right') */
+  labelPosition?: 'left' | 'right';
+  /** Outer container style overrides */
+  style?: React.CSSProperties;
+  /** Track style overrides */
+  trackStyle?: React.CSSProperties;
+  /** Thumb style overrides */
+  thumbStyle?: React.CSSProperties;
+  /** Label typography style overrides */
+  labelStyle?: React.CSSProperties;
+  /** Description typography style overrides */
+  descriptionStyle?: React.CSSProperties;
+  /** CSS class name */
+  className?: string;
+}
+
+// ---------------------------------------------------------------------------
+// AnimatedCheckbox Types
+// ---------------------------------------------------------------------------
+
+export type AnimatedCheckboxVisualVariant =
+  | 'default'
+  | 'rounded'
+  | 'square'
+  | 'filled'
+  | 'outlined'
+  | 'minimal';
+
+export type AnimatedCheckboxAnimationVariant =
+  | 'scale'
+  | 'pop'
+  | 'check-draw'
+  | 'fill'
+  | 'border'
+  | 'fade'
+  | 'bounce'
+  | 'combined';
+
+export type AnimatedCheckboxVariant =
+  | AnimatedCheckboxVisualVariant
+  | AnimatedCheckboxAnimationVariant;
+
+export type AnimatedCheckboxSize =
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'sm'
+  | 'md'
+  | 'lg';
+
+export type AnimatedCheckboxState =
+  | 'unchecked'
+  | 'checked'
+  | 'indeterminate'
+  | 'disabled'
+  | 'error';
+
+export interface CheckboxSizeMetrics {
+  boxSize: number;
+  borderRadius: number | string;
+  strokeWidth: number;
+  fontSize: number;
+  labelGap: number;
+  iconSize: number;
+}
+
+export interface AnimatedCheckboxProps {
+  /** Target or active checked state. Switches to this state at checkFrame */
+  checked?: boolean;
+  /** Initial checked state prior to checkFrame */
+  defaultChecked?: boolean;
+  /** Whether the checkbox is in an indeterminate state */
+  indeterminate?: boolean;
+  /** Starting baseline frame (default: 0) */
+  startFrame?: number;
+  /** Frame at which checkbox state transition occurs */
+  checkFrame?: number;
+  /** Duration in frames for the transition animation (default: 12) */
+  durationInFrames?: number;
+  /** Visual presentation style or animation variant shorthand (default: 'default') */
+  variant?: AnimatedCheckboxVariant;
+  /** Explicit visual styling variant */
+  visualVariant?: AnimatedCheckboxVisualVariant;
+  /** Explicit animation behavior variant (default: 'combined') */
+  animationVariant?: AnimatedCheckboxAnimationVariant;
+  /** Size preset (default: 'medium') */
+  size?: AnimatedCheckboxSize;
+  /** Explicit interaction state override */
+  state?: AnimatedCheckboxState;
+  /** Custom easing function or preset name */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring preset key */
+  springPreset?: SpringPresetName;
+  /** Checkmark stroke color (default: #FFFFFF) */
+  checkColor?: string;
+  /** Background color when unchecked */
+  uncheckedColor?: string;
+  /** Background color when checked (default: emerald #0E8345) */
+  checkedColor?: string;
+  /** Border color when unchecked */
+  borderColor?: string;
+  /** Border color when checked */
+  checkedBorderColor?: string;
+  /** Disabled color */
+  disabledColor?: string;
+  /** Error color (default: crimson #E11900) */
+  errorColor?: string;
+  /** Primary label text */
+  label?: string | React.ReactNode;
+  /** Secondary description text */
+  description?: string | React.ReactNode;
+  /** Whether to show text label (default: true if label is provided) */
+  showLabel?: boolean;
+  /** Whether to show description text (default: true if description is provided) */
+  showDescription?: boolean;
+  /** Custom border radius override */
+  borderRadius?: number | string;
+  /** Custom box size override */
+  boxSize?: number;
+  /** Leading icon placed before label or box */
+  leadingIcon?: LucideIcon | React.ReactNode;
+  /** Position of the external label relative to checkbox ('left' | 'right', default: 'right') */
+  labelPosition?: 'left' | 'right';
+  /** Optional custom content rendered inside the checkbox box */
+  children?: React.ReactNode;
+  /** Outer container style overrides */
+  style?: React.CSSProperties;
+  /** Checkbox box style overrides */
+  boxStyle?: React.CSSProperties;
+  /** Checkmark SVG path style overrides */
+  checkmarkStyle?: React.CSSProperties;
+  /** Label typography style overrides */
+  labelStyle?: React.CSSProperties;
+  /** Description typography style overrides */
+  descriptionStyle?: React.CSSProperties;
+  /** CSS class name */
+  className?: string;
+}
+
 
 
 

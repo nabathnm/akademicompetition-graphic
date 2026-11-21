@@ -16,3 +16,5 @@ export * from './AnimatedButtonShowcase';
 export * from './AnimatedSearchBarShowcase';
 export * from './AnimatedCardShowcase';
 export * from './AnimatedNotificationShowcase';
+export * from './AnimatedToggleShowcase';
+export * from './AnimatedCheckboxShowcase';

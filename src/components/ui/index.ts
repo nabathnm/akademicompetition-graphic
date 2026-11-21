@@ -13,3 +13,7 @@ export * from './animatedCardStyle';
 export * from './AnimatedCard';
 export * from './animatedNotificationStyle';
 export * from './AnimatedNotification';
+export * from './animatedToggleStyle';
+export * from './AnimatedToggle';
+export * from './animatedCheckboxStyle';
+export * from './AnimatedCheckbox';
