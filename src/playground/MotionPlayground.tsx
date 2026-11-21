@@ -35,6 +35,7 @@ import { AnimatedPathShowcase } from './showcases/AnimatedPathShowcase';
 import { ParticleSystemShowcase } from './showcases/ParticleSystemShowcase';
 import { DeviceFrameShowcase } from './showcases/DeviceFrameShowcase';
 import { SmartphoneMockupShowcase } from './showcases/SmartphoneMockupShowcase';
+import { BrowserWindowMockupShowcase } from './showcases/BrowserWindowMockupShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -56,6 +57,7 @@ import { AnimatedPath } from '../components/graphics/AnimatedPath';
 import { ParticleSystem } from '../components/graphics/ParticleSystem';
 import { DeviceFrame } from '../components/mockups/DeviceFrame';
 import { SmartphoneMockup } from '../components/mockups/SmartphoneMockup';
+import { BrowserWindowMockup } from '../components/mockups/BrowserWindowMockup';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -98,7 +100,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
-  const [mockupsTab, setMockupsTab] = React.useState<'all' | 'smartphone' | 'device-frame'>('all');
+  const [mockupsTab, setMockupsTab] = React.useState<'all' | 'browser' | 'smartphone' | 'device-frame'>('all');
   const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'particle-system' | 'all'>('all');
 
   // Filter registered showcases
@@ -502,6 +504,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All Mockups' },
+              { id: 'browser', label: 'BrowserWindowMockup' },
               { id: 'smartphone', label: 'SmartphoneMockup' },
               { id: 'device-frame', label: 'DeviceFrame' },
             ].map((tab) => (
@@ -526,11 +529,22 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ))}
           </div>
 
-          {(mockupsTab === 'all' || mockupsTab === 'smartphone') && (
+          {(mockupsTab === 'all' || mockupsTab === 'browser') && (
             <div>
               {mockupsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
-                  SECTION A: SMARTPHONEMOCKUP COMPONENT SUITE
+                  SECTION A: BROWSERWINDOWMOCKUP COMPONENT SUITE
+                </div>
+              )}
+              <BrowserWindowMockupShowcase />
+            </div>
+          )}
+
+          {(mockupsTab === 'all' || mockupsTab === 'smartphone') && (
+            <div style={{ marginTop: mockupsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {mockupsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
+                  SECTION B: SMARTPHONEMOCKUP COMPONENT SUITE
                 </div>
               )}
               <SmartphoneMockupShowcase />
@@ -541,7 +555,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: mockupsTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {mockupsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.amber, marginBottom: Spacing.scale.sm }}>
-                  SECTION B: DEVICEFRAME COMPONENT SUITE
+                  SECTION C: DEVICEFRAME COMPONENT SUITE
                 </div>
               )}
               <DeviceFrameShowcase />
@@ -1369,6 +1383,56 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             </span>
                           </div>
                         </SmartphoneMockup>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'mockup-browser' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <BrowserWindowMockup
+                          width={220}
+                          height={140}
+                          variant="minimal"
+                          theme="dark"
+                          url="https://acme.io"
+                          shadow="subtle"
+                          animation="spring"
+                          delay={0}
+                          durationInFrames={20}
+                        >
+                          <div
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              backgroundColor: Colors.dark.surface2,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <span style={{ fontSize: 9, color: Colors.accent.cyan, fontWeight: 700 }}>
+                              Web App View
+                            </span>
+                          </div>
+                        </BrowserWindowMockup>
                         <span
                           style={{
                             fontSize: 10,

@@ -305,11 +305,11 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
   },
   {
     id: 'mockup-browser',
-    name: 'BrowserFrame',
+    name: 'BrowserWindowMockup',
     category: 'mockups',
-    description: 'Clean minimal dark browser window with navigation bar',
-    variants: ['FullWindow', 'Tabbed', 'Frameless'],
-    status: 'planned',
+    description: 'Polished desktop browser window mockup with minimal and full chrome styles, tabs, address bar, deterministic scroll kinematics, and reveal transitions',
+    variants: ['spring', 'minimal', 'full', 'dark', 'light', 'scroll-reveal'],
+    status: 'ready',
   },
   {
     id: 'mockup-floating-card',

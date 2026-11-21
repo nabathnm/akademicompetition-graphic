@@ -9,3 +9,5 @@ export * from './deviceFrameStyle.ts';
 export * from './DeviceFrame.tsx';
 export * from './smartphoneMockupStyle.ts';
 export * from './SmartphoneMockup.tsx';
+export * from './browserWindowMockupStyle.ts';
+export * from './BrowserWindowMockup.tsx';

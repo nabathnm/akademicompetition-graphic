@@ -279,6 +279,158 @@ export interface PhoneFrameProps extends BaseMotionProps {
   scale?: number;
 }
 
+// ---------------------------------------------------------------------------
+// BrowserWindowMockup Types
+// ---------------------------------------------------------------------------
+
+export type BrowserTheme = 'dark' | 'light';
+export type BrowserVariant = 'minimal' | 'full';
+export type BrowserControlsStyle = 'traffic-lights' | 'monochrome' | 'subtle';
+
+export interface BrowserTab {
+  id: string | number;
+  title: string;
+  icon?: React.ReactNode;
+  active?: boolean;
+  faviconColor?: string;
+}
+
+export interface BrowserScrollConfig {
+  /** Starting frame for animated scroll (default: 30) */
+  startFrame?: number;
+  /** Duration in frames for scroll animation (default: 45) */
+  duration?: number;
+  /** Starting scroll offset in percentage 0-100 (default: 0) */
+  from?: number;
+  /** Target scroll offset in percentage 0-100 (default: 100) */
+  to?: number;
+  /** Total virtual content height in pixels to calculate scroll distance (default: 1200) */
+  contentHeight?: number;
+  /** Easing function or preset */
+  easing?: EasingPresetName | EasingFunction;
+}
+
+export interface BrowserChromeRevealConfig {
+  /** Delay in frames before chrome reveals (default: 0) */
+  delay?: number;
+  /** Duration in frames for chrome reveal (default: 15) */
+  duration?: number;
+}
+
+export interface BrowserViewportRevealConfig {
+  /** Delay in frames before viewport content reveals (default: 12) */
+  delay?: number;
+  /** Duration in frames for viewport reveal (default: 16) */
+  duration?: number;
+  /** Reveal style: 'fade' | 'wipe-up' | 'scale' (default: 'fade') */
+  type?: 'fade' | 'wipe-up' | 'scale';
+}
+
+export interface BrowserThemeColors {
+  windowBg: string;
+  toolbarBg: string;
+  tabBarBg: string;
+  tabActiveBg: string;
+  tabInactiveBg: string;
+  tabActiveText: string;
+  tabInactiveText: string;
+  addressBarBg: string;
+  addressBarBorder: string;
+  addressBarText: string;
+  addressBarIcon: string;
+  borderColor: string;
+  viewportBg: string;
+  scrollbarTrack: string;
+  scrollbarThumb: string;
+}
+
+export interface BrowserWindowMockupProps {
+  /** Outer window width in pixels (default: 800) */
+  width?: number;
+  /** Outer window height in pixels (default: 520) */
+  height?: number;
+  /** Visual style: 'minimal' (compact single header) or 'full' (tabs + toolbar) (default: 'full') */
+  variant?: BrowserVariant;
+  /** Color scheme theme ('dark' | 'light', default: 'dark') */
+  theme?: BrowserTheme;
+  /** Custom color theme overrides */
+  themeColors?: Partial<BrowserThemeColors>;
+  /** Window title shown in tab or minimal title bar */
+  title?: string;
+  /** Current website URL */
+  url?: string;
+  /** Window tabs array for full variant */
+  tabs?: BrowserTab[];
+  /** Active tab identifier */
+  activeTabId?: string | number;
+  /** Show top browser toolbar (default: true) */
+  showToolbar?: boolean;
+  /** Show tab bar row in full variant (default: true) */
+  showTabs?: boolean;
+  /** Show URL address bar (default: true) */
+  showAddressBar?: boolean;
+  /** Show window control buttons (traffic lights) (default: true) */
+  showWindowControls?: boolean;
+  /** Window control buttons style ('traffic-lights' | 'monochrome' | 'subtle', default: 'traffic-lights') */
+  windowControlsStyle?: BrowserControlsStyle;
+  /** Show navigation buttons: back, forward, reload (default: true in full, false in minimal) */
+  showNavigationButtons?: boolean;
+  /** Show browser toolbar utility icons: bookmark, share, settings (default: true in full) */
+  showToolbarIcons?: boolean;
+  /** Outer window corner border radius in pixels (default: 14) */
+  borderRadius?: number;
+  /** Outer window border stroke width (default: 1) */
+  borderWidth?: number;
+  /** Outer window border stroke color */
+  borderColor?: string;
+  /** 2D depth shadow preset or custom CSS box-shadow (default: 'medium') */
+  shadow?: DeviceShadowPreset | string;
+  /** Custom shadow tint */
+  shadowColor?: string;
+  /** Show simulated vertical scrollbar in viewport (default: true) */
+  showScrollbar?: boolean;
+  /** Deterministic scroll progress: number 0-1 (or percentage 0-100) or frame-based scroll config */
+  scrollProgress?: number | BrowserScrollConfig;
+  /** Total virtual content height in pixels for scroll translation (default: 1200) */
+  contentHeight?: number;
+  /** Custom React children rendered inside the web viewport */
+  children?: React.ReactNode;
+  /** Dedicated screen content prop (alternative to children) */
+  screenContent?: React.ReactNode;
+  /** Primary entrance animation */
+  animation?: DeviceFrameAnimation | DeviceFrameAnimationConfig;
+  /** Master animation toggle (default: true) */
+  animate?: boolean;
+  /** Frame delay before entrance starts (default: 0) */
+  delay?: number;
+  /** Entrance animation duration in frames (default: 25) */
+  durationInFrames?: number;
+  /** Direction for slide entrance */
+  slideDirection?: DeviceSlideDirection;
+  /** Easing curve */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring preset */
+  springPreset?: SpringPresetName;
+  /** Continuous subtle floating motion */
+  floating?: boolean | SmartphoneFloatingConfig;
+  /** Toolbar / chrome reveal animation */
+  chromeReveal?: boolean | BrowserChromeRevealConfig;
+  /** Viewport content reveal transition */
+  viewportReveal?: boolean | BrowserViewportRevealConfig;
+  /** Exit transition frame trigger */
+  exitFrame?: number;
+  /** Duration in frames for exit transition */
+  exitDurationInFrames?: number;
+  /** Exit transition type */
+  exitAnimation?: 'fade-out' | 'scale-out' | 'slide-down';
+  /** Outer window styling */
+  style?: React.CSSProperties;
+  /** Main viewport container styling */
+  viewportStyle?: React.CSSProperties;
+  /** Custom CSS class */
+  className?: string;
+}
+
 export interface BrowserFrameProps extends BaseMotionProps {
   url?: string;
   theme?: 'dark' | 'light';
