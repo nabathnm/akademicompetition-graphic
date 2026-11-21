@@ -19,3 +19,5 @@ export * from './AnimatedNotificationShowcase';
 export * from './AnimatedToggleShowcase';
 export * from './AnimatedCheckboxShowcase';
 export * from './AnimatedShapeShowcase';
+export * from './AnimatedLineShowcase';
+export * from './AnimatedCircleShowcase';

@@ -314,6 +314,43 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 5. Graphics
   {
+    id: 'graphic-animated-circle',
+    name: 'AnimatedCircle',
+    category: 'graphics',
+    description: 'Specialized radial SVG circle component supporting filled circles, outlines, rings, partial arcs, circular progress indicators, and concentric radar compositions',
+    variants: [
+      'scale-in',
+      'scale-out',
+      'draw-in',
+      'draw-out',
+      'radial-reveal',
+      'ring-expansion',
+      'pulse',
+      'progress',
+      'rotate',
+      'fade-in',
+    ],
+    status: 'ready',
+  },
+  {
+    id: 'graphic-animated-line',
+    name: 'AnimatedLine',
+    category: 'graphics',
+    description: 'Flexible vector line component supporting horizontal, vertical, diagonal, and custom endpoint coordinates with SVG stroke-drawing reveals',
+    variants: [
+      'draw-in',
+      'draw-out',
+      'reveal-left',
+      'reveal-right',
+      'reveal-center',
+      'length-expansion',
+      'stroke-width',
+      'move-in',
+      'fade-in',
+    ],
+    status: 'ready',
+  },
+  {
     id: 'graphic-animated-shape',
     name: 'AnimatedShape',
     category: 'graphics',

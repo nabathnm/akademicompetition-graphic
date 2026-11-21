@@ -28,6 +28,8 @@ import { AnimatedNotificationShowcase } from './showcases/AnimatedNotificationSh
 import { AnimatedToggleShowcase } from './showcases/AnimatedToggleShowcase';
 import { AnimatedCheckboxShowcase } from './showcases/AnimatedCheckboxShowcase';
 import { AnimatedShapeShowcase } from './showcases/AnimatedShapeShowcase';
+import { AnimatedLineShowcase } from './showcases/AnimatedLineShowcase';
+import { AnimatedCircleShowcase } from './showcases/AnimatedCircleShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -42,6 +44,8 @@ import { AnimatedNotification } from '../components/ui/AnimatedNotification';
 import { AnimatedToggle } from '../components/ui/AnimatedToggle';
 import { AnimatedCheckbox } from '../components/ui/AnimatedCheckbox';
 import { AnimatedShape } from '../components/graphics/AnimatedShape';
+import { AnimatedLine } from '../components/graphics/AnimatedLine';
+import { AnimatedCircle } from '../components/graphics/AnimatedCircle';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -84,6 +88,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
+  const [graphicsTab, setGraphicsTab] = React.useState<'animated-circle' | 'animated-line' | 'animated-shape' | 'all'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -348,7 +353,83 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
 
       {/* 0.3 Graphics Components Showcase Mode */}
       {viewMode === 'graphics' && (
-        <AnimatedShapeShowcase />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: Spacing.scale.xl }}>
+          {/* Sub-navigation bar across Graphics Components */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: Spacing.scale.sm,
+              backgroundColor: Colors.dark.surface1,
+              padding: `${Spacing.scale.sm}px ${Spacing.scale.md}px`,
+              borderRadius: Spacing.radius.md,
+              border: `1px solid ${Colors.border.default}`,
+              flexWrap: 'wrap',
+            }}
+          >
+            <span style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.text.tertiary, marginRight: Spacing.scale.sm }}>
+              GRAPHICS COMPONENTS:
+            </span>
+            {[
+              { id: 'all', label: 'All Graphics' },
+              { id: 'animated-circle', label: 'AnimatedCircle' },
+              { id: 'animated-line', label: 'AnimatedLine' },
+              { id: 'animated-shape', label: 'AnimatedShape' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setGraphicsTab(tab.id as typeof graphicsTab)}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: Spacing.radius.xs,
+                  backgroundColor: graphicsTab === tab.id ? Colors.accent.cyan : Colors.dark.surface2,
+                  border: `1px solid ${graphicsTab === tab.id ? Colors.accent.cyan : Colors.border.default}`,
+                  color: graphicsTab === tab.id ? '#000000' : Colors.text.secondary,
+                  fontFamily: Typography.fontFamily.mono,
+                  fontSize: 11,
+                  fontWeight: graphicsTab === tab.id ? 700 : 500,
+                  cursor: 'pointer',
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {(graphicsTab === 'all' || graphicsTab === 'animated-circle') && (
+            <div>
+              {graphicsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: ANIMATEDCIRCLE COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedCircleShowcase />
+            </div>
+          )}
+
+          {(graphicsTab === 'all' || graphicsTab === 'animated-line') && (
+            <div style={{ marginTop: graphicsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {graphicsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
+                  SECTION B: ANIMATEDLINE COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedLineShowcase />
+            </div>
+          )}
+
+          {(graphicsTab === 'all' || graphicsTab === 'animated-shape') && (
+            <div style={{ marginTop: graphicsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {graphicsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brand, marginBottom: Spacing.scale.sm }}>
+                  SECTION C: ANIMATEDSHAPE COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedShapeShowcase />
+            </div>
+          )}
+        </div>
       )}
 
       {/* 1. Overview Mode: Grid of Categories & Blueprint Cards */}
@@ -857,6 +938,78 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             fontFamily: Typography.fontFamily.mono,
                             color: Colors.accent.emerald,
                             marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'graphic-animated-circle' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 120,
+                        }}
+                      >
+                        <AnimatedCircle
+                          radius={32}
+                          stroke={Colors.accent.cyan}
+                          strokeWidth={5}
+                          progress={0.78}
+                          showTrack={true}
+                          animation="progress"
+                          delay={0}
+                          durationInFrames={20}
+                        >
+                          <span style={{ fontSize: 11, fontWeight: 800, fontFamily: Typography.fontFamily.mono }}>
+                            78%
+                          </span>
+                        </AnimatedCircle>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'graphic-animated-line' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 120,
+                        }}
+                      >
+                        <AnimatedLine
+                          orientation="horizontal"
+                          length={140}
+                          stroke={Colors.accent.cyan}
+                          strokeWidth={3}
+                          strokeLinecap="round"
+                          animation="draw-in"
+                          delay={0}
+                          durationInFrames={20}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
                           }}
                         >
                           ● PRODUCTION READY COMPONENT

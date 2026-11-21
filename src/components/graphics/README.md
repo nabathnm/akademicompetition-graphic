@@ -3,6 +3,8 @@
 Vector shapes, coordinate grids, and ambient visual backdrops for commercial motion graphics.
 
 ## Available Components
+- `AnimatedCircle`: Specialized radial SVG circle component supporting filled circles, outlines, rings, partial arcs, circular progress indicators, and concentric compositions with frame-based animations (`scale-in`, `draw-in`, `radial-reveal`, `ring-expansion`, `pulse`, `progress`, `rotate`). See [docs/ANIMATED_CIRCLE.md](../../../docs/ANIMATED_CIRCLE.md).
+- `AnimatedLine`: Flexible vector line component supporting horizontal, vertical, diagonal, and custom endpoint geometries, stroke caps (`round`, `butt`, `square`), dash patterns, and frame-accurate animations (`draw-in`, `draw-out`, `reveal-left`, `reveal-right`, `reveal-center`, `length-expansion`, `stroke-width`, `move-in`, `fade-in`). See [docs/ANIMATED_LINE.md](../../../docs/ANIMATED_LINE.md).
 - `AnimatedShape`: Foundation geometric 2D shape component supporting rectangles, rounded rectangles, ellipses/circles, regular polygons, triangles, and stars with frame-based Remotion animations (fade, scale, rotate, move, pop, bounce, and progressive SVG stroke-dash draw reveals). See [docs/ANIMATED_SHAPE.md](../../../docs/ANIMATED_SHAPE.md).
 
 ## Planned Components
