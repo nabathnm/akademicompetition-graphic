@@ -171,7 +171,7 @@ export const calculateCardVisualStyles = ({
   let bg: string = Colors.dark.surface1;
   let border: string = `1px solid ${Colors.border.default}`;
   let shadow: string | undefined = '0 4px 16px rgba(0, 0, 0, 0.25)';
-  let radius: number | string = customRadius !== undefined ? customRadius : metrics.borderRadius;
+  const radius: number | string = customRadius !== undefined ? customRadius : metrics.borderRadius;
   const padding: number | string = customPadding !== undefined ? customPadding : metrics.padding;
   let stateTransform: string | undefined = undefined;
   let opacity: number = 1;

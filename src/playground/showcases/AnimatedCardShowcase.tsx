@@ -172,6 +172,27 @@ export const AnimatedCardShowcase: React.FC = () => {
             />
           </div>
 
+          {/* Card Description Input */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <label style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.text.tertiary }}>
+              CARD DESCRIPTION
+            </label>
+            <input
+              type="text"
+              value={cardDesc}
+              onChange={(e) => setCardDesc(e.target.value)}
+              style={{
+                padding: '6px 10px',
+                borderRadius: Spacing.radius.xs,
+                backgroundColor: Colors.dark.surface3,
+                border: `1px solid ${Colors.border.default}`,
+                color: Colors.text.primary,
+                fontSize: 13,
+                fontFamily: Typography.fontFamily.sans,
+              }}
+            />
+          </div>
+
           {/* Animation Selector */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             <label style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.text.tertiary }}>

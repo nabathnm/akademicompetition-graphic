@@ -11,7 +11,6 @@ import {
 import type {
   AnimatedCardAnimation,
   AnimatedCardVariant,
-  AnimatedCardState,
   AnimatedCardSize,
 } from '../src/components/ui/types.ts';
 

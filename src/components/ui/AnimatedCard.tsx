@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { useCurrentFrame, useVideoConfig } from 'remotion';
+import { useCurrentFrame, useVideoConfig, Img } from 'remotion';
 import { LucideIcon } from 'lucide-react';
 import { AnimatedCardProps } from './types.ts';
 import {
@@ -134,13 +134,13 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
 
     if (typeof image === 'string') {
       return (
-        <div
+        <Img
+          src={image}
+          alt={typeof title === 'string' ? title : 'Card image'}
           style={{
             width: imagePosition === 'left' || imagePosition === 'right' ? 120 : '100%',
             height: imagePosition === 'left' || imagePosition === 'right' ? '100%' : imgHeight,
-            backgroundImage: `url(${image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            objectFit: 'cover',
             borderRadius:
               imagePosition === 'top'
                 ? `${metrics.borderRadius}px ${metrics.borderRadius}px 0 0`
