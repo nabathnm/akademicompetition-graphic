@@ -27,3 +27,4 @@ export * from './ParticleSystemShowcase';
 export * from './DeviceFrameShowcase';
 export * from './SmartphoneMockupShowcase';
 export * from './BrowserWindowMockupShowcase';
+export * from './LaptopMockupShowcase';

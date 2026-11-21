@@ -312,6 +312,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     status: 'ready',
   },
   {
+    id: 'mockup-laptop',
+    name: 'LaptopMockup',
+    category: 'mockups',
+    description: 'Polished 2D laptop mockup with lid opening kinematics, webcam, concentric bezel, chiclet keyboard deck, trackpad, metallic finishes, and sequential screen reveals',
+    variants: ['spring', 'lid-opening', 'compact', 'standard', 'pro', 'floating', 'gentle-tilt'],
+    status: 'ready',
+  },
+  {
     id: 'mockup-floating-card',
     name: 'FloatingCard',
     category: 'mockups',

@@ -431,6 +431,141 @@ export interface BrowserWindowMockupProps {
   className?: string;
 }
 
+// ---------------------------------------------------------------------------
+// LaptopMockup Types
+// ---------------------------------------------------------------------------
+
+export type LaptopModelPreset = 'compact' | 'standard' | 'pro' | 'custom';
+export type LaptopFinish = 'space-gray' | 'silver' | 'midnight' | 'starlight';
+
+export interface LaptopOpeningConfig {
+  /** Starting frame for opening animation (default: 0) */
+  startFrame?: number;
+  /** Duration in frames for opening animation (default: 30) */
+  duration?: number;
+  /** Starting tilt angle in degrees from hinge (default: 70 - semi-closed, where 0 is fully open) */
+  fromAngle?: number;
+  /** Ending tilt angle in degrees (default: 0 - fully open facing front) */
+  toAngle?: number;
+  /** Easing curve */
+  easing?: EasingPresetName | EasingFunction;
+}
+
+export interface LaptopDimensions {
+  width: number;
+  height: number;
+  lidWidth: number;
+  lidHeight: number;
+  bezelThickness: number;
+  screenWidth: number;
+  screenHeight: number;
+  screenRadius: number;
+  baseWidth: number;
+  baseHeight: number;
+  hingeWidth: number;
+  hingeHeight: number;
+  keyboardWidth: number;
+  keyboardHeight: number;
+  trackpadWidth: number;
+  trackpadHeight: number;
+  borderRadius: number;
+}
+
+export interface LaptopOpeningState {
+  progress: number;
+  angle: number;
+  lidOpacity: number;
+  isOpening: boolean;
+  isComplete: boolean;
+}
+
+export interface LaptopMockupProps {
+  /** Model size preset ('compact' | 'standard' | 'pro' | 'custom', default: 'standard') */
+  model?: LaptopModelPreset;
+  /** Convenient alias for model */
+  preset?: LaptopModelPreset;
+  /** Pre-configured hardware finish palette ('space-gray' | 'silver' | 'midnight' | 'starlight') */
+  finish?: LaptopFinish | string;
+  /** Outer laptop width in pixels (default: 680) */
+  width?: number;
+  /** Total laptop height including keyboard base deck (optional; auto-derived from aspect ratio and base) */
+  height?: number;
+  /** Screen aspect ratio (e.g. '16:10', '16:9', '3:2', or numeric ratio, default: '16:10') */
+  screenAspectRatio?: string | number;
+  /** Device chassis color (default: '#1e2430') */
+  deviceColor?: string;
+  /** Alternative alias for deviceColor */
+  frameColor?: string;
+  /** Screen viewport background color (default: '#000000') */
+  screenColor?: string;
+  /** Screen bezel thickness in pixels (default: 10) */
+  bezelThickness?: number;
+  /** Lid outer corner radius in pixels (default: 14) */
+  borderRadius?: number;
+  /** Inner screen corner radius (concentric default: max(0, borderRadius - bezelThickness)) */
+  screenRadius?: number;
+  /** Height of keyboard base deck in pixels (default: 100) */
+  baseHeight?: number;
+  /** Show keyboard keys layout on base deck (default: true) */
+  showKeyboard?: boolean;
+  /** Show trackpad on base deck (default: true) */
+  showTrackpad?: boolean;
+  /** Show hinge connecting lid and deck (default: true) */
+  showHinge?: boolean;
+  /** Show camera dot at top bezel (default: true) */
+  showCamera?: boolean;
+  /** Camera cutout style ('camera-dot' | 'punch-hole' | 'notch' | 'none', default: 'camera-dot') */
+  cameraType?: 'camera-dot' | 'punch-hole' | 'notch' | 'none';
+  /** 2D depth shadow preset or custom CSS box-shadow (default: 'medium') */
+  shadow?: DeviceShadowPreset | string;
+  /** Custom shadow tint */
+  shadowColor?: string;
+  /** Subtle diagonal glass glare reflection overlay across screen (default: true) */
+  glare?: boolean;
+  /** Screenshot image URL rendered inside screen viewport */
+  screenshot?: string;
+  /** Object fit mode for screenshot (default: 'cover') */
+  imageFit?: 'cover' | 'contain' | 'fill';
+  /** Custom React children rendered inside the screen viewport */
+  children?: React.ReactNode;
+  /** Dedicated screen content prop (alternative to children) */
+  screenContent?: React.ReactNode;
+  /** Primary entrance animation */
+  animation?: DeviceFrameAnimation | DeviceFrameAnimationConfig;
+  /** Master animation toggle (default: true) */
+  animate?: boolean;
+  /** Frame delay before entrance starts (default: 0) */
+  delay?: number;
+  /** Entrance animation duration in frames (default: 25) */
+  durationInFrames?: number;
+  /** Direction for slide entrance */
+  slideDirection?: DeviceSlideDirection;
+  /** Easing curve */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring preset */
+  springPreset?: SpringPresetName;
+  /** Continuous subtle floating motion */
+  floating?: boolean | SmartphoneFloatingConfig;
+  /** Continuous gentle tilt motion */
+  tilt?: boolean | SmartphoneTiltConfig;
+  /** Deterministic laptop lid opening animation */
+  openingAnimation?: boolean | LaptopOpeningConfig;
+  /** Sequential reveal transition for screen content */
+  screenReveal?: boolean | SmartphoneScreenRevealConfig;
+  /** Exit transition frame trigger */
+  exitFrame?: number;
+  /** Duration in frames for exit transition */
+  exitDurationInFrames?: number;
+  /** Exit transition type */
+  exitAnimation?: 'fade-out' | 'scale-out' | 'slide-down';
+  /** Outer laptop container styling */
+  style?: React.CSSProperties;
+  /** Screen viewport container styling */
+  screenStyle?: React.CSSProperties;
+  /** Custom CSS class */
+  className?: string;
+}
+
 export interface BrowserFrameProps extends BaseMotionProps {
   url?: string;
   theme?: 'dark' | 'light';

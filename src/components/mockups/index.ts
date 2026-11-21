@@ -11,3 +11,5 @@ export * from './smartphoneMockupStyle.ts';
 export * from './SmartphoneMockup.tsx';
 export * from './browserWindowMockupStyle.ts';
 export * from './BrowserWindowMockup.tsx';
+export * from './laptopMockupStyle.ts';
+export * from './LaptopMockup.tsx';

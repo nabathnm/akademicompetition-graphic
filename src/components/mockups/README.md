@@ -4,6 +4,9 @@ High-fidelity device frames, simulated digital software viewports, and presentat
 
 ## Production-Ready Components
 
+- `LaptopMockup`: Polished 2D laptop mockup with display lid, webcam dot, concentric screen bezel, metallic hinge, stylized chiclet keyboard deck, trackpad, deterministic lid-opening physics kinetics, floating/tilt kinematics, and sequential screen content reveals.
+  - Documentation: [docs/LAPTOP_MOCKUP.md](file:///c:/Users/ASUS/Desktop/Belajar/Belajar5/remotion/akademi/docs/LAPTOP_MOCKUP.md)
+  - Showcase: [LaptopMockupShowcase.tsx](file:///c:/Users/ASUS/Desktop/Belajar/Belajar5/remotion/akademi/src/playground/showcases/LaptopMockupShowcase.tsx)
 - `BrowserWindowMockup`: Desktop browser window mockup supporting minimal and full chrome styles, tabs, address bar, dark and light theme palettes, deterministic frame-accurate scrolling, simulated determinate scrollbars, and staggered chrome/viewport reveals.
   - Documentation: [docs/BROWSER_WINDOW_MOCKUP.md](file:///c:/Users/ASUS/Desktop/Belajar/Belajar5/remotion/akademi/docs/BROWSER_WINDOW_MOCKUP.md)
   - Showcase: [BrowserWindowMockupShowcase.tsx](file:///c:/Users/ASUS/Desktop/Belajar/Belajar5/remotion/akademi/src/playground/showcases/BrowserWindowMockupShowcase.tsx)
