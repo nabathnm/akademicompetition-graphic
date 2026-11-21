@@ -22,3 +22,4 @@ export * from './AnimatedShapeShowcase';
 export * from './AnimatedLineShowcase';
 export * from './AnimatedCircleShowcase';
 export * from './AnimatedArrowShowcase';
+export * from './AnimatedPathShowcase';

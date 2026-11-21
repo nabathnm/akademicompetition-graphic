@@ -31,6 +31,7 @@ import { AnimatedShapeShowcase } from './showcases/AnimatedShapeShowcase';
 import { AnimatedLineShowcase } from './showcases/AnimatedLineShowcase';
 import { AnimatedCircleShowcase } from './showcases/AnimatedCircleShowcase';
 import { AnimatedArrowShowcase } from './showcases/AnimatedArrowShowcase';
+import { AnimatedPathShowcase } from './showcases/AnimatedPathShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -48,6 +49,7 @@ import { AnimatedShape } from '../components/graphics/AnimatedShape';
 import { AnimatedLine } from '../components/graphics/AnimatedLine';
 import { AnimatedCircle } from '../components/graphics/AnimatedCircle';
 import { AnimatedArrow } from '../components/graphics/AnimatedArrow';
+import { AnimatedPath } from '../components/graphics/AnimatedPath';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -90,7 +92,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
-  const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'all'>('all');
+  const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'all'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -378,6 +380,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
               { id: 'animated-circle', label: 'AnimatedCircle' },
               { id: 'animated-line', label: 'AnimatedLine' },
               { id: 'animated-shape', label: 'AnimatedShape' },
+              { id: 'animated-path', label: 'AnimatedPath' },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -443,6 +446,18 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
               <AnimatedShapeShowcase />
             </div>
           )}
+
+          {(graphicsTab === 'all' || graphicsTab === 'animated-path') && (
+            <div style={{ marginTop: graphicsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {graphicsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION E: ANIMATEDPATH COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedPathShowcase />
+            </div>
+          )}
+
         </div>
       )}
 
@@ -1102,9 +1117,46 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                           ● PRODUCTION READY COMPONENT
                         </span>
                       </div>
+                    ) : item.id === 'graphic-animated-path' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 120,
+                        }}
+                      >
+                        <AnimatedPath
+                          d="M 15 65 Q 60 10 105 65 T 195 65"
+                          stroke={Colors.accent.cyan}
+                          strokeWidth={3}
+                          strokeLinecap="round"
+                          animation="draw-in"
+                          delay={0}
+                          durationInFrames={20}
+                          showFollower={true}
+                          followerSize={5}
+                          followerColor={Colors.accent.cyan}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
                     ) : (
                       <PlaceholderShowcase definition={item} />
                     )}
+
                   </ShowcaseCard>
                 ))}
               </CategorySection>

@@ -374,6 +374,23 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     status: 'ready',
   },
   {
+    id: 'graphic-animated-path',
+    name: 'AnimatedPath',
+    category: 'graphics',
+    description: 'Flexible SVG path component supporting custom vector paths, open/closed shapes, stroke drawing, fill reveals, and motion along a path',
+    variants: [
+      'draw-in',
+      'reverse-draw',
+      'draw-out',
+      'progressive-reveal',
+      'fill-reveal',
+      'motion-along-path',
+      'stroke-width',
+      'fade-in',
+    ],
+    status: 'ready',
+  },
+  {
     id: 'graphic-grid-bg',
     name: 'GridBackground',
     category: 'graphics',

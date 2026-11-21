@@ -595,3 +595,194 @@ export interface AnimatedArrowProps {
   className?: string;
 }
 
+// ---------------------------------------------------------------------------
+// AnimatedPath Types
+// ---------------------------------------------------------------------------
+
+export type PathAnimation =
+  | 'none'
+  | 'draw-in'
+  | 'draw-out'
+  | 'reverse-draw'
+  | 'progressive-reveal'
+  | 'fade-in'
+  | 'fade-out'
+  | 'scale-in'
+  | 'scale-out'
+  | 'rotate'
+  | 'stroke-width'
+  | 'fill-reveal'
+  | 'motion-along-path';
+
+export type PathFillRevealTiming = 'with-draw' | 'after-draw' | 'independent';
+
+export interface PathPoint {
+  x: number;
+  y: number;
+  angle: number;
+  distance: number;
+  progress: number;
+}
+
+export interface PathFollowerConfig {
+  /** Whether the follower is enabled and visible */
+  enabled?: boolean;
+  /** Radius / size of the follower indicator in pixels (default: 8) */
+  size?: number;
+  /** Fill color for default follower dot (defaults to stroke color) */
+  color?: string;
+  /** Stroke border color for follower */
+  stroke?: string;
+  /** Stroke width for follower */
+  strokeWidth?: number;
+  /** Whether follower automatically rotates to align with path tangent (default: true) */
+  autoRotate?: boolean;
+  /** Angle offset in degrees added to tangent angle (default: 0) */
+  offsetAngle?: number;
+  /** Frame delay before follower motion starts (default: 0) */
+  delay?: number;
+  /** Duration in frames for follower journey (default: same as path duration) */
+  duration?: number;
+  /** Whether follower repeats / loops continuously across frames */
+  loop?: boolean;
+  /** Easing function or preset for follower */
+  easing?: EasingPresetName | EasingFunction;
+  /** Custom follower element or render callback */
+  customElement?: React.ReactNode | ((point: PathPoint) => React.ReactNode);
+}
+
+export interface PathAnimationConfig {
+  /** Primary path animation preset */
+  type?: PathAnimation;
+  /** Delay in frames before animation triggers (default: 0) */
+  delay?: number;
+  /** Duration in frames for animation (default: 30) */
+  duration?: number;
+  /** Easing preset or custom function */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring physics preset */
+  springPreset?: SpringPresetName;
+  /** Custom initial numeric value */
+  from?: number;
+  /** Custom target numeric value */
+  to?: number;
+  /** Whether the animation repeats / loops continuously */
+  loop?: boolean;
+}
+
+export interface AnimatedPathProps {
+  /** SVG path data string ('M ... L ... C ... Z') */
+  d: string;
+  /** Fill color or gradient (default: 'none') */
+  fill?: string;
+  /** Fill rule ('nonzero' | 'evenodd', default: 'nonzero') */
+  fillRule?: 'nonzero' | 'evenodd';
+  /** Base fill opacity from 0 to 1 (default: 1) */
+  fillOpacity?: number;
+  /** Stroke color (default: '#276EF1') */
+  stroke?: string;
+  /** Stroke width in pixels (default: 2) */
+  strokeWidth?: number;
+  /** SVG stroke line cap ('round' | 'butt' | 'square', default: 'round') */
+  strokeLinecap?: 'round' | 'butt' | 'square';
+  /** SVG stroke line join ('round' | 'miter' | 'bevel', default: 'round') */
+  strokeLinejoin?: 'round' | 'miter' | 'bevel';
+  /** Stroke miter limit (default: 4) */
+  strokeMiterlimit?: number;
+  /** Stroke dasharray pattern (e.g. "6 4") */
+  strokeDasharray?: string | number;
+  /** Stroke dash offset */
+  strokeDashoffset?: number;
+  /** Stroke opacity from 0 to 1 (default: 1) */
+  strokeOpacity?: number;
+  /** Overall container opacity from 0 to 1 (default: 1) */
+  opacity?: number;
+  /** Explicit path total length override */
+  pathLength?: number;
+  /** Whether the path is explicitly closed (auto-detected if d contains Z/z) */
+  isClosed?: boolean;
+  /** SVG viewBox attribute string (auto-computed from path if omitted) */
+  viewBox?: string;
+  /** Outer container / SVG width (pixels or percentage) */
+  width?: number | string;
+  /** Outer container / SVG height (pixels or percentage) */
+  height?: number | string;
+  /** SVG preserveAspectRatio attribute (default: 'xMidYMid meet') */
+  preserveAspectRatio?: string;
+  /** Horizontal position translation offset in pixels */
+  x?: number;
+  /** Vertical position translation offset in pixels */
+  y?: number;
+  /** Angular rotation in degrees (default: 0) */
+  rotation?: number;
+  /** CSS transform origin (default: 'center center') */
+  transformOrigin?: string;
+  /** Uniform scale multiplier (default: 1) */
+  scale?: number;
+  /** Horizontal scale multiplier */
+  scaleX?: number;
+  /** Vertical scale multiplier */
+  scaleY?: number;
+  /** Primary animation type shorthand or full config */
+  animation?: PathAnimation | PathAnimationConfig;
+  /** Whether animation is enabled (default: true) */
+  animate?: boolean;
+  /** Frame delay before animation begins (shorthand for animation.delay) */
+  delay?: number;
+  /** Duration in frames (shorthand for animation.duration) */
+  durationInFrames?: number;
+  /** Easing preset or custom function */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring physics preset */
+  springPreset?: SpringPresetName;
+  /** Custom starting value override */
+  from?: number;
+  /** Custom target value override */
+  to?: number;
+  /** Fill reveal timing relative to stroke draw ('with-draw' | 'after-draw' | 'independent') */
+  fillRevealTiming?: PathFillRevealTiming;
+  /** Delay in frames before fill begins revealing */
+  fillDelay?: number;
+  /** Duration in frames for fill reveal */
+  fillDurationInFrames?: number;
+  /** Whether to show a traveling follower marker along the path */
+  showFollower?: boolean;
+  /** Follower detailed configuration */
+  follower?: PathFollowerConfig;
+  /** Follower size in pixels (shorthand for follower.size) */
+  followerSize?: number;
+  /** Follower color (shorthand for follower.color) */
+  followerColor?: string;
+  /** Follower stroke color */
+  followerStroke?: string;
+  /** Follower stroke width */
+  followerStrokeWidth?: number;
+  /** Whether follower auto-rotates along path tangent (default: true) */
+  autoRotateFollower?: boolean;
+  /** Frame delay before follower motion starts */
+  followerDelay?: number;
+  /** Duration in frames for follower traversal */
+  followerDurationInFrames?: number;
+  /** Whether follower loops */
+  followerLoop?: boolean;
+  /** Explicit manual follower progress override (0 to 1) */
+  followerProgress?: number;
+  /** Custom follower render function */
+  renderFollower?: (point: PathPoint) => React.ReactNode;
+  /** Optional exit animation frame trigger */
+  exitFrame?: number;
+  /** Duration in frames for exit transition */
+  exitDurationInFrames?: number;
+  /** Exit animation type */
+  exitAnimation?: 'fade-out' | 'scale-out' | 'draw-out';
+  /** Child elements or render function receiving PathPoint */
+  children?: React.ReactNode | ((point: PathPoint) => React.ReactNode);
+  /** Outer container CSS style */
+  style?: React.CSSProperties;
+  /** SVG element CSS style */
+  svgStyle?: React.CSSProperties;
+  /** Custom CSS class */
+  className?: string;
+}
+
+

@@ -11,3 +11,5 @@ export * from './animatedCircleStyle';
 export * from './AnimatedCircle';
 export * from './animatedArrowStyle';
 export * from './AnimatedArrow';
+export * from './animatedPathStyle';
+export * from './AnimatedPath';
