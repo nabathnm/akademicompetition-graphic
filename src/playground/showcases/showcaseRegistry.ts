@@ -198,6 +198,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 3. UI Components
   {
+    id: 'ui-animated-search-bar',
+    name: 'AnimatedSearchBar',
+    category: 'ui',
+    description: 'Complete search interaction flow simulating typing, suggestions, selection, submission, and staggered results',
+    variants: ['outlined', 'filled', 'minimal', 'rounded', 'expanded'],
+    status: 'ready',
+  },
+  {
     id: 'ui-animated-input',
     name: 'AnimatedInput',
     category: 'ui',

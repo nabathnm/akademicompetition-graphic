@@ -248,3 +248,120 @@ export interface AnimatedButtonProps {
   className?: string;
 }
 
+// ---------------------------------------------------------------------------
+// AnimatedSearchBar Types
+// ---------------------------------------------------------------------------
+
+export interface SearchSuggestion {
+  id: string | number;
+  text: string;
+  category?: string;
+  icon?: LucideIcon | React.ReactNode;
+}
+
+export interface SearchResult {
+  id: string | number;
+  title: string;
+  description?: string;
+  category?: string;
+  badge?: string;
+  icon?: LucideIcon | React.ReactNode;
+  metadata?: string;
+}
+
+export type AnimatedSearchBarVariant =
+  | 'minimal'
+  | 'outlined'
+  | 'filled'
+  | 'rounded'
+  | 'expanded';
+
+export type AnimatedSearchBarSize = 'sm' | 'md' | 'lg';
+
+export type AnimatedSearchBarContainerEntrance =
+  | 'fade-in'
+  | 'slide-in'
+  | 'expand-width'
+  | 'scale-in'
+  | 'none';
+
+export type AnimatedSearchBarStage =
+  | 'idle'
+  | 'focus'
+  | 'typing'
+  | 'suggestions'
+  | 'selected'
+  | 'submitted'
+  | 'loading'
+  | 'results';
+
+export interface AnimatedSearchBarProps {
+  /** Target text string to type into the search bar */
+  value?: string;
+  /** Placeholder text shown when input is empty (default: 'Search...') */
+  placeholder?: string;
+  /** List of static search suggestions */
+  suggestions?: SearchSuggestion[];
+  /** List of static search results */
+  results?: SearchResult[];
+  /** Starting frame for container entrance animation (default: 0) */
+  startFrame?: number;
+  /** Frame at which search input acquires focus (default: 10) */
+  focusFrame?: number;
+  /** Frame at which character typing begins (default: 16) */
+  typingStartFrame?: number;
+  /** Frame at which suggestions dropdown appears (default: 28) */
+  suggestionStartFrame?: number;
+  /** Frame at which suggestion item is highlighted/selected (default: 48) */
+  selectionFrame?: number;
+  /** Index of suggestion to highlight/select (default: 0) */
+  selectedIndex?: number;
+  /** Frame at which search query is submitted (default: 60) */
+  submitFrame?: number;
+  /** Frame at which loading indicator activates (default: 64) */
+  loadingStartFrame?: number;
+  /** Frame at which search results stagger in (default: 80) */
+  resultsStartFrame?: number;
+  /** Frames per character during typing simulation (default: 2) */
+  typingSpeed?: number;
+  /** Frame offset between consecutive suggestions and results (default: 3) */
+  staggerDelay?: number;
+  /** Visual presentation variant (default: 'outlined') */
+  variant?: AnimatedSearchBarVariant;
+  /** Size preset (default: 'md') */
+  size?: AnimatedSearchBarSize;
+  /** Container entrance animation preset (default: 'fade-in') */
+  containerEntrance?: AnimatedSearchBarContainerEntrance;
+  /** Duration of container entrance in frames (default: 12) */
+  entranceDuration?: number;
+  /** Whether to show clear button icon when text is entered (default: true) */
+  showClearButton?: boolean;
+  /** Whether to display suggestions dropdown (default: true) */
+  showSuggestions?: boolean;
+  /** Whether to display results area (default: true) */
+  showResults?: boolean;
+  /** Whether to display submit button (default: true) */
+  showSubmitButton?: boolean;
+  /** Custom leading search icon */
+  searchIcon?: LucideIcon | React.ReactNode;
+  /** Label for submit button (default: 'Search') */
+  submitLabel?: string;
+  /** Message displayed when results list is empty */
+  emptyResultsMessage?: string;
+  /** Overall container width (default: '100%') */
+  width?: string | number;
+  /** Overall container max-width (default: 640) */
+  maxWidth?: string | number;
+  /** Custom styles for outer container */
+  style?: React.CSSProperties;
+  /** Custom styles for inner input */
+  inputStyle?: React.CSSProperties;
+  /** Custom styles for suggestion items */
+  suggestionStyle?: React.CSSProperties;
+  /** Custom styles for result cards */
+  resultStyle?: React.CSSProperties;
+  /** CSS class name */
+  className?: string;
+}
+
+

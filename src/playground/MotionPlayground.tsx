@@ -22,6 +22,7 @@ import { TextHighlightShowcase } from './showcases/TextHighlightShowcase';
 import { SplitTextShowcase } from './showcases/SplitTextShowcase';
 import { AnimatedInputShowcase } from './showcases/AnimatedInputShowcase';
 import { AnimatedButtonShowcase } from './showcases/AnimatedButtonShowcase';
+import { AnimatedSearchBarShowcase } from './showcases/AnimatedSearchBarShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -30,6 +31,7 @@ import { TextHighlight } from '../components/typography/TextHighlight';
 import { SplitText } from '../components/typography/SplitText';
 import { AnimatedInput } from '../components/ui/AnimatedInput';
 import { AnimatedButton } from '../components/ui/AnimatedButton';
+import { AnimatedSearchBar } from '../components/ui/AnimatedSearchBar';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -71,7 +73,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
   variantB = 'Smooth (damping: 20, mass: 1.0, stiffness: 120)',
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
-  const [uiTab, setUiTab] = React.useState<'animated-button' | 'animated-input' | 'all'>('all');
+  const [uiTab, setUiTab] = React.useState<'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -113,12 +115,13 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All UI Components' },
+              { id: 'animated-search-bar', label: 'AnimatedSearchBar (Phase 3.3)' },
               { id: 'animated-button', label: 'AnimatedButton (Phase 3.2)' },
               { id: 'animated-input', label: 'AnimatedInput (Phase 3.1)' },
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setUiTab(tab.id as 'animated-button' | 'animated-input' | 'all')}
+                onClick={() => setUiTab(tab.id as 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all')}
                 style={{
                   padding: '6px 14px',
                   backgroundColor: uiTab === tab.id ? Colors.accent.brand : Colors.dark.surface2,
@@ -135,11 +138,22 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ))}
           </div>
 
-          {(uiTab === 'all' || uiTab === 'animated-button') && (
+          {(uiTab === 'all' || uiTab === 'animated-search-bar') && (
             <div>
               {uiTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: ANIMATEDSEARCHBAR COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedSearchBarShowcase />
+            </div>
+          )}
+
+          {(uiTab === 'all' || uiTab === 'animated-button') && (
+            <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brand, marginBottom: Spacing.scale.sm }}>
-                  SECTION A: ANIMATEDBUTTON COMPONENT SUITE
+                  SECTION B: ANIMATEDBUTTON COMPONENT SUITE
                 </div>
               )}
               <AnimatedButtonShowcase />
@@ -150,7 +164,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
-                  SECTION B: ANIMATEDINPUT COMPONENT SUITE
+                  SECTION C: ANIMATEDINPUT COMPONENT SUITE
                 </div>
               )}
               <AnimatedInputShowcase />
@@ -530,6 +544,41 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             letterSpacing: '0.04em',
                             textAlign: 'center',
                           }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'ui-animated-search-bar' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.xs,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                        }}
+                      >
+                        <AnimatedSearchBar
+                          value="SFO Airport"
+                          placeholder="Where to?"
+                          variant="rounded"
+                          size="sm"
+                          startFrame={0}
+                          focusFrame={6}
+                          typingStartFrame={12}
+                          suggestionStartFrame={999}
+                          resultsStartFrame={999}
+                          showSubmitButton={true}
                         />
                         <span
                           style={{
