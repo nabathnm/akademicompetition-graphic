@@ -498,8 +498,8 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     id: 'trans-zoom',
     name: 'ZoomTransition',
     category: 'transitions',
-    description: 'Scale in-place with subtle motion blur simulation',
-    variants: ['ZoomIn', 'ZoomOut'],
-    status: 'planned',
+    description: 'Scale in-place with spring overshoot, custom transform origins, and hyper-zoom through camera',
+    variants: ['ZoomIn', 'ZoomOut', 'ZoomInOut', 'ZoomThrough', 'ZoomReplace'],
+    status: 'ready',
   },
 ];

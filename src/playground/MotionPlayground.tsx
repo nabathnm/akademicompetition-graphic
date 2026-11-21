@@ -40,6 +40,7 @@ import { LaptopMockupShowcase } from './showcases/LaptopMockupShowcase';
 import { TabletMockupShowcase } from './showcases/TabletMockupShowcase';
 import { FadeTransitionShowcase } from './showcases/FadeTransitionShowcase';
 import { SlideTransitionShowcase } from './showcases/SlideTransitionShowcase';
+import { ZoomTransitionShowcase } from './showcases/ZoomTransitionShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -66,6 +67,7 @@ import { LaptopMockup } from '../components/mockups/LaptopMockup';
 import { TabletMockup } from '../components/mockups/TabletMockup';
 import { FadeTransition } from '../components/transitions/FadeTransition';
 import { SlideTransition } from '../components/transitions/SlideTransition';
+import { ZoomTransition } from '../components/transitions/ZoomTransition';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -110,7 +112,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
   const [mockupsTab, setMockupsTab] = React.useState<'all' | 'tablet' | 'laptop' | 'browser' | 'smartphone' | 'device-frame'>('all');
   const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'particle-system' | 'all'>('all');
-  const [transitionsTab, setTransitionsTab] = React.useState<'all' | 'slide' | 'fade'>('all');
+  const [transitionsTab, setTransitionsTab] = React.useState<'all' | 'zoom' | 'slide' | 'fade'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -618,6 +620,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All Transitions' },
+              { id: 'zoom', label: 'ZoomTransition' },
               { id: 'slide', label: 'SlideTransition' },
               { id: 'fade', label: 'FadeTransition' },
             ].map((tab) => (
@@ -642,11 +645,22 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ))}
           </div>
 
-          {(transitionsTab === 'all' || transitionsTab === 'slide') && (
+          {(transitionsTab === 'all' || transitionsTab === 'zoom') && (
             <div>
               {transitionsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: '#ec4899', marginBottom: Spacing.scale.sm }}>
+                  SECTION A: ZOOMTRANSITION COMPONENT SUITE
+                </div>
+              )}
+              <ZoomTransitionShowcase />
+            </div>
+          )}
+
+          {(transitionsTab === 'all' || transitionsTab === 'slide') && (
+            <div style={{ marginTop: transitionsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {transitionsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
-                  SECTION A: SLIDETRANSITION COMPONENT SUITE
+                  SECTION B: SLIDETRANSITION COMPONENT SUITE
                 </div>
               )}
               <SlideTransitionShowcase />
@@ -657,7 +671,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: transitionsTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {transitionsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.electricViolet, marginBottom: Spacing.scale.sm }}>
-                  SECTION B: FADETRANSITION COMPONENT SUITE
+                  SECTION C: FADETRANSITION COMPONENT SUITE
                 </div>
               )}
               <FadeTransitionShowcase />
@@ -1798,6 +1812,74 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             >
                               <span style={{ fontSize: 10, color: Colors.accent.cyan, fontWeight: 700 }}>
                                 Sliding Scene B
+                              </span>
+                            </div>
+                          }
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'trans-zoom' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <ZoomTransition
+                          mode="replace"
+                          duration={25}
+                          delay={0}
+                          fade={true}
+                          clip={true}
+                          style={{ width: '100%', height: 90 }}
+                          fromContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: Colors.dark.surface2,
+                                border: `1px solid ${Colors.accent.electricViolet}40`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{ fontSize: 10, color: Colors.accent.electricViolet, fontWeight: 700 }}>
+                                Outgoing Scene A
+                              </span>
+                            </div>
+                          }
+                          toContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: Colors.dark.surface1,
+                                border: '1px solid rgba(236, 72, 153, 0.4)',
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{ fontSize: 10, color: '#ec4899', fontWeight: 700 }}>
+                                Zooming Scene B
                               </span>
                             </div>
                           }

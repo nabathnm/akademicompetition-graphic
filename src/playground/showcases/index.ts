@@ -31,3 +31,4 @@ export * from './LaptopMockupShowcase';
 export * from './TabletMockupShowcase';
 export * from './FadeTransitionShowcase';
 export * from './SlideTransitionShowcase';
+export * from './ZoomTransitionShowcase';

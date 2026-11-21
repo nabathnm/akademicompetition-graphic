@@ -7,3 +7,5 @@ export * from './fadeTransitionStyle';
 export * from './FadeTransition';
 export * from './slideTransitionStyle';
 export * from './SlideTransition';
+export * from './zoomTransitionStyle';
+export * from './ZoomTransition';
