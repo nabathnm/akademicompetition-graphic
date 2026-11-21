@@ -34,6 +34,7 @@ import { AnimatedArrowShowcase } from './showcases/AnimatedArrowShowcase';
 import { AnimatedPathShowcase } from './showcases/AnimatedPathShowcase';
 import { ParticleSystemShowcase } from './showcases/ParticleSystemShowcase';
 import { DeviceFrameShowcase } from './showcases/DeviceFrameShowcase';
+import { SmartphoneMockupShowcase } from './showcases/SmartphoneMockupShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -54,6 +55,7 @@ import { AnimatedArrow } from '../components/graphics/AnimatedArrow';
 import { AnimatedPath } from '../components/graphics/AnimatedPath';
 import { ParticleSystem } from '../components/graphics/ParticleSystem';
 import { DeviceFrame } from '../components/mockups/DeviceFrame';
+import { SmartphoneMockup } from '../components/mockups/SmartphoneMockup';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -96,6 +98,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
+  const [mockupsTab, setMockupsTab] = React.useState<'all' | 'smartphone' | 'device-frame'>('all');
   const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'particle-system' | 'all'>('all');
 
   // Filter registered showcases
@@ -481,7 +484,69 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
       {/* 0.4 Mockups Components Showcase Mode */}
       {viewMode === 'mockups' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: Spacing.scale.xl }}>
-          <DeviceFrameShowcase />
+          {/* Sub-navigation bar across Mockup Components */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: Spacing.scale.sm,
+              backgroundColor: Colors.dark.surface1,
+              padding: `${Spacing.scale.sm}px ${Spacing.scale.md}px`,
+              borderRadius: Spacing.radius.md,
+              border: `1px solid ${Colors.border.default}`,
+              flexWrap: 'wrap',
+            }}
+          >
+            <span style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.text.tertiary, marginRight: Spacing.scale.sm }}>
+              MOCKUP COMPONENTS:
+            </span>
+            {[
+              { id: 'all', label: 'All Mockups' },
+              { id: 'smartphone', label: 'SmartphoneMockup' },
+              { id: 'device-frame', label: 'DeviceFrame' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setMockupsTab(tab.id as typeof mockupsTab)}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: Spacing.radius.xs,
+                  backgroundColor: mockupsTab === tab.id ? Colors.accent.cyan : Colors.dark.surface2,
+                  border: `1px solid ${mockupsTab === tab.id ? Colors.accent.cyan : Colors.border.default}`,
+                  color: mockupsTab === tab.id ? '#000000' : Colors.text.secondary,
+                  fontFamily: Typography.fontFamily.mono,
+                  fontSize: 11,
+                  fontWeight: mockupsTab === tab.id ? 700 : 500,
+                  cursor: 'pointer',
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {(mockupsTab === 'all' || mockupsTab === 'smartphone') && (
+            <div>
+              {mockupsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: SMARTPHONEMOCKUP COMPONENT SUITE
+                </div>
+              )}
+              <SmartphoneMockupShowcase />
+            </div>
+          )}
+
+          {(mockupsTab === 'all' || mockupsTab === 'device-frame') && (
+            <div style={{ marginTop: mockupsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {mockupsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.amber, marginBottom: Spacing.scale.sm }}>
+                  SECTION B: DEVICEFRAME COMPONENT SUITE
+                </div>
+              )}
+              <DeviceFrameShowcase />
+            </div>
+          )}
         </div>
       )}
 
@@ -1250,6 +1315,60 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             </span>
                           </div>
                         </DeviceFrame>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'mockup-phone' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <SmartphoneMockup
+                          width={110}
+                          height={175}
+                          frameThickness={5}
+                          borderRadius={18}
+                          cameraCutout="dynamic-island"
+                          showStatusBar={false}
+                          showHomeIndicator={true}
+                          shadow="subtle"
+                          animation="spring"
+                          floating={{ amplitude: 4, frequency: 0.5 }}
+                          tilt={{ maxAngle: 2, frequency: 0.35 }}
+                          delay={0}
+                          durationInFrames={20}
+                        >
+                          <div
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              backgroundColor: Colors.dark.surface2,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <span style={{ fontSize: 9, color: Colors.accent.emerald, fontWeight: 700 }}>
+                              Mobile UI
+                            </span>
+                          </div>
+                        </SmartphoneMockup>
                         <span
                           style={{
                             fontSize: 10,

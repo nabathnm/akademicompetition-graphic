@@ -7,3 +7,5 @@
 export * from './types.ts';
 export * from './deviceFrameStyle.ts';
 export * from './DeviceFrame.tsx';
+export * from './smartphoneMockupStyle.ts';
+export * from './SmartphoneMockup.tsx';

@@ -288,20 +288,20 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 4. Mockups
   {
+    id: 'mockup-phone',
+    name: 'SmartphoneMockup',
+    category: 'mockups',
+    description: 'Polished smartphone mockup supporting custom aspect ratios, light/dark finishes, dynamic island cutouts, deterministic floating/tilt kinetics, and sequential screen reveals',
+    variants: ['spring', 'floating', 'gentle-tilt', 'pop', 'slide-in', 'rotate'],
+    status: 'ready',
+  },
+  {
     id: 'mockup-device-frame',
     name: 'DeviceFrame',
     category: 'mockups',
     description: 'Foundational device mockup frame supporting concentric screen radius, 2D depth shadows, hardware buttons, notch cutouts, glare overlays, and Remotion entrance kinetics',
     variants: ['spring', 'pop', 'slide-in', 'scale-in', 'rotate', 'fade-in'],
     status: 'ready',
-  },
-  {
-    id: 'mockup-phone',
-    name: 'PhoneFrame',
-    category: 'mockups',
-    description: 'Sleek device bezel with perspective tilt and dynamic screen slot',
-    variants: ['FrontFlat', 'IsometricLeft', 'PerspectiveTilt'],
-    status: 'planned',
   },
   {
     id: 'mockup-browser',

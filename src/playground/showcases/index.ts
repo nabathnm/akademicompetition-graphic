@@ -25,3 +25,4 @@ export * from './AnimatedArrowShowcase';
 export * from './AnimatedPathShowcase';
 export * from './ParticleSystemShowcase';
 export * from './DeviceFrameShowcase';
+export * from './SmartphoneMockupShowcase';

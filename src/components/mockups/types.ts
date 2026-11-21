@@ -156,6 +156,120 @@ export interface DeviceFrameProps {
 // Specialized Mockup Types (Extensions of DeviceFrame)
 // ---------------------------------------------------------------------------
 
+export type SmartphoneModelPreset = 'custom' | 'compact' | 'flagship' | 'pro-max' | 'fold';
+
+export interface SmartphoneFloatingConfig {
+  /** Amplitude of vertical float in pixels (default: 8) */
+  amplitude?: number;
+  /** Floating cycle frequency in Hz (cycles per second, default: 0.5) */
+  frequency?: number;
+  /** Phase offset in radians (default: 0) */
+  phase?: number;
+}
+
+export interface SmartphoneTiltConfig {
+  /** Maximum tilt rotation angle in degrees (default: 3) */
+  maxAngle?: number;
+  /** Tilt cycle frequency in Hz (cycles per second, default: 0.35) */
+  frequency?: number;
+  /** Tilt axis */
+  axis?: 'z' | 'both';
+}
+
+export interface SmartphoneScreenRevealConfig {
+  /** Delay before screen content starts revealing in frames (default: 15) */
+  delay?: number;
+  /** Duration of screen reveal animation in frames (default: 15) */
+  duration?: number;
+  /** Reveal animation style (default: 'fade') */
+  type?: 'fade' | 'wipe-up' | 'scale';
+}
+
+export interface SmartphoneMockupProps {
+  /** Model preset with calibrated standard aspect ratios and dimensions */
+  model?: SmartphoneModelPreset;
+  /** Outer frame width in pixels (default: 320) */
+  width?: number;
+  /** Outer frame height in pixels (default: 660, or computed from aspectRatio) */
+  height?: number;
+  /** Screen aspect ratio (e.g. '9:19.5', '9:20', '9:16', '16:9', or numeric ratio) */
+  aspectRatio?: string | number;
+  /** Device frame bezel color (default: '#1a1f2c') */
+  deviceColor?: string;
+  /** Alternative alias for deviceColor */
+  frameColor?: string;
+  /** Screen background color (default: '#000000') */
+  screenColor?: string;
+  /** Bezel / frame thickness in pixels (default: 12) */
+  frameThickness?: number;
+  /** Outer frame corner border radius (default: 40) */
+  borderRadius?: number;
+  /** Inner screen corner radius (concentric default: max(0, borderRadius - frameThickness)) */
+  screenRadius?: number;
+  /** Camera cutout toggle or cutout type ('dynamic-island' | 'punch-hole' | 'notch' | 'speaker' | 'none', default: true -> 'dynamic-island') */
+  showCamera?: boolean | DeviceNotchType;
+  /** Specific camera cutout design */
+  cameraCutout?: DeviceNotchType;
+  /** Camera position relative to top bezel */
+  cameraPosition?: 'top' | 'center' | 'left' | 'right';
+  /** Show mobile status bar (boolean, 'light' or 'dark' theme for icon contrast, or custom node) */
+  showStatusBar?: boolean | 'light' | 'dark' | React.ReactNode;
+  /** Show bottom home indicator bar (default: true) */
+  showHomeIndicator?: boolean;
+  /** Show hardware side buttons (volume, power) (default: true) */
+  showButtons?: boolean;
+  /** Custom hardware buttons configuration */
+  buttons?: boolean | DeviceButtonConfig[];
+  /** 2D depth shadow preset or custom CSS box-shadow (default: 'medium') */
+  shadow?: DeviceShadowPreset | string;
+  /** Custom shadow color */
+  shadowColor?: string;
+  /** Subtle diagonal glass glare reflection overlay (default: true) */
+  glare?: boolean;
+  /** Whether to clip screen content to screen corner radius (default: true) */
+  clipScreen?: boolean;
+  /** Screenshot or image URL displayed inside the screen */
+  screenshot?: string;
+  /** Image object-fit mode when screenshot is provided (default: 'cover') */
+  imageFit?: 'cover' | 'contain' | 'fill';
+  /** Dedicated screen content prop (alternative to children) */
+  screenContent?: React.ReactNode;
+  /** Screen content children */
+  children?: React.ReactNode;
+  /** Primary entrance animation */
+  animation?: DeviceFrameAnimation | DeviceFrameAnimationConfig;
+  /** Whether entrance animation is enabled (default: true) */
+  animate?: boolean;
+  /** Frame delay before entrance starts (default: 0) */
+  delay?: number;
+  /** Entrance animation duration in frames (default: 25) */
+  durationInFrames?: number;
+  /** Direction for slide entrance */
+  slideDirection?: DeviceSlideDirection;
+  /** Easing function or preset */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring preset for snappy entrance physics */
+  springPreset?: SpringPresetName;
+  /** Continuous subtle floating motion (boolean or custom config) */
+  floating?: boolean | SmartphoneFloatingConfig;
+  /** Continuous gentle tilt motion (boolean or custom config) */
+  tilt?: boolean | SmartphoneTiltConfig;
+  /** Sequential reveal transition for screen content */
+  screenReveal?: boolean | SmartphoneScreenRevealConfig;
+  /** Frame at which device exit transition begins */
+  exitFrame?: number;
+  /** Duration in frames for exit transition */
+  exitDurationInFrames?: number;
+  /** Exit transition type */
+  exitAnimation?: 'fade-out' | 'scale-out' | 'slide-down';
+  /** Outer container style */
+  style?: React.CSSProperties;
+  /** Screen container style */
+  screenStyle?: React.CSSProperties;
+  /** Custom CSS class name */
+  className?: string;
+}
+
 export interface PhoneFrameProps extends BaseMotionProps {
   screenContent?: React.ReactNode;
   theme?: 'dark' | 'light';
