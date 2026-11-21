@@ -37,6 +37,9 @@ import { DeviceFrameShowcase } from './showcases/DeviceFrameShowcase';
 import { SmartphoneMockupShowcase } from './showcases/SmartphoneMockupShowcase';
 import { BrowserWindowMockupShowcase } from './showcases/BrowserWindowMockupShowcase';
 import { LaptopMockupShowcase } from './showcases/LaptopMockupShowcase';
+import { TabletMockupShowcase } from './showcases/TabletMockupShowcase';
+import { FadeTransitionShowcase } from './showcases/FadeTransitionShowcase';
+import { SlideTransitionShowcase } from './showcases/SlideTransitionShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -60,6 +63,9 @@ import { DeviceFrame } from '../components/mockups/DeviceFrame';
 import { SmartphoneMockup } from '../components/mockups/SmartphoneMockup';
 import { BrowserWindowMockup } from '../components/mockups/BrowserWindowMockup';
 import { LaptopMockup } from '../components/mockups/LaptopMockup';
+import { TabletMockup } from '../components/mockups/TabletMockup';
+import { FadeTransition } from '../components/transitions/FadeTransition';
+import { SlideTransition } from '../components/transitions/SlideTransition';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -102,8 +108,9 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
-  const [mockupsTab, setMockupsTab] = React.useState<'all' | 'laptop' | 'browser' | 'smartphone' | 'device-frame'>('all');
+  const [mockupsTab, setMockupsTab] = React.useState<'all' | 'tablet' | 'laptop' | 'browser' | 'smartphone' | 'device-frame'>('all');
   const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'particle-system' | 'all'>('all');
+  const [transitionsTab, setTransitionsTab] = React.useState<'all' | 'slide' | 'fade'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -506,6 +513,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All Mockups' },
+              { id: 'tablet', label: 'TabletMockup' },
               { id: 'laptop', label: 'LaptopMockup' },
               { id: 'browser', label: 'BrowserWindowMockup' },
               { id: 'smartphone', label: 'SmartphoneMockup' },
@@ -532,11 +540,22 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ))}
           </div>
 
-          {(mockupsTab === 'all' || mockupsTab === 'laptop') && (
+          {(mockupsTab === 'all' || mockupsTab === 'tablet') && (
             <div>
               {mockupsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
-                  SECTION A: LAPTOPMOCKUP COMPONENT SUITE
+                  SECTION A: TABLETMOCKUP COMPONENT SUITE
+                </div>
+              )}
+              <TabletMockupShowcase />
+            </div>
+          )}
+
+          {(mockupsTab === 'all' || mockupsTab === 'laptop') && (
+            <div style={{ marginTop: mockupsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {mockupsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brandLight, marginBottom: Spacing.scale.sm }}>
+                  SECTION B: LAPTOPMOCKUP COMPONENT SUITE
                 </div>
               )}
               <LaptopMockupShowcase />
@@ -547,7 +566,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: mockupsTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {mockupsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
-                  SECTION B: BROWSERWINDOWMOCKUP COMPONENT SUITE
+                  SECTION C: BROWSERWINDOWMOCKUP COMPONENT SUITE
                 </div>
               )}
               <BrowserWindowMockupShowcase />
@@ -558,7 +577,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: mockupsTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {mockupsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
-                  SECTION C: SMARTPHONEMOCKUP COMPONENT SUITE
+                  SECTION D: SMARTPHONEMOCKUP COMPONENT SUITE
                 </div>
               )}
               <SmartphoneMockupShowcase />
@@ -569,10 +588,79 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: mockupsTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {mockupsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.amber, marginBottom: Spacing.scale.sm }}>
-                  SECTION D: DEVICEFRAME COMPONENT SUITE
+                  SECTION E: DEVICEFRAME COMPONENT SUITE
                 </div>
               )}
               <DeviceFrameShowcase />
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 0.5 Transitions Components Showcase Mode */}
+      {viewMode === 'transitions' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: Spacing.scale.xl }}>
+          {/* Sub-navigation bar across Transition Components */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: Spacing.scale.sm,
+              backgroundColor: Colors.dark.surface1,
+              padding: `${Spacing.scale.sm}px ${Spacing.scale.md}px`,
+              borderRadius: Spacing.radius.md,
+              border: `1px solid ${Colors.border.default}`,
+              flexWrap: 'wrap',
+            }}
+          >
+            <span style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.text.tertiary, marginRight: Spacing.scale.sm }}>
+              TRANSITION COMPONENTS:
+            </span>
+            {[
+              { id: 'all', label: 'All Transitions' },
+              { id: 'slide', label: 'SlideTransition' },
+              { id: 'fade', label: 'FadeTransition' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setTransitionsTab(tab.id as typeof transitionsTab)}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: Spacing.radius.xs,
+                  backgroundColor: transitionsTab === tab.id ? Colors.accent.cyan : Colors.dark.surface2,
+                  border: `1px solid ${transitionsTab === tab.id ? Colors.accent.cyan : Colors.border.default}`,
+                  color: transitionsTab === tab.id ? '#000000' : Colors.text.secondary,
+                  fontFamily: Typography.fontFamily.mono,
+                  fontSize: 11,
+                  fontWeight: transitionsTab === tab.id ? 700 : 500,
+                  cursor: 'pointer',
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {(transitionsTab === 'all' || transitionsTab === 'slide') && (
+            <div>
+              {transitionsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: SLIDETRANSITION COMPONENT SUITE
+                </div>
+              )}
+              <SlideTransitionShowcase />
+            </div>
+          )}
+
+          {(transitionsTab === 'all' || transitionsTab === 'fade') && (
+            <div style={{ marginTop: transitionsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {transitionsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.electricViolet, marginBottom: Spacing.scale.sm }}>
+                  SECTION B: FADETRANSITION COMPONENT SUITE
+                </div>
+              )}
+              <FadeTransitionShowcase />
             </div>
           )}
         </div>
@@ -881,6 +969,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                         </span>
                       </div>
 
+
+
                     ) : item.id === 'ui-animated-toggle' ? (
                       <div
                         style={{
@@ -915,6 +1005,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                           ● PRODUCTION READY COMPONENT
                         </span>
                       </div>
+
+
 
                     ) : item.id === 'ui-animated-notification' ? (
                       <div
@@ -1129,6 +1221,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                         </span>
                       </div>
 
+
+
                     ) : item.id === 'graphic-animated-circle' ? (
                       <div
                         style={{
@@ -1168,6 +1262,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                         </span>
                       </div>
 
+
+
                     ) : item.id === 'graphic-animated-line' ? (
                       <div
                         style={{
@@ -1202,6 +1298,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                           ● PRODUCTION READY COMPONENT
                         </span>
                       </div>
+
+
 
                     ) : item.id === 'graphic-animated-shape' ? (
                       <div
@@ -1240,6 +1338,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                         </span>
                       </div>
 
+
+
                     ) : item.id === 'graphic-animated-path' ? (
                       <div
                         style={{
@@ -1277,6 +1377,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                         </span>
                       </div>
 
+
+
                     ) : item.id === 'graphic-particle-system' ? (
                       <div
                         style={{
@@ -1309,6 +1411,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                           ● PRODUCTION READY COMPONENT
                         </span>
                       </div>
+
+
 
                     ) : item.id === 'mockup-device-frame' ? (
                       <div
@@ -1362,6 +1466,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                           ● PRODUCTION READY COMPONENT
                         </span>
                       </div>
+
+
 
                     ) : item.id === 'mockup-phone' ? (
                       <div
@@ -1418,6 +1524,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                         </span>
                       </div>
 
+
+
                     ) : item.id === 'mockup-browser' ? (
                       <div
                         style={{
@@ -1468,6 +1576,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                           ● PRODUCTION READY COMPONENT
                         </span>
                       </div>
+
+
                     ) : item.id === 'mockup-laptop' ? (
                       <div
                         style={{
@@ -1505,6 +1615,193 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             </span>
                           </div>
                         </LaptopMockup>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+
+
+                    ) : item.id === 'mockup-tablet' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <TabletMockup
+                          width={220}
+                          orientation="landscape"
+                          preset="compact"
+                          finish="space-gray"
+                          shadow="subtle"
+                          animation="spring"
+                          delay={0}
+                          durationInFrames={20}
+                        >
+                          <div
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              backgroundColor: Colors.dark.surface2,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <span style={{ fontSize: 9, color: Colors.accent.cyan, fontWeight: 700 }}>
+                              Tablet Canvas
+                            </span>
+                          </div>
+                        </TabletMockup>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+
+                    ) : item.id === 'trans-fade' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <FadeTransition
+                          mode="crossfade"
+                          duration={25}
+                          delay={0}
+                          style={{ width: '100%', height: 90 }}
+                          fromContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: Colors.dark.surface2,
+                                border: `1px solid ${Colors.accent.electricViolet}40`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{ fontSize: 10, color: Colors.accent.electricViolet, fontWeight: 700 }}>
+                                Outgoing Scene A
+                              </span>
+                            </div>
+                          }
+                          toContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: Colors.dark.surface1,
+                                border: `1px solid ${Colors.accent.cyan}40`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{ fontSize: 10, color: Colors.accent.cyan, fontWeight: 700 }}>
+                                Incoming Scene B
+                              </span>
+                            </div>
+                          }
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'trans-slide' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <SlideTransition
+                          mode="replace"
+                          direction="left"
+                          duration={25}
+                          delay={0}
+                          fade={true}
+                          clip={true}
+                          style={{ width: '100%', height: 90 }}
+                          fromContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: Colors.dark.surface2,
+                                border: `1px solid ${Colors.accent.electricViolet}40`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{ fontSize: 10, color: Colors.accent.electricViolet, fontWeight: 700 }}>
+                                Outgoing Scene A
+                              </span>
+                            </div>
+                          }
+                          toContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: Colors.dark.surface1,
+                                border: `1px solid ${Colors.accent.cyan}40`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{ fontSize: 10, color: Colors.accent.cyan, fontWeight: 700 }}>
+                                Sliding Scene B
+                              </span>
+                            </div>
+                          }
+                        />
                         <span
                           style={{
                             fontSize: 10,

@@ -320,6 +320,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     status: 'ready',
   },
   {
+    id: 'mockup-tablet',
+    name: 'TabletMockup',
+    category: 'mockups',
+    description: 'Configurable tablet mockup supporting landscape and portrait orientations, calibrated model presets, metallic finishes, Touch ID home button, magnetic stylus dock, and device rotation kinetics',
+    variants: ['spring', 'landscape', 'portrait', 'compact', 'standard', 'pro', 'floating', 'rotate-90'],
+    status: 'ready',
+  },
+  {
     id: 'mockup-floating-card',
     name: 'FloatingCard',
     category: 'mockups',
@@ -450,6 +458,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 6. Transitions
   {
+    id: 'trans-fade',
+    name: 'FadeTransition',
+    category: 'transitions',
+    description: 'Smooth deterministic opacity transition supporting fade-in, fade-out, in-out envelopes, and dual-layer crossfade dissolves',
+    variants: ['in', 'out', 'in-out', 'crossfade'],
+    status: 'ready',
+  },
+  {
     id: 'trans-wipe',
     name: 'WipeTransition',
     category: 'transitions',
@@ -461,9 +477,22 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     id: 'trans-slide',
     name: 'SlideTransition',
     category: 'transitions',
-    description: 'Coordinated camera-like push and pull scene shift',
-    variants: ['PushHorizontal', 'PushVertical'],
-    status: 'planned',
+    description: 'Coordinated camera-like push and pull scene shift across 8 directional vectors with spring physics and combined fade',
+    variants: [
+      'left',
+      'right',
+      'top',
+      'bottom',
+      'top-left',
+      'top-right',
+      'bottom-left',
+      'bottom-right',
+      'enter',
+      'exit',
+      'replace',
+      'spring',
+    ],
+    status: 'ready',
   },
   {
     id: 'trans-zoom',

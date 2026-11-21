@@ -576,3 +576,137 @@ export interface FloatingCardProps extends BaseMotionProps {
   elevation?: 'low' | 'medium' | 'high';
   borderGlow?: boolean;
 }
+
+// ---------------------------------------------------------------------------
+// TabletMockup Types
+// ---------------------------------------------------------------------------
+
+export type TabletOrientation = 'portrait' | 'landscape';
+export type TabletModelPreset = 'compact' | 'standard' | 'pro' | 'custom';
+export type TabletFinish =
+  | 'space-gray'
+  | 'silver'
+  | 'starlight'
+  | 'midnight'
+  | 'rose-gold'
+  | 'sky-blue';
+
+export interface TabletRotationConfig {
+  /** Start frame for device rotation animation (default: 0) */
+  startFrame?: number;
+  /** Duration in frames for rotation animation (default: 30) */
+  duration?: number;
+  /** Starting angle in degrees (default: 0) */
+  fromAngle?: number;
+  /** Target ending angle in degrees (default: 90) */
+  toAngle?: number;
+  /** Easing function or preset */
+  easing?: EasingPresetName | EasingFunction;
+}
+
+export interface TabletDimensions {
+  width: number;
+  height: number;
+  orientation: TabletOrientation;
+  frameThickness: number;
+  borderRadius: number;
+  screenRadius: number;
+  screenWidth: number;
+  screenHeight: number;
+  aspectRatio: number;
+}
+
+export interface TabletMockupProps {
+  /** Model size preset ('compact' | 'standard' | 'pro' | 'custom', default: 'standard') */
+  model?: TabletModelPreset;
+  /** Convenient alias for model */
+  preset?: TabletModelPreset;
+  /** Tablet orientation: 'portrait' (vertical) or 'landscape' (horizontal) (default: 'landscape') */
+  orientation?: TabletOrientation;
+  /** Outer tablet width in pixels (derived from preset and orientation if omitted) */
+  width?: number;
+  /** Outer tablet height in pixels (derived from preset and orientation if omitted) */
+  height?: number;
+  /** Screen aspect ratio (e.g. '4:3', '16:10', '3:2', or numeric ratio) */
+  aspectRatio?: string | number;
+  /** Pre-configured metallic hardware finish */
+  finish?: TabletFinish | string;
+  /** Custom device chassis color (default: '#1e2430' or finish color) */
+  deviceColor?: string;
+  /** Alternative alias for deviceColor */
+  frameColor?: string;
+  /** Screen background color (default: '#000000') */
+  screenColor?: string;
+  /** Frame/bezel border thickness in pixels (default: 16) */
+  frameThickness?: number;
+  /** Outer chassis corner radius in pixels (default: 26) */
+  borderRadius?: number;
+  /** Inner screen corner radius (concentric default: max(2, borderRadius - frameThickness)) */
+  screenRadius?: number;
+  /** Front camera dot on bezel (default: true) */
+  showCamera?: boolean;
+  /** Camera location on bezel ('top' | 'center' | 'left' | 'right', default: depends on orientation) */
+  cameraPosition?: 'top' | 'center' | 'left' | 'right';
+  /** Classic circular Touch ID home button (default: false) */
+  showHomeButton?: boolean;
+  /** Show tablet status bar (boolean, 'light' or 'dark' theme for contrast, or custom node) (default: true) */
+  showStatusBar?: boolean | 'light' | 'dark' | React.ReactNode;
+  /** Show bottom home gesture indicator bar (default: true) */
+  showHomeIndicator?: boolean;
+  /** Show magnetic stylus / Apple Pencil dock accent on chassis edge (default: false) */
+  showStylus?: boolean;
+  /** Hardware side volume and power buttons (default: true) */
+  showButtons?: boolean;
+  /** Custom buttons config */
+  buttons?: boolean | DeviceButtonConfig[];
+  /** 2D depth shadow preset or custom CSS box-shadow (default: 'medium') */
+  shadow?: DeviceShadowPreset | string;
+  /** Custom shadow tint */
+  shadowColor?: string;
+  /** Subtle diagonal glass glare reflection overlay across screen (default: true) */
+  glare?: boolean;
+  /** Screenshot image URL rendered inside screen viewport */
+  screenshot?: string;
+  /** Object fit mode for screenshot (default: 'cover') */
+  imageFit?: 'cover' | 'contain' | 'fill';
+  /** Custom React children rendered inside the screen viewport */
+  children?: React.ReactNode;
+  /** Dedicated screen content prop (alternative to children) */
+  screenContent?: React.ReactNode;
+  /** Primary entrance animation */
+  animation?: DeviceFrameAnimation | DeviceFrameAnimationConfig;
+  /** Master animation toggle (default: true) */
+  animate?: boolean;
+  /** Frame delay before entrance starts (default: 0) */
+  delay?: number;
+  /** Entrance animation duration in frames (default: 25) */
+  durationInFrames?: number;
+  /** Direction for slide entrance */
+  slideDirection?: DeviceSlideDirection;
+  /** Easing curve */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring preset */
+  springPreset?: SpringPresetName;
+  /** Continuous subtle floating motion */
+  floating?: boolean | SmartphoneFloatingConfig;
+  /** Continuous gentle tilt motion */
+  tilt?: boolean | SmartphoneTiltConfig;
+  /** Static device rotation angle in degrees */
+  deviceRotation?: number;
+  /** Deterministic device orientation rotation animation */
+  rotationAnimation?: boolean | TabletRotationConfig;
+  /** Sequential reveal transition for screen content */
+  screenReveal?: boolean | SmartphoneScreenRevealConfig;
+  /** Exit transition frame trigger */
+  exitFrame?: number;
+  /** Duration in frames for exit transition */
+  exitDurationInFrames?: number;
+  /** Exit transition type */
+  exitAnimation?: 'fade-out' | 'scale-out' | 'slide-down';
+  /** Outer tablet container styling */
+  style?: React.CSSProperties;
+  /** Screen viewport container styling */
+  screenStyle?: React.CSSProperties;
+  /** Custom CSS class */
+  className?: string;
+}

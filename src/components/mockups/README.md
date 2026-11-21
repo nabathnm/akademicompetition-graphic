@@ -4,6 +4,9 @@ High-fidelity device frames, simulated digital software viewports, and presentat
 
 ## Production-Ready Components
 
+- `TabletMockup`: Configurable tablet mockup container supporting landscape and portrait orientations, calibrated model presets (`compact`, `standard`, `pro`), metallic hardware finishes, Touch ID home button, magnetic Apple Pencil stylus dock, tablet-wide status bar, deterministic device rotation kinetics, and sequential screen reveals.
+  - Documentation: [docs/TABLET_MOCKUP.md](file:///c:/Users/ASUS/Desktop/Belajar/Belajar5/remotion/akademi/docs/TABLET_MOCKUP.md)
+  - Showcase: [TabletMockupShowcase.tsx](file:///c:/Users/ASUS/Desktop/Belajar/Belajar5/remotion/akademi/src/playground/showcases/TabletMockupShowcase.tsx)
 - `LaptopMockup`: Polished 2D laptop mockup with display lid, webcam dot, concentric screen bezel, metallic hinge, stylized chiclet keyboard deck, trackpad, deterministic lid-opening physics kinetics, floating/tilt kinematics, and sequential screen content reveals.
   - Documentation: [docs/LAPTOP_MOCKUP.md](file:///c:/Users/ASUS/Desktop/Belajar/Belajar5/remotion/akademi/docs/LAPTOP_MOCKUP.md)
   - Showcase: [LaptopMockupShowcase.tsx](file:///c:/Users/ASUS/Desktop/Belajar/Belajar5/remotion/akademi/src/playground/showcases/LaptopMockupShowcase.tsx)
@@ -19,7 +22,6 @@ High-fidelity device frames, simulated digital software viewports, and presentat
 
 ## Planned Specialized Extensions
 
-- `TabletMockup`: Tablet viewport container with landscape/portrait orientations and pencil dock accents.
 - `AppInterface`: In-app mobile feed, booking flow, or map interface container.
 - `FloatingCard`: Elevated perspective card with realistic soft drop shadow.
 

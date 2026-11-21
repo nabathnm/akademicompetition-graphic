@@ -28,3 +28,6 @@ export * from './DeviceFrameShowcase';
 export * from './SmartphoneMockupShowcase';
 export * from './BrowserWindowMockupShowcase';
 export * from './LaptopMockupShowcase';
+export * from './TabletMockupShowcase';
+export * from './FadeTransitionShowcase';
+export * from './SlideTransitionShowcase';
