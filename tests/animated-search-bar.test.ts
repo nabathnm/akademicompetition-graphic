@@ -13,7 +13,6 @@ import {
 import type {
   AnimatedSearchBarSize,
   AnimatedSearchBarVariant,
-  AnimatedSearchBarContainerEntrance,
 } from '../src/components/ui/types.ts';
 
 test('AnimatedSearchBar: Interaction Stage Transitions & Milestones', async (t) => {
@@ -236,7 +235,7 @@ test('AnimatedSearchBar: Suggestions & Stagger Mechanics', async (t) => {
 
     assert.equal(normal.backgroundColor, 'transparent');
     assert.notEqual(selected.backgroundColor, 'transparent');
-    assert.ok(selected.border?.includes('solid'));
+    assert.ok(String(selected.border).includes('solid'));
   });
 });
 
