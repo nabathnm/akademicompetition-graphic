@@ -489,5 +489,107 @@ export interface AnimatedCardProps {
   className?: string;
 }
 
+// ---------------------------------------------------------------------------
+// AnimatedNotification Types
+// ---------------------------------------------------------------------------
+
+export type AnimatedNotificationType =
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'message'
+  | 'custom';
+
+export type AnimatedNotificationVariant =
+  | 'toast'
+  | 'banner'
+  | 'floating'
+  | 'compact'
+  | 'card';
+
+export type AnimatedNotificationPosition =
+  | 'top'
+  | 'top-left'
+  | 'top-right'
+  | 'center'
+  | 'bottom'
+  | 'bottom-left'
+  | 'bottom-right';
+
+export type AnimatedNotificationEntrance =
+  | 'fade-in'
+  | 'slide-down'
+  | 'slide-up'
+  | 'slide-left'
+  | 'slide-right'
+  | 'scale-in'
+  | 'pop-in'
+  | 'expand';
+
+export type AnimatedNotificationExit =
+  | 'fade-out'
+  | 'slide-out'
+  | 'scale-out'
+  | 'collapse';
+
+export interface AnimatedNotificationProps {
+  /** Notification semantic category (default: 'info') */
+  type?: AnimatedNotificationType;
+  /** Visual presentation style (default: 'toast') */
+  variant?: AnimatedNotificationVariant;
+  /** Primary headline or title text */
+  title?: string | React.ReactNode;
+  /** Secondary body description */
+  description?: string | React.ReactNode;
+  /** Custom icon or Lucide icon */
+  icon?: LucideIcon | React.ReactNode;
+  /** Timestamp string (e.g. 'Just now', '2m ago') */
+  timestamp?: string;
+  /** Text label for optional action button */
+  actionLabel?: string;
+  /** Optional custom action node or CTA */
+  action?: React.ReactNode;
+  /** Starting frame for entrance animation (default: 0) */
+  startFrame?: number;
+  /** Duration in frames for entrance animation (default: 12) */
+  durationInFrames?: number;
+  /** Display duration before exit animation begins (default: 50) */
+  displayDuration?: number;
+  /** Explicit frame at which exit begins (overrides startFrame + displayDuration) */
+  exitFrame?: number;
+  /** Duration in frames for exit animation (default: 12) */
+  exitDurationInFrames?: number;
+  /** Entrance animation variant (default: 'slide-down') */
+  entranceVariant?: AnimatedNotificationEntrance;
+  /** Exit animation variant (default: 'fade-out') */
+  exitVariant?: AnimatedNotificationExit;
+  /** Canvas relative position preset (default: 'top-right') */
+  position?: AnimatedNotificationPosition;
+  /** Custom width override */
+  width?: number | string;
+  /** Custom background color override */
+  backgroundColor?: string;
+  /** Custom text color override */
+  textColor?: string;
+  /** Custom accent highlight color override */
+  accentColor?: string;
+  /** Custom border radius override */
+  borderRadius?: number | string;
+  /** Whether to show close icon button (default: true) */
+  showCloseButton?: boolean;
+  /** Whether to show linear progress indicator (default: true) */
+  showProgress?: boolean;
+  /** Total frame duration for progress bar completion (defaults to display duration) */
+  progressDuration?: number;
+  /** Custom style for the notification container */
+  style?: React.CSSProperties;
+  /** Custom style for content area */
+  contentStyle?: React.CSSProperties;
+  /** CSS class name */
+  className?: string;
+}
+
+
 
 

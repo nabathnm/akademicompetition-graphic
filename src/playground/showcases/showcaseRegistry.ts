@@ -198,6 +198,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 3. UI Components
   {
+    id: 'ui-animated-notification',
+    name: 'AnimatedNotification',
+    category: 'ui',
+    description: 'Frame-accurate toast, banner, alert, and floating notification component',
+    variants: ['toast', 'banner', 'floating', 'compact', 'card'],
+    status: 'ready',
+  },
+  {
     id: 'ui-animated-card',
     name: 'AnimatedCard',
     category: 'ui',

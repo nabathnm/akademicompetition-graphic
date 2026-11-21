@@ -24,6 +24,7 @@ import { AnimatedInputShowcase } from './showcases/AnimatedInputShowcase';
 import { AnimatedButtonShowcase } from './showcases/AnimatedButtonShowcase';
 import { AnimatedSearchBarShowcase } from './showcases/AnimatedSearchBarShowcase';
 import { AnimatedCardShowcase } from './showcases/AnimatedCardShowcase';
+import { AnimatedNotificationShowcase } from './showcases/AnimatedNotificationShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -34,6 +35,7 @@ import { AnimatedInput } from '../components/ui/AnimatedInput';
 import { AnimatedButton } from '../components/ui/AnimatedButton';
 import { AnimatedSearchBar } from '../components/ui/AnimatedSearchBar';
 import { AnimatedCard } from '../components/ui/AnimatedCard';
+import { AnimatedNotification } from '../components/ui/AnimatedNotification';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -75,7 +77,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
   variantB = 'Smooth (damping: 20, mass: 1.0, stiffness: 120)',
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
-  const [uiTab, setUiTab] = React.useState<'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
+  const [uiTab, setUiTab] = React.useState<'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -117,6 +119,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All UI Components' },
+              { id: 'animated-notification', label: 'AnimatedNotification (Phase 3.5)' },
               { id: 'animated-card', label: 'AnimatedCard (Phase 3.4)' },
               { id: 'animated-search-bar', label: 'AnimatedSearchBar (Phase 3.3)' },
               { id: 'animated-button', label: 'AnimatedButton (Phase 3.2)' },
@@ -124,7 +127,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setUiTab(tab.id as 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all')}
+                onClick={() => setUiTab(tab.id as 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all')}
                 style={{
                   padding: '6px 14px',
                   backgroundColor: uiTab === tab.id ? Colors.accent.brand : Colors.dark.surface2,
@@ -141,11 +144,22 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ))}
           </div>
 
-          {(uiTab === 'all' || uiTab === 'animated-card') && (
+          {(uiTab === 'all' || uiTab === 'animated-notification') && (
             <div>
               {uiTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.electricViolet, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: ANIMATEDNOTIFICATION COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedNotificationShowcase />
+            </div>
+          )}
+
+          {(uiTab === 'all' || uiTab === 'animated-card') && (
+            <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.amber, marginBottom: Spacing.scale.sm }}>
-                  SECTION A: ANIMATEDCARD COMPONENT SUITE
+                  SECTION B: ANIMATEDCARD COMPONENT SUITE
                 </div>
               )}
               <AnimatedCardShowcase />
@@ -156,7 +170,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
-                  SECTION B: ANIMATEDSEARCHBAR COMPONENT SUITE
+                  SECTION C: ANIMATEDSEARCHBAR COMPONENT SUITE
                 </div>
               )}
               <AnimatedSearchBarShowcase />
@@ -167,7 +181,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brand, marginBottom: Spacing.scale.sm }}>
-                  SECTION C: ANIMATEDBUTTON COMPONENT SUITE
+                  SECTION D: ANIMATEDBUTTON COMPONENT SUITE
                 </div>
               )}
               <AnimatedButtonShowcase />
@@ -178,7 +192,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {uiTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
-                  SECTION D: ANIMATEDINPUT COMPONENT SUITE
+                  SECTION E: ANIMATEDINPUT COMPONENT SUITE
                 </div>
               )}
               <AnimatedInputShowcase />
@@ -565,6 +579,43 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             fontFamily: Typography.fontFamily.mono,
                             color: Colors.accent.emerald,
                             marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'ui-animated-notification' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.xs,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 120,
+                          position: 'relative',
+                        }}
+                      >
+                        <AnimatedNotification
+                          type="success"
+                          variant="toast"
+                          title="Driver Arrived"
+                          description="Your Tesla Model S is outside"
+                          timestamp="Just now"
+                          position="center"
+                          startFrame={0}
+                          durationInFrames={20}
+                          showProgress={true}
+                          progressDuration={60}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.sm,
                           }}
                         >
                           ● PRODUCTION READY COMPONENT

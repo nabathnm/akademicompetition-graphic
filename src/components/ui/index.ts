@@ -11,3 +11,5 @@ export * from './animatedSearchBarStyle';
 export * from './AnimatedSearchBar';
 export * from './animatedCardStyle';
 export * from './AnimatedCard';
+export * from './animatedNotificationStyle';
+export * from './AnimatedNotification';
