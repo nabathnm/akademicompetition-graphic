@@ -27,6 +27,7 @@ import { AnimatedCardShowcase } from './showcases/AnimatedCardShowcase';
 import { AnimatedNotificationShowcase } from './showcases/AnimatedNotificationShowcase';
 import { AnimatedToggleShowcase } from './showcases/AnimatedToggleShowcase';
 import { AnimatedCheckboxShowcase } from './showcases/AnimatedCheckboxShowcase';
+import { AnimatedShapeShowcase } from './showcases/AnimatedShapeShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -40,6 +41,7 @@ import { AnimatedCard } from '../components/ui/AnimatedCard';
 import { AnimatedNotification } from '../components/ui/AnimatedNotification';
 import { AnimatedToggle } from '../components/ui/AnimatedToggle';
 import { AnimatedCheckbox } from '../components/ui/AnimatedCheckbox';
+import { AnimatedShape } from '../components/graphics/AnimatedShape';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -342,6 +344,11 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </div>
           )}
         </div>
+      )}
+
+      {/* 0.3 Graphics Components Showcase Mode */}
+      {viewMode === 'graphics' && (
+        <AnimatedShapeShowcase />
       )}
 
       {/* 1. Overview Mode: Grid of Categories & Blueprint Cards */}
@@ -850,6 +857,42 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             fontFamily: Typography.fontFamily.mono,
                             color: Colors.accent.emerald,
                             marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'graphic-animated-shape' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 120,
+                        }}
+                      >
+                        <AnimatedShape
+                          shape="rounded-rectangle"
+                          width={68}
+                          height={68}
+                          borderRadius={14}
+                          fill="rgba(39, 110, 241, 0.2)"
+                          stroke={Colors.accent.brand}
+                          strokeWidth={2.5}
+                          animation="combined"
+                          delay={0}
+                          durationInFrames={18}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
                           }}
                         >
                           ● PRODUCTION READY COMPONENT

@@ -1,6 +1,9 @@
 # Shape & Graphic Components (Layer 2)
 
-Vector shapes, coordinate grids, and ambient visual backdrops.
+Vector shapes, coordinate grids, and ambient visual backdrops for commercial motion graphics.
+
+## Available Components
+- `AnimatedShape`: Foundation geometric 2D shape component supporting rectangles, rounded rectangles, ellipses/circles, regular polygons, triangles, and stars with frame-based Remotion animations (fade, scale, rotate, move, pop, bounce, and progressive SVG stroke-dash draw reveals). See [docs/ANIMATED_SHAPE.md](../../../docs/ANIMATED_SHAPE.md).
 
 ## Planned Components
 - `GridBackground`: Geometric isometric or orthogonal dot/line grid.

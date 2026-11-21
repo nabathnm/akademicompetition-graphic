@@ -146,6 +146,28 @@ export const PlaygroundShell: React.FC<PlaygroundShellProps> = ({
             style={{
               padding: '3px 10px',
               borderRadius: Spacing.radius.xs,
+              backgroundColor: viewMode === 'ui' ? Colors.dark.surfaceElevated : 'transparent',
+              color: viewMode === 'ui' ? Colors.accent.emerald : Colors.text.tertiary,
+              fontWeight: viewMode === 'ui' ? 600 : 400,
+            }}
+          >
+            UI
+          </span>
+          <span
+            style={{
+              padding: '3px 10px',
+              borderRadius: Spacing.radius.xs,
+              backgroundColor: viewMode === 'graphics' ? Colors.dark.surfaceElevated : 'transparent',
+              color: viewMode === 'graphics' ? Colors.accent.cyan : Colors.text.tertiary,
+              fontWeight: viewMode === 'graphics' ? 600 : 400,
+            }}
+          >
+            Graphics
+          </span>
+          <span
+            style={{
+              padding: '3px 10px',
+              borderRadius: Spacing.radius.xs,
               backgroundColor: viewMode === 'comparison' ? Colors.dark.surfaceElevated : 'transparent',
               color: viewMode === 'comparison' ? Colors.text.primary : Colors.text.tertiary,
               fontWeight: viewMode === 'comparison' ? 600 : 400,

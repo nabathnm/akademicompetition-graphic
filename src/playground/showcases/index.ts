@@ -18,3 +18,4 @@ export * from './AnimatedCardShowcase';
 export * from './AnimatedNotificationShowcase';
 export * from './AnimatedToggleShowcase';
 export * from './AnimatedCheckboxShowcase';
+export * from './AnimatedShapeShowcase';

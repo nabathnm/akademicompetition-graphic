@@ -314,6 +314,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 5. Graphics
   {
+    id: 'graphic-animated-shape',
+    name: 'AnimatedShape',
+    category: 'graphics',
+    description: 'Foundation geometric shape component supporting rectangles, ellipses, polygons, stars, and frame-based SVG stroke animations',
+    variants: ['rectangle', 'rounded-rectangle', 'circle', 'polygon', 'triangle', 'star'],
+    status: 'ready',
+  },
+  {
     id: 'graphic-grid-bg',
     name: 'GridBackground',
     category: 'graphics',
