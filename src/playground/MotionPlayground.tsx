@@ -17,9 +17,18 @@ import { MotionUtilitiesShowcase } from './showcases/MotionUtilitiesShowcase';
 import { AnimatedTextShowcase } from './showcases/AnimatedTextShowcase';
 import { WordRevealShowcase } from './showcases/WordRevealShowcase';
 import { CharacterRevealShowcase } from './showcases/CharacterRevealShowcase';
+import { TextMaskShowcase } from './showcases/TextMaskShowcase';
+import { TextHighlightShowcase } from './showcases/TextHighlightShowcase';
+import { SplitTextShowcase } from './showcases/SplitTextShowcase';
+import { AnimatedInputShowcase } from './showcases/AnimatedInputShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
+import { TextMask } from '../components/typography/TextMask';
+import { TextHighlight } from '../components/typography/TextHighlight';
+import { SplitText } from '../components/typography/SplitText';
+import { AnimatedInput } from '../components/ui/AnimatedInput';
+import { Search } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
 import { Typography } from '../styles/typography';
@@ -59,7 +68,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
   variantA = 'Snappy (damping: 15, mass: 0.6, stiffness: 200)',
   variantB = 'Smooth (damping: 20, mass: 1.0, stiffness: 120)',
 }) => {
-  const [typoTab, setTypoTab] = React.useState<'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
+  const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -80,10 +89,15 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
         <MotionUtilitiesShowcase />
       )}
 
+      {/* 0.2 UI Components Showcase Mode */}
+      {viewMode === 'ui' && (
+        <AnimatedInputShowcase />
+      )}
+
       {/* 0.1 Typography Showcase Mode */}
       {viewMode === 'typography' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: Spacing.scale.xl }}>
-          {/* Sub-navigation bar across all 3 Typography Components */}
+          {/* Sub-navigation bar across all 6 Typography Components */}
           <div
             style={{
               display: 'flex',
@@ -101,19 +115,22 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All Typography' },
+              { id: 'split-text', label: 'SplitText (Phase 2.6)' },
+              { id: 'text-highlight', label: 'TextHighlight (Phase 2.5)' },
+              { id: 'text-mask', label: 'TextMask (Phase 2.4)' },
               { id: 'character-reveal', label: 'CharacterReveal (Phase 2.3)' },
               { id: 'word-reveal', label: 'WordReveal (Phase 2.2)' },
               { id: 'animated-text', label: 'AnimatedText (Phase 2.1)' },
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setTypoTab(tab.id as 'character-reveal' | 'word-reveal' | 'animated-text' | 'all')}
+                onClick={() => setTypoTab(tab.id as 'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all')}
                 style={{
                   padding: '6px 14px',
-                  backgroundColor: typoTab === tab.id ? Colors.accent.electricViolet : Colors.dark.surface2,
-                  border: `1px solid ${typoTab === tab.id ? Colors.accent.electricViolet : Colors.border.default}`,
+                  backgroundColor: typoTab === tab.id ? Colors.accent.cyan : Colors.dark.surface2,
+                  border: `1px solid ${typoTab === tab.id ? Colors.accent.cyan : Colors.border.default}`,
                   borderRadius: Spacing.radius.sm,
-                  color: typoTab === tab.id ? '#fff' : Colors.text.secondary,
+                  color: typoTab === tab.id ? '#000' : Colors.text.secondary,
                   fontWeight: 700,
                   fontSize: 11,
                   cursor: 'pointer',
@@ -124,11 +141,44 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ))}
           </div>
 
-          {(typoTab === 'all' || typoTab === 'character-reveal') && (
+          {(typoTab === 'all' || typoTab === 'split-text') && (
             <div>
               {typoTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: SPLITTEXT COMPONENT SUITE
+                </div>
+              )}
+              <SplitTextShowcase />
+            </div>
+          )}
+
+          {(typoTab === 'all' || typoTab === 'text-highlight') && (
+            <div style={{ marginTop: typoTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {typoTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
+                  SECTION B: TEXTHIGHLIGHT COMPONENT SUITE
+                </div>
+              )}
+              <TextHighlightShowcase />
+            </div>
+          )}
+
+          {(typoTab === 'all' || typoTab === 'text-mask') && (
+            <div style={{ marginTop: typoTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {typoTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.amber, marginBottom: Spacing.scale.sm }}>
+                  SECTION C: TEXTMASK COMPONENT SUITE
+                </div>
+              )}
+              <TextMaskShowcase />
+            </div>
+          )}
+
+          {(typoTab === 'all' || typoTab === 'character-reveal') && (
+            <div style={{ marginTop: typoTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {typoTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.electricViolet, marginBottom: Spacing.scale.sm }}>
-                  SECTION A: CHARACTERREVEAL COMPONENT SUITE
+                  SECTION D: CHARACTERREVEAL COMPONENT SUITE
                 </div>
               )}
               <CharacterRevealShowcase />
@@ -139,7 +189,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: typoTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {typoTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
-                  SECTION B: WORDREVEAL COMPONENT SUITE
+                  SECTION E: WORDREVEAL COMPONENT SUITE
                 </div>
               )}
               <WordRevealShowcase />
@@ -150,7 +200,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: typoTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {typoTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brand, marginBottom: Spacing.scale.sm }}>
-                  SECTION C: ANIMATEDTEXT COMPONENT SUITE
+                  SECTION F: ANIMATEDTEXT COMPONENT SUITE
                 </div>
               )}
               <AnimatedTextShowcase />
@@ -305,6 +355,151 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             letterSpacing: '0.04em',
                             textAlign: 'center',
                           }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'typo-text-mask' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.xs,
+                          padding: Spacing.scale.md,
+                        }}
+                      >
+                        <TextMask
+                          variant="bottom-reveal"
+                          text="ENGINEERED TO MOVE CITIES"
+                          startFrame={0}
+                          durationInFrames={20}
+                          showMaskBounds={true}
+                          style={{
+                            fontSize: 16,
+                            fontWeight: 800,
+                            color: Colors.accent.amber,
+                            letterSpacing: '-0.02em',
+                            textAlign: 'center',
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'typo-text-highlight' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.xs,
+                          padding: Spacing.scale.md,
+                        }}
+                      >
+                        <TextHighlight
+                          text="Make every moment count."
+                          highlight="moment"
+                          variant="marker"
+                          startFrame={0}
+                          durationInFrames={20}
+                          backgroundColor="rgba(245, 158, 11, 0.4)"
+                          style={{
+                            fontSize: 16,
+                            fontWeight: 700,
+                            color: Colors.text.primary,
+                            letterSpacing: '-0.01em',
+                            textAlign: 'center',
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'typo-split-text' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.xs,
+                          padding: Spacing.scale.md,
+                        }}
+                      >
+                        <SplitText
+                          text="OPTIMIZED FOR IMPACT"
+                          splitBy="word"
+                          variant="flip-up"
+                          startFrame={0}
+                          staggerDelay={4}
+                          segmentDuration={18}
+                          style={{
+                            fontSize: 16,
+                            fontWeight: 800,
+                            color: Colors.accent.cyan,
+                            letterSpacing: '0.04em',
+                            textAlign: 'center',
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'ui-animated-input' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.xs,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                        }}
+                      >
+                        <AnimatedInput
+                          value="san francisco, ca"
+                          placeholder="Where to?"
+                          variant="outlined"
+                          size="sm"
+                          startFrame={0}
+                          focusFrame={6}
+                          typingStartFrame={12}
+                          typingSpeed={2}
+                          showLeadingIcon={true}
+                          leadingIcon={Search}
                         />
                         <span
                           style={{

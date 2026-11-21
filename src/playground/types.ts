@@ -6,7 +6,7 @@
 import React from 'react';
 import { ComponentCategory } from '../components/types';
 
-export type PlaygroundViewMode = 'overview' | 'utilities' | 'typography' | 'comparison' | 'isolated';
+export type PlaygroundViewMode = 'overview' | 'utilities' | 'typography' | 'ui' | 'comparison' | 'isolated';
 
 export interface MotionPlaygroundProps {
   /** Active category filter ('all' displays all categories) */

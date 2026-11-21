@@ -35,6 +35,321 @@ export type CharacterRevealVariant =
   | 'elastic'
   | 'wave';
 
+export type TextMaskVariant =
+  | 'bottom-reveal'
+  | 'top-reveal'
+  | 'left-reveal'
+  | 'right-reveal'
+  | 'center-reveal'
+  | 'center-collapse'
+  | 'vertical-wipe'
+  | 'horizontal-wipe'
+  | 'diagonal-wipe'
+  | 'line-reveal'
+  | 'mask-slide-up';
+
+export type TextHighlightVariant =
+  | 'background'
+  | 'underline'
+  | 'marker'
+  | 'box'
+  | 'circle'
+  | 'strike'
+  | 'gradient'
+  | 'glow'
+  | 'border-bottom'
+  | 'bracket';
+
+export type TextHighlightDirection = 'left-to-right' | 'right-to-left' | 'center';
+
+export type SplitTextMode = 'line' | 'word' | 'character' | 'sentence' | 'custom';
+
+export type SplitTextVariant =
+  | 'fade'
+  | 'slide-up'
+  | 'slide-down'
+  | 'slide-left'
+  | 'slide-right'
+  | 'scale'
+  | 'pop'
+  | 'rotate'
+  | 'blur'
+  | 'flip-up'
+  | 'flip-down'
+  | 'stagger'
+  | 'wave'
+  | 'random-stagger';
+
+export interface SplitTextCustomSegment {
+  text: string;
+  id?: string;
+  style?: React.CSSProperties;
+  className?: string;
+  duration?: number;
+  delay?: number;
+  [key: string]: unknown;
+}
+
+export interface SplitTextSegment {
+  id: string;
+  text: string;
+  index: number;
+  wordIndex?: number;
+  lineIndex?: number;
+  sentenceIndex?: number;
+  trailingSpace?: string;
+  isNewline?: boolean;
+  customData?: Record<string, unknown>;
+}
+
+export interface SplitTextProps {
+  /** Text string to split and animate */
+  text?: string;
+  /** Custom segments when splitBy is 'custom' */
+  segments?: SplitTextCustomSegment[];
+  /** Splitting strategy (default: 'word') */
+  splitBy?: SplitTextMode;
+  /** Animation preset variant (default: 'slide-up') */
+  variant?: SplitTextVariant;
+  /** Frame at which the animation sequence begins (default: 0) */
+  startFrame?: number;
+  /** Total animation duration in frames */
+  durationInFrames?: number;
+  /** Delay in frames between consecutive segments (default: 2) */
+  staggerDelay?: number;
+  /** Duration in frames for each individual segment animation (default: 16) */
+  segmentDuration?: number;
+  /** Frame at which exit animation starts (optional) */
+  exitFrame?: number;
+  /** Duration in frames for each segment exit animation (default: 12) */
+  exitDurationInFrames?: number;
+  /** Stagger delay between segments during exit */
+  exitStaggerDelay?: number;
+  /** Additional frame delay added to startFrame (default: 0) */
+  delay?: number;
+  /** Easing curve for interpolation (default: 'easeOutCubic') */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring physics preset when using spring-based variant 'pop' (default: 'snappy') */
+  springPreset?: SpringPresetName;
+  /** Distance in pixels for translation variants (default: 30) */
+  distance?: number;
+  /** Starting scale for scale and pop variants (default: 0.85) */
+  initialScale?: number;
+  /** Starting rotation in degrees for rotate variant (default: -10) */
+  initialRotation?: number;
+  /** Starting blur radius in pixels for blur variant (default: 8) */
+  initialBlur?: number;
+  /** Whether to animate segments in reverse sequence (default: false) */
+  reverse?: boolean;
+  /** Direction mode: 'in' (entrance only), 'out' (exit only), 'both' (entrance and exit) */
+  direction?: 'in' | 'out' | 'both';
+  /** Deterministic seed for random-stagger variant (number or string, default: 42) */
+  seed?: number | string;
+  /** Custom inline style overrides for the outer container */
+  style?: React.CSSProperties;
+  /** Custom inline style overrides for each segment, or a function returning styles per segment */
+  segmentStyle?: React.CSSProperties | ((segment: SplitTextSegment, index: number) => React.CSSProperties);
+  /** Custom CSS class name for the outer container */
+  className?: string;
+  /** Custom CSS class name for segments, or a function returning class per segment */
+  segmentClassName?: string | ((segment: SplitTextSegment, index: number) => string);
+  /** Text alignment */
+  align?: 'left' | 'center' | 'right' | 'justify';
+  /** Whether to preserve multiple consecutive spaces and newlines (default: true) */
+  preserveWhitespace?: boolean;
+  /** HTML tag for the container (default: 'div') */
+  as?: React.ElementType;
+}
+
+export interface SplitTextStyleOptions {
+  currentFrame: number;
+  fps: number;
+  totalSegments: number;
+  segmentIndex: number;
+  variant?: SplitTextVariant;
+  startFrame?: number;
+  durationInFrames?: number;
+  staggerDelay?: number;
+  segmentDuration?: number;
+  exitFrame?: number;
+  exitDurationInFrames?: number;
+  exitStaggerDelay?: number;
+  delay?: number;
+  easing?: EasingPresetName | EasingFunction;
+  springPreset?: SpringPresetName;
+  distance?: number;
+  initialScale?: number;
+  initialRotation?: number;
+  initialBlur?: number;
+  reverse?: boolean;
+  direction?: 'in' | 'out' | 'both';
+  seed?: number | string;
+  shuffledIndices?: number[];
+}
+
+export interface SplitTextTiming {
+  segmentStartFrame: number;
+  segmentEndFrame: number;
+  segmentDuration: number;
+  exitStartFrame?: number;
+  exitEndFrame?: number;
+  exitDuration?: number;
+  totalDurationInFrames: number;
+}
+
+export interface TextSegment {
+  text: string;
+  highlighted?: boolean;
+}
+
+export interface TextHighlightProps {
+  /** Optional React children to highlight */
+  children?: React.ReactNode;
+  /** Complete text string to render */
+  text?: string;
+  /** Targeted word, phrase, array of keywords, or regex to highlight within text */
+  highlight?: string | string[] | RegExp;
+  /** Structured array of text segments for explicit type-safe targeting */
+  segments?: TextSegment[];
+  /** Highlight emphasis variant (default: 'background') */
+  variant?: TextHighlightVariant;
+  /** Frame at which the highlight animation begins (default: 0) */
+  startFrame?: number;
+  /** Duration of highlight entrance animation in frames (default: 18) */
+  durationInFrames?: number;
+  /** Frame at which exit animation starts (optional) */
+  exitFrame?: number;
+  /** Duration of exit animation in frames (default: 12) */
+  exitDurationInFrames?: number;
+  /** Easing curve for interpolation (default: 'easeOutCubic') */
+  easing?: EasingPresetName | EasingFunction;
+  /** Primary accent color used for highlight */
+  color?: string;
+  /** Background highlight fill color (used for 'background', 'marker', 'gradient') */
+  backgroundColor?: string;
+  /** Border outline color (used for 'box', 'circle', 'bracket', 'border-bottom') */
+  borderColor?: string;
+  /** Stroke / underline / border thickness in pixels or string (default: 3) */
+  thickness?: number | string;
+  /** Padding around the highlighted text (default: '0.1em 0.3em') */
+  padding?: number | string;
+  /** Border radius for background, box, and marker highlights (default: 4) */
+  borderRadius?: number | string;
+  /** Vertical offset below baseline for underline and border-bottom (default: 2) */
+  underlineOffset?: number | string;
+  /** Custom width override for the highlight */
+  highlightWidth?: number | string;
+  /** Custom height override for the highlight */
+  highlightHeight?: number | string;
+  /** Reveal sweep direction (default: 'left-to-right') */
+  direction?: 'left-to-right' | 'right-to-left' | 'center';
+  /** Inverts reveal animation (default: false) */
+  reverse?: boolean;
+  /** Custom inline style overrides for the outer container */
+  style?: React.CSSProperties;
+  /** Custom inline style overrides for the highlighted span element */
+  highlightStyle?: React.CSSProperties;
+  /** Custom CSS class name for outer container */
+  className?: string;
+  /** Custom CSS class name for highlighted span */
+  highlightClassName?: string;
+  /** HTML tag for the container (default: 'span') */
+  as?: React.ElementType;
+  /** Text alignment */
+  align?: 'left' | 'center' | 'right' | 'justify';
+}
+
+export interface TextHighlightStyleOptions {
+  currentFrame: number;
+  fps: number;
+  variant?: TextHighlightVariant;
+  startFrame?: number;
+  durationInFrames?: number;
+  exitFrame?: number;
+  exitDurationInFrames?: number;
+  easing?: EasingPresetName | EasingFunction;
+  direction?: 'left-to-right' | 'right-to-left' | 'center';
+  reverse?: boolean;
+}
+
+export interface CalculatedHighlightStyle {
+  progress: number;
+  outProgress: number;
+  clipPath?: string;
+  transform?: string;
+  opacity: number;
+  strokeDashoffset?: number;
+  visibility: React.CSSProperties['visibility'];
+}
+
+export interface TextMaskProps {
+  /** Optional React children to mask */
+  children?: React.ReactNode;
+  /** Optional plain text content to mask */
+  text?: string;
+  /** Animation preset variant (default: 'bottom-reveal') */
+  variant?: TextMaskVariant;
+  /** Frame at which the reveal animation starts (default: 0) */
+  startFrame?: number;
+  /** Duration of reveal animation in frames (default: 20) */
+  durationInFrames?: number;
+  /** Frame at which exit animation starts (optional) */
+  exitFrame?: number;
+  /** Duration of exit animation in frames (default: 14) */
+  exitDurationInFrames?: number;
+  /** Easing curve for interpolation (default: 'easeOutCubic') */
+  easing?: EasingPresetName | EasingFunction;
+  /** Direction mode: 'in' (entrance only), 'out' (exit only), 'both' (entrance and exit) */
+  direction?: 'in' | 'out' | 'both';
+  /** Distance or percentage offset for slide variants (default: '100%') */
+  distance?: number | string;
+  /** Frame delay between consecutive lines for 'line-reveal' (default: 4) */
+  staggerDelay?: number;
+  /** Animation duration per line for 'line-reveal' (default: 18) */
+  lineDuration?: number;
+  /** Inverts reveal direction (default: false) */
+  reverse?: boolean;
+  /** Container overflow setting (default: 'hidden') */
+  overflow?: 'hidden' | 'visible';
+  /** Color of optional overlay wipe block (optional) */
+  maskColor?: string;
+  /** When true, renders a dashed boundary around the clipping container for visual inspection */
+  showMaskBounds?: boolean;
+  /** Optional explicit array of text lines for 'line-reveal' */
+  lines?: string[];
+  /** Custom inline styles for the clipping container */
+  style?: React.CSSProperties;
+  /** Custom inline styles for the inner animated content */
+  contentStyle?: React.CSSProperties;
+  /** Custom CSS class name */
+  className?: string;
+  /** HTML tag for the container (default: 'div') */
+  as?: React.ElementType;
+  /** Text alignment */
+  align?: 'left' | 'center' | 'right' | 'justify';
+}
+
+export interface TextMaskStyleOptions {
+  currentFrame: number;
+  fps: number;
+  variant?: TextMaskVariant;
+  startFrame?: number;
+  durationInFrames?: number;
+  exitFrame?: number;
+  exitDurationInFrames?: number;
+  easing?: EasingPresetName | EasingFunction;
+  direction?: 'in' | 'out' | 'both';
+  distance?: number | string;
+  reverse?: boolean;
+}
+
+export interface CalculatedMaskStyle {
+  clipPath?: string;
+  transform?: string;
+  opacity: number;
+  visibility: React.CSSProperties['visibility'];
+}
+
 export interface CharacterToken {
   id: string;
   char: string;
