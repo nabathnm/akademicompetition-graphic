@@ -314,6 +314,21 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
 
   // 5. Graphics
   {
+    id: 'graphic-animated-arrow',
+    name: 'AnimatedArrow',
+    category: 'graphics',
+    description: 'Configurable vector arrow component supporting straight, diagonal, and curved Bezier paths, single/double arrowheads, and sequenced reveals',
+    variants: [
+      'draw-in',
+      'draw-out',
+      'arrowhead-reveal',
+      'move-in',
+      'scale-in',
+      'fade-in',
+    ],
+    status: 'ready',
+  },
+  {
     id: 'graphic-animated-circle',
     name: 'AnimatedCircle',
     category: 'graphics',

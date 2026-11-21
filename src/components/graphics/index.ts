@@ -9,3 +9,5 @@ export * from './animatedLineStyle';
 export * from './AnimatedLine';
 export * from './animatedCircleStyle';
 export * from './AnimatedCircle';
+export * from './animatedArrowStyle';
+export * from './AnimatedArrow';

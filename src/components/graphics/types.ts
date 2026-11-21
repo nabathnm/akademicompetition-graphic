@@ -434,3 +434,164 @@ export interface AnimatedCircleProps {
   className?: string;
 }
 
+// ---------------------------------------------------------------------------
+// AnimatedArrow Types
+// ---------------------------------------------------------------------------
+
+export type ArrowheadStyle = 'triangle' | 'chevron' | 'stealth' | 'barb' | 'circle';
+
+export type ArrowheadPlacement = 'end' | 'start' | 'both';
+
+export type ArrowheadTiming = 'with-line' | 'after-line' | 'independent';
+
+export type ArrowDirection =
+  | 'right'
+  | 'left'
+  | 'up'
+  | 'down'
+  | 'diagonal-up-right'
+  | 'diagonal-down-right'
+  | 'diagonal-up-left'
+  | 'diagonal-down-left'
+  | 'custom';
+
+export type ArrowAnimation =
+  | 'none'
+  | 'draw-in'
+  | 'draw'
+  | 'draw-out'
+  | 'directional-reveal'
+  | 'reveal'
+  | 'move-in'
+  | 'arrowhead-reveal'
+  | 'scale-in'
+  | 'scale-out'
+  | 'fade-in'
+  | 'fade-out';
+
+export interface ArrowAnimationConfig {
+  /** Animation preset type */
+  type?: ArrowAnimation;
+  /** Frame delay before animation begins (default: 0) */
+  delay?: number;
+  /** Duration in frames for animation progression (default: 20) */
+  duration?: number;
+  /** Easing function or preset name */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring physics preset key */
+  springPreset?: SpringPresetName;
+  /** Direction for movement or reveal */
+  direction?: 'forward' | 'backward';
+  /** How arrowhead entrance is sequenced relative to line */
+  headTiming?: ArrowheadTiming;
+  /** Frame delay for arrowhead when using independent timing */
+  headDelay?: number;
+  /** Frame duration for arrowhead entrance */
+  headDuration?: number;
+  /** Custom initial numeric value override */
+  from?: number;
+  /** Custom target numeric value override */
+  to?: number;
+  /** Whether the animation repeats / loops continuously across frames */
+  loop?: boolean;
+}
+
+export interface AnimatedArrowProps {
+  /** Starting horizontal coordinate in pixels (default: 0) */
+  x1?: number;
+  /** Starting vertical coordinate in pixels (default: 0) */
+  y1?: number;
+  /** Ending horizontal coordinate in pixels (default: 100 or resolved from direction) */
+  x2?: number;
+  /** Ending vertical coordinate in pixels (default: 0 or resolved from direction) */
+  y2?: number;
+  /** Cardinal / diagonal direction preset */
+  direction?: ArrowDirection;
+  /** Arrow length in pixels when using direction presets (default: 100) */
+  length?: number;
+  /** Curvature factor for curved arrows (-1 to 1, 0 = straight line, default: 0) */
+  curvature?: number;
+  /** Optional explicit Bezier control point for custom curve shaping */
+  controlPoint?: { x: number; y: number };
+  /** Arrowhead visual style ('triangle' | 'chevron' | 'stealth' | 'barb' | 'circle', default: 'triangle') */
+  arrowheadStyle?: ArrowheadStyle;
+  /** Arrowhead placement on line ('end' | 'start' | 'both', default: 'end') */
+  arrowheadPlacement?: ArrowheadPlacement;
+  /** Arrowhead dimension/size in pixels (default: 14) */
+  arrowheadSize?: number;
+  /** Arrowhead tip flare angle in degrees (default: 32) */
+  arrowheadAngle?: number;
+  /** Custom fill color for closed arrowheads (defaults to stroke color) */
+  arrowheadFill?: string;
+  /** Arrowhead entrance sequencing relative to line ('with-line' | 'after-line' | 'independent') */
+  headTiming?: ArrowheadTiming;
+  /** Delay in frames before arrowhead appears when using independent timing */
+  headDelay?: number;
+  /** Duration in frames for arrowhead entrance */
+  headDurationInFrames?: number;
+  /** Stroke color (default: '#276EF1') */
+  stroke?: string;
+  /** Stroke thickness in pixels (default: 2) */
+  strokeWidth?: number;
+  /** SVG line cap ('round' | 'butt' | 'square', default: 'round') */
+  strokeLinecap?: 'round' | 'butt' | 'square';
+  /** SVG line join ('round' | 'miter' | 'bevel', default: 'round') */
+  strokeLinejoin?: 'round' | 'miter' | 'bevel';
+  /** SVG stroke dash pattern (e.g. "8 4" for dashed arrows) */
+  strokeDasharray?: string | number;
+  /** Base stroke dash offset */
+  strokeDashoffset?: number;
+  /** Stroke opacity from 0 to 1 (default: 1) */
+  strokeOpacity?: number;
+  /** Overall container opacity from 0 to 1 (default: 1) */
+  opacity?: number;
+  /** Angular rotation in degrees (default: 0) */
+  rotation?: number;
+  /** CSS transform origin (default: 'center center') */
+  transformOrigin?: string;
+  /** Horizontal position translation offset in pixels */
+  x?: number;
+  /** Vertical position translation offset in pixels */
+  y?: number;
+  /** Uniform scale multiplier (default: 1) */
+  scale?: number;
+  /** Horizontal scale multiplier */
+  scaleX?: number;
+  /** Vertical scale multiplier */
+  scaleY?: number;
+  /** Explicit outer SVG width in pixels */
+  width?: number;
+  /** Explicit outer SVG height in pixels */
+  height?: number;
+  /** Primary animation type shorthand or full config */
+  animation?: ArrowAnimation | ArrowAnimationConfig;
+  /** Whether animation is enabled (default: true) */
+  animate?: boolean;
+  /** Frame delay before animation begins (shorthand for animation.delay) */
+  delay?: number;
+  /** Duration in frames (shorthand for animation.duration) */
+  durationInFrames?: number;
+  /** Easing preset or custom function */
+  easing?: EasingPresetName | EasingFunction;
+  /** Spring physics preset */
+  springPreset?: SpringPresetName;
+  /** Custom starting value override */
+  from?: number;
+  /** Custom target value override */
+  to?: number;
+  /** Optional exit animation frame trigger */
+  exitFrame?: number;
+  /** Duration in frames for exit transition */
+  exitDurationInFrames?: number;
+  /** Exit animation type */
+  exitAnimation?: 'fade-out' | 'scale-out' | 'draw-out';
+  /** Child elements positioned relative to arrow container */
+  children?: React.ReactNode;
+  /** Outer container CSS style */
+  style?: React.CSSProperties;
+  /** SVG element CSS style */
+  svgStyle?: React.CSSProperties;
+  /** Custom CSS class */
+  className?: string;
+}
+

@@ -30,6 +30,7 @@ import { AnimatedCheckboxShowcase } from './showcases/AnimatedCheckboxShowcase';
 import { AnimatedShapeShowcase } from './showcases/AnimatedShapeShowcase';
 import { AnimatedLineShowcase } from './showcases/AnimatedLineShowcase';
 import { AnimatedCircleShowcase } from './showcases/AnimatedCircleShowcase';
+import { AnimatedArrowShowcase } from './showcases/AnimatedArrowShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -46,6 +47,7 @@ import { AnimatedCheckbox } from '../components/ui/AnimatedCheckbox';
 import { AnimatedShape } from '../components/graphics/AnimatedShape';
 import { AnimatedLine } from '../components/graphics/AnimatedLine';
 import { AnimatedCircle } from '../components/graphics/AnimatedCircle';
+import { AnimatedArrow } from '../components/graphics/AnimatedArrow';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -88,7 +90,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
-  const [graphicsTab, setGraphicsTab] = React.useState<'animated-circle' | 'animated-line' | 'animated-shape' | 'all'>('all');
+  const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'all'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -372,6 +374,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All Graphics' },
+              { id: 'animated-arrow', label: 'AnimatedArrow' },
               { id: 'animated-circle', label: 'AnimatedCircle' },
               { id: 'animated-line', label: 'AnimatedLine' },
               { id: 'animated-shape', label: 'AnimatedShape' },
@@ -397,11 +400,22 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             ))}
           </div>
 
-          {(graphicsTab === 'all' || graphicsTab === 'animated-circle') && (
+          {(graphicsTab === 'all' || graphicsTab === 'animated-arrow') && (
             <div>
               {graphicsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.amber, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: ANIMATEDARROW COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedArrowShowcase />
+            </div>
+          )}
+
+          {(graphicsTab === 'all' || graphicsTab === 'animated-circle') && (
+            <div style={{ marginTop: graphicsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {graphicsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
-                  SECTION A: ANIMATEDCIRCLE COMPONENT SUITE
+                  SECTION B: ANIMATEDCIRCLE COMPONENT SUITE
                 </div>
               )}
               <AnimatedCircleShowcase />
@@ -412,7 +426,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: graphicsTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {graphicsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
-                  SECTION B: ANIMATEDLINE COMPONENT SUITE
+                  SECTION C: ANIMATEDLINE COMPONENT SUITE
                 </div>
               )}
               <AnimatedLineShowcase />
@@ -423,7 +437,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             <div style={{ marginTop: graphicsTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {graphicsTab === 'all' && (
                 <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brand, marginBottom: Spacing.scale.sm }}>
-                  SECTION C: ANIMATEDSHAPE COMPONENT SUITE
+                  SECTION D: ANIMATEDSHAPE COMPONENT SUITE
                 </div>
               )}
               <AnimatedShapeShowcase />
@@ -938,6 +952,43 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             fontFamily: Typography.fontFamily.mono,
                             color: Colors.accent.emerald,
                             marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'graphic-animated-arrow' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 120,
+                        }}
+                      >
+                        <AnimatedArrow
+                          direction="right"
+                          length={140}
+                          curvature={-0.3}
+                          arrowheadStyle="stealth"
+                          arrowheadSize={14}
+                          stroke={Colors.accent.amber}
+                          strokeWidth={3}
+                          headTiming="after-line"
+                          animation="draw-in"
+                          delay={0}
+                          durationInFrames={20}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
                           }}
                         >
                           ● PRODUCTION READY COMPONENT
