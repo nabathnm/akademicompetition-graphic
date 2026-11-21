@@ -12,3 +12,4 @@ export * from './TextMaskShowcase';
 export * from './TextHighlightShowcase';
 export * from './SplitTextShowcase';
 export * from './AnimatedInputShowcase';
+export * from './AnimatedButtonShowcase';

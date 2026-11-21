@@ -21,6 +21,7 @@ import { TextMaskShowcase } from './showcases/TextMaskShowcase';
 import { TextHighlightShowcase } from './showcases/TextHighlightShowcase';
 import { SplitTextShowcase } from './showcases/SplitTextShowcase';
 import { AnimatedInputShowcase } from './showcases/AnimatedInputShowcase';
+import { AnimatedButtonShowcase } from './showcases/AnimatedButtonShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -28,7 +29,8 @@ import { TextMask } from '../components/typography/TextMask';
 import { TextHighlight } from '../components/typography/TextHighlight';
 import { SplitText } from '../components/typography/SplitText';
 import { AnimatedInput } from '../components/ui/AnimatedInput';
-import { Search } from 'lucide-react';
+import { AnimatedButton } from '../components/ui/AnimatedButton';
+import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
 import { Typography } from '../styles/typography';
@@ -69,6 +71,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
   variantB = 'Smooth (damping: 20, mass: 1.0, stiffness: 120)',
 }) => {
   const [typoTab, setTypoTab] = React.useState<'split-text' | 'text-highlight' | 'text-mask' | 'character-reveal' | 'word-reveal' | 'animated-text' | 'all'>('all');
+  const [uiTab, setUiTab] = React.useState<'animated-button' | 'animated-input' | 'all'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -91,7 +94,69 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
 
       {/* 0.2 UI Components Showcase Mode */}
       {viewMode === 'ui' && (
-        <AnimatedInputShowcase />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: Spacing.scale.xl }}>
+          {/* Sub-navigation bar across all UI Components */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: Spacing.scale.sm,
+              backgroundColor: Colors.dark.surface1,
+              padding: `${Spacing.scale.sm}px ${Spacing.scale.md}px`,
+              borderRadius: Spacing.radius.md,
+              border: `1px solid ${Colors.border.default}`,
+              flexWrap: 'wrap',
+            }}
+          >
+            <span style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.text.tertiary, marginRight: Spacing.scale.sm }}>
+              UI COMPONENTS:
+            </span>
+            {[
+              { id: 'all', label: 'All UI Components' },
+              { id: 'animated-button', label: 'AnimatedButton (Phase 3.2)' },
+              { id: 'animated-input', label: 'AnimatedInput (Phase 3.1)' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setUiTab(tab.id as 'animated-button' | 'animated-input' | 'all')}
+                style={{
+                  padding: '6px 14px',
+                  backgroundColor: uiTab === tab.id ? Colors.accent.brand : Colors.dark.surface2,
+                  border: `1px solid ${uiTab === tab.id ? Colors.accent.brand : Colors.border.default}`,
+                  borderRadius: Spacing.radius.sm,
+                  color: uiTab === tab.id ? '#fff' : Colors.text.secondary,
+                  fontWeight: 700,
+                  fontSize: 11,
+                  cursor: 'pointer',
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {(uiTab === 'all' || uiTab === 'animated-button') && (
+            <div>
+              {uiTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brand, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: ANIMATEDBUTTON COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedButtonShowcase />
+            </div>
+          )}
+
+          {(uiTab === 'all' || uiTab === 'animated-input') && (
+            <div style={{ marginTop: uiTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {uiTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
+                  SECTION B: ANIMATEDINPUT COMPONENT SUITE
+                </div>
+              )}
+              <AnimatedInputShowcase />
+            </div>
+          )}
+        </div>
       )}
 
       {/* 0.1 Typography Showcase Mode */}
@@ -465,6 +530,40 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             letterSpacing: '0.04em',
                             textAlign: 'center',
                           }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: 4,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'ui-animated-button' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.xs,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                        }}
+                      >
+                        <AnimatedButton
+                          label="Confirm Ride"
+                          variant="primary"
+                          size="md"
+                          startFrame={0}
+                          hoverFrame={10}
+                          pressFrame={20}
+                          releaseFrame={28}
+                          showTrailingIcon={true}
+                          trailingIcon={ArrowRight}
                         />
                         <span
                           style={{

@@ -206,6 +206,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     status: 'ready',
   },
   {
+    id: 'ui-animated-button',
+    name: 'AnimatedButton',
+    category: 'ui',
+    description: 'Commercial CTA button with realistic press physics, spring release, rotating spinner, and feedback states',
+    variants: ['primary', 'secondary', 'outline', 'ghost', 'text', 'icon-only'],
+    status: 'ready',
+  },
+  {
     id: 'ui-badge',
     name: 'Badge',
     category: 'ui',

@@ -36,7 +36,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   size = 'medium',
   state: explicitState,
   startFrame = 0,
-  durationInFrames: _durationInFrames,
+  hoverFrame,
   pressFrame,
   releaseFrame,
   loadingStartFrame,
@@ -59,7 +59,9 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   height,
   icon,
   leadingIcon,
+  showLeadingIcon = true,
   trailingIcon,
+  showTrailingIcon = true,
   loadingLabel = 'Loading...',
   successLabel,
   errorLabel,
@@ -76,6 +78,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   const activeState = deriveAnimatedButtonState({
     currentFrame,
     startFrame,
+    hoverFrame,
     pressFrame,
     releaseFrame,
     loadingStartFrame,
@@ -167,6 +170,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
     }
 
     // Otherwise render leadingIcon or icon
+    if (!showLeadingIcon) return null;
     const targetIcon = leadingIcon || (isIconOnly ? icon : undefined);
     if (!targetIcon) return null;
 
@@ -189,7 +193,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   // Helper renderer for Trailing Icon
   const renderTrailingIcon = () => {
     if (isLoading || isSuccess || isError) return null;
-    if (!trailingIcon) return null;
+    if (!showTrailingIcon || !trailingIcon) return null;
 
     if (React.isValidElement(trailingIcon)) {
       return (

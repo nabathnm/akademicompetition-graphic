@@ -178,6 +178,8 @@ export interface AnimatedButtonProps {
   startFrame?: number;
   /** Total animation duration in frames (optional) */
   durationInFrames?: number;
+  /** Frame at which hover interaction begins */
+  hoverFrame?: number;
   /** Frame at which press interaction begins */
   pressFrame?: number;
   /** Frame at which press interaction is released */
@@ -222,8 +224,12 @@ export interface AnimatedButtonProps {
   icon?: LucideIcon | React.ReactNode;
   /** Optional leading icon (component or element) */
   leadingIcon?: LucideIcon | React.ReactNode;
+  /** Whether to show leading icon (default: true if leadingIcon is provided) */
+  showLeadingIcon?: boolean;
   /** Optional trailing icon (component or element) */
   trailingIcon?: LucideIcon | React.ReactNode;
+  /** Whether to show trailing icon (default: true if trailingIcon is provided) */
+  showTrailingIcon?: boolean;
   /** Label displayed when in loading state (default: 'Loading...') */
   loadingLabel?: string;
   /** Label displayed when in success state */

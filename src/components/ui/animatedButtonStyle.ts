@@ -17,13 +17,14 @@ import { Colors } from '../../styles/colors.ts';
 import { Spacing } from '../../styles/spacing.ts';
 import { Typography } from '../../styles/typography.ts';
 import { clamp } from '../../utils/animation/clamp.ts';
-import { resolveEasing, type EasingPresetName, type EasingFunction } from '../../utils/animation/easing.ts';
+import { resolveEasing, easeOutCubic, type EasingPresetName, type EasingFunction } from '../../utils/animation/easing.ts';
 import { createSpring } from '../../utils/animation/spring.ts';
 import type { SpringPresetName } from '../../styles/motion.ts';
 
 export interface ButtonStateDeterminationOptions {
   currentFrame: number;
   startFrame?: number;
+  hoverFrame?: number;
   pressFrame?: number;
   releaseFrame?: number;
   loadingStartFrame?: number;
@@ -37,6 +38,7 @@ export interface ButtonStateDeterminationOptions {
  */
 export const deriveAnimatedButtonState = ({
   currentFrame,
+  hoverFrame,
   pressFrame,
   releaseFrame,
   loadingStartFrame,
@@ -71,6 +73,10 @@ export const deriveAnimatedButtonState = ({
 
   if (typeof pressFrame === 'number' && currentFrame >= pressFrame) {
     return 'pressed';
+  }
+
+  if (typeof hoverFrame === 'number' && currentFrame >= hoverFrame) {
+    return 'hover';
   }
 
   return 'idle';
@@ -180,9 +186,9 @@ export const calculateButtonVisualStyles = ({
   const isError = state === 'error';
   const isDisabled = state === 'disabled';
 
-  let bg = Colors.accent.brand;
-  let text = Colors.text.primary;
-  let border = '1px solid transparent';
+  let bg: string = Colors.accent.brand;
+  let text: string = Colors.text.primary;
+  let border: string = '1px solid transparent';
   let shadow: string | undefined = '0 2px 6px rgba(0, 0, 0, 0.2)';
 
   // 1. Variant Foundations
@@ -393,6 +399,7 @@ export const calculateButtonMotion = ({
   let inProgress = 1;
   const elapsedIn = currentFrame - startFrame;
   const safeInDuration = Math.max(1, entranceDuration);
+  const easingFn = resolveEasing(easing) ?? easeOutCubic;
 
   if (entrance === 'pop-in') {
     inProgress = createSpring({
@@ -402,7 +409,7 @@ export const calculateButtonMotion = ({
     });
   } else if (entrance !== 'none') {
     const raw = clamp(elapsedIn / safeInDuration, 0, 1);
-    inProgress = resolveEasing(easing)(raw);
+    inProgress = easingFn(raw);
   }
 
   let outProgress = 0;
@@ -410,7 +417,7 @@ export const calculateButtonMotion = ({
     const elapsedOut = currentFrame - (exitFrame as number);
     const safeOutDur = Math.max(1, exitDurationInFrames);
     const raw = clamp(elapsedOut / safeOutDur, 0, 1);
-    outProgress = resolveEasing(easing)(raw);
+    outProgress = easingFn(raw);
   }
 
   const alpha = Math.max(0, inProgress * (1 - outProgress));

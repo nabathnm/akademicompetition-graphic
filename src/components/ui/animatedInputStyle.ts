@@ -16,7 +16,7 @@ import { Colors } from '../../styles/colors.ts';
 import { Spacing } from '../../styles/spacing.ts';
 import { Typography } from '../../styles/typography.ts';
 import { clamp } from '../../utils/animation/clamp.ts';
-import { resolveEasing } from '../../utils/animation/easing.ts';
+import { resolveEasing, easeOutCubic } from '../../utils/animation/easing.ts';
 
 export interface StateDeterminationOptions {
   currentFrame: number;
@@ -170,7 +170,7 @@ export const calculateInputVisualStyles = ({
   const isSubmitted = state === 'submitted';
   const isDisabled = state === 'disabled';
 
-  let borderColor = Colors.border.default;
+  let borderColor: string = Colors.border.default;
   let ringColor: string | undefined = undefined;
   let backgroundColor: string = Colors.dark.surface1;
 
@@ -277,7 +277,8 @@ export const calculateInputEntrance = ({
 
   const safeDuration = Math.max(1, duration);
   const rawProgress = clamp((currentFrame - startFrame) / safeDuration, 0, 1);
-  const progress = resolveEasing('easeOutCubic')(rawProgress);
+  const easingFn = resolveEasing('easeOutCubic') ?? easeOutCubic;
+  const progress = easingFn(rawProgress);
 
   let transform: string | undefined = undefined;
 
