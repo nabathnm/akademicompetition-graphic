@@ -32,3 +32,5 @@ export * from './TabletMockupShowcase';
 export * from './FadeTransitionShowcase';
 export * from './SlideTransitionShowcase';
 export * from './ZoomTransitionShowcase';
+export * from './WipeTransitionShowcase';
+export * from './MaskTransitionShowcase';

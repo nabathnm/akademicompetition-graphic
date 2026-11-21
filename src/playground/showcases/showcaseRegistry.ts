@@ -469,9 +469,9 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     id: 'trans-wipe',
     name: 'WipeTransition',
     category: 'transitions',
-    description: 'Directional solid bar or angled curtain wipe',
-    variants: ['LeftToRight', 'RightToLeft', 'TopToBottom'],
-    status: 'planned',
+    description: 'Moving clipping boundary reveal across 8 patterns (directional, center-out, diagonal, and radial) with edge bar styling',
+    variants: ['LeftToRight', 'RightToLeft', 'TopToBottom', 'BottomToTop', 'CenterOut', 'CenterIn', 'Diagonal', 'Radial'],
+    status: 'ready',
   },
   {
     id: 'trans-slide',
@@ -502,4 +502,13 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     variants: ['ZoomIn', 'ZoomOut', 'ZoomInOut', 'ZoomThrough', 'ZoomReplace'],
     status: 'ready',
   },
+  {
+    id: 'trans-mask',
+    name: 'MaskTransition',
+    category: 'transitions',
+    description: 'Normalized geometric masks (circle, rect, ellipse, polygon) and custom SVG paths with multi-origin expansion',
+    variants: ['Circle', 'Rectangle', 'RoundedRect', 'Ellipse', 'PolygonStar', 'SVGPathHeart', 'RevealHide', 'Replace'],
+    status: 'ready',
+  },
 ];
+
