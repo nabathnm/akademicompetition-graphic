@@ -1,0 +1,32 @@
+/* Global CSS and Reset for Remotion Video Rendering */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: #000000;
+  color: #FFFFFF;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  user-select: none;
+}
+
+:root {
+  /* Colors */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0D0D0E;
+  --color-surface-1: #1A1A1D;
+  --color-surface-2: #242428;
+  --color-surface-3: #2E2E33;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A1A1AA;
+  --color-text-tertiary: #71717A;
+  --color-accent-brand: #276EF1;
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-default: rgba(255, 255, 255, 0.14);
+}

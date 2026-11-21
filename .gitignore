@@ -1,5 +1,7 @@
 node_modules
 dist
+build
+.remotion
 .DS_Store
 .env
 
