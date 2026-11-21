@@ -6,15 +6,16 @@
 import { Colors } from '../colors';
 import { Typography } from '../typography';
 import { Spacing } from '../spacing';
-import { Motion } from '../motion';
+import { Motion, MOTION } from '../motion';
 
-export { Colors, Typography, Spacing, Motion };
+export { Colors, Typography, Spacing, Motion, MOTION };
 
 export const Tokens = {
   colors: Colors,
   typography: Typography,
   spacing: Spacing,
   motion: Motion,
+  MOTION,
 } as const;
 
 export type DesignTokens = typeof Tokens;

@@ -27,6 +27,7 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
+    "test": "node --test tests/*.test.ts",
     "lint": "eslint src && tsc"
   },
   "allowScripts": {

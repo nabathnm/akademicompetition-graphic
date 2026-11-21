@@ -4,6 +4,7 @@
  */
 
 export * from './types';
+export * from './typography';
 export * as MotionPrimitives from './motion';
 export * as TypographyComponents from './typography';
 export * as UIComponents from './ui';

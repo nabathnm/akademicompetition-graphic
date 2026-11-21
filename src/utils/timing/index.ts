@@ -1,5 +1,7 @@
 /**
- * Timing Utilities Export
+ * Timing Utilities Central Export
  */
 
-export * from './frames';
+export * from './frame';
+export * from './duration';
+export * from './sequence';
