@@ -16,7 +16,7 @@ import {
 } from './animatedCircleStyle.ts';
 import { Colors } from '../../styles/colors.ts';
 
-export const AnimatedCircle: React.FC<AnimatedCircleProps> = (props) => {
+const AnimatedCircleBase: React.FC<AnimatedCircleProps> = (props) => {
   const {
     fill = 'transparent',
     stroke = Colors.accent.brand,
@@ -185,3 +185,5 @@ export const AnimatedCircle: React.FC<AnimatedCircleProps> = (props) => {
     </div>
   );
 };
+
+export const AnimatedCircle = React.memo(AnimatedCircleBase);

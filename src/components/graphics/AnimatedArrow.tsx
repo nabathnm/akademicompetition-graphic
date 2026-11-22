@@ -19,7 +19,7 @@ import {
 } from './animatedArrowStyle.ts';
 import { Colors } from '../../styles/colors.ts';
 
-export const AnimatedArrow: React.FC<AnimatedArrowProps> = (props) => {
+const AnimatedArrowBase: React.FC<AnimatedArrowProps> = (props) => {
   const {
     arrowheadStyle = 'triangle',
     arrowheadPlacement = 'end',
@@ -203,3 +203,5 @@ export const AnimatedArrow: React.FC<AnimatedArrowProps> = (props) => {
     </div>
   );
 };
+
+export const AnimatedArrow = React.memo(AnimatedArrowBase);

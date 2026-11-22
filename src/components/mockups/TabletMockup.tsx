@@ -22,7 +22,7 @@ import {
   TABLET_FINISH_COLORS,
 } from './tabletMockupStyle.ts';
 
-export const TabletMockup: React.FC<TabletMockupProps> = ({
+const TabletMockupBase: React.FC<TabletMockupProps> = ({
   model: modelProp,
   preset,
   orientation = 'landscape',
@@ -73,18 +73,20 @@ export const TabletMockup: React.FC<TabletMockupProps> = ({
   const currentFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // 1. Resolve model & orientation dimensions
-  const dims = resolveTabletDimensions({
-    model: modelProp,
-    preset,
-    orientation,
-    width,
-    height,
-    aspectRatio,
-    frameThickness,
-    borderRadius,
-    screenRadius,
-  });
+  // 1. Resolve model & orientation dimensions (memoized across frames)
+  const dims = React.useMemo(() => {
+    return resolveTabletDimensions({
+      model: modelProp,
+      preset,
+      orientation,
+      width,
+      height,
+      aspectRatio,
+      frameThickness,
+      borderRadius,
+      screenRadius,
+    });
+  }, [modelProp, preset, orientation, width, height, aspectRatio, frameThickness, borderRadius, screenRadius]);
 
   // 2. Resolve chassis color finish
   const resolvedColor =
@@ -409,3 +411,5 @@ export const TabletMockup: React.FC<TabletMockupProps> = ({
     </div>
   );
 };
+
+export const TabletMockup = React.memo(TabletMockupBase);

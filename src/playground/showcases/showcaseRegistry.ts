@@ -4,7 +4,7 @@
  * Future components register their showcase wrappers here without altering the playground shell.
  */
 
-import { ShowcaseDefinition } from '../types';
+import type { ShowcaseDefinition } from '../types.ts';
 
 export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
   // 1. Motion Primitives

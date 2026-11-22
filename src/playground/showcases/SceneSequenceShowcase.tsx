@@ -37,48 +37,48 @@ export type SequenceDemoPreset =
   | 'with-transitions'
   | 'full-sequence';
 
+// Shared static mock screen for mockups
+const MOCK_SCREEN = (
+  <div
+    style={{
+      width: '100%',
+      height: '100%',
+      background: 'linear-gradient(135deg, #091224 0%, #172a4d 100%)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 24,
+      color: '#ffffff',
+      fontFamily: Typography.fontFamily.sans,
+      textAlign: 'center',
+    }}
+  >
+    <div
+      style={{
+        width: 48,
+        height: 48,
+        borderRadius: 12,
+        background: `linear-gradient(135deg, ${Colors.accent.cyan}, ${Colors.accent.electricViolet})`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 16,
+      }}
+    >
+      <Sparkles size={24} color="#ffffff" />
+    </div>
+    <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 6 }}>Nova Mobile 2.0</div>
+    <div style={{ fontSize: 12, color: Colors.text.secondary }}>Next-Gen Cloud Workflow</div>
+  </div>
+);
+
 export const SceneSequenceShowcase: React.FC = () => {
   // Controls state
   const [preset, setPreset] = useState<SequenceDemoPreset>('two-scenes');
   const [debugHud, setDebugHud] = useState<boolean>(true);
   const [allowOverlap, setAllowOverlap] = useState<boolean>(false);
   const [activeTransition, setActiveTransition] = useState<SceneTransitionType>('fade');
-
-  // Shared mock screen for mockups
-  const mockScreen = (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        background: 'linear-gradient(135deg, #091224 0%, #172a4d 100%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 24,
-        color: '#ffffff',
-        fontFamily: Typography.fontFamily.sans,
-        textAlign: 'center',
-      }}
-    >
-      <div
-        style={{
-          width: 48,
-          height: 48,
-          borderRadius: 12,
-          background: `linear-gradient(135deg, ${Colors.accent.cyan}, ${Colors.accent.electricViolet})`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 16,
-        }}
-      >
-        <Sparkles size={24} color="#ffffff" />
-      </div>
-      <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 6 }}>Nova Mobile 2.0</div>
-      <div style={{ fontSize: 12, color: Colors.text.secondary }}>Next-Gen Cloud Workflow</div>
-    </div>
-  );
 
   // Transition config
   const transitionConfig: SceneTransitionConfig = useMemo(() => {
@@ -110,7 +110,7 @@ export const SceneSequenceShowcase: React.FC = () => {
                   <SmartphoneMockup
                     model="flagship"
                     deviceColor="space-black"
-                    screenContent={mockScreen}
+                    screenContent={MOCK_SCREEN}
                     floating={true}
                   />
                 }
@@ -167,7 +167,7 @@ export const SceneSequenceShowcase: React.FC = () => {
                   <SmartphoneMockup
                     model="flagship"
                     deviceColor="space-black"
-                    screenContent={mockScreen}
+                    screenContent={MOCK_SCREEN}
                     floating={true}
                   />
                 }
@@ -326,7 +326,7 @@ export const SceneSequenceShowcase: React.FC = () => {
                   <SmartphoneMockup
                     model="flagship"
                     deviceColor="space-black"
-                    screenContent={mockScreen}
+                    screenContent={MOCK_SCREEN}
                     floating={true}
                   />
                 }

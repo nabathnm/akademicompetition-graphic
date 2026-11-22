@@ -137,7 +137,7 @@ export function renderSvgShapeGeometry({
   }
 }
 
-export const AnimatedShape: React.FC<AnimatedShapeProps> = (props) => {
+const AnimatedShapeBase: React.FC<AnimatedShapeProps> = (props) => {
   const {
     shape = 'rectangle',
     width = 100,
@@ -255,3 +255,5 @@ export const AnimatedShape: React.FC<AnimatedShapeProps> = (props) => {
     </div>
   );
 };
+
+export const AnimatedShape = React.memo(AnimatedShapeBase);

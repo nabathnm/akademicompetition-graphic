@@ -30,7 +30,7 @@ export {
   calculateErrorShake,
 };
 
-export const AnimatedInput: React.FC<AnimatedInputProps> = ({
+const AnimatedInputBase: React.FC<AnimatedInputProps> = ({
   value = '',
   placeholder = 'Enter text...',
   label,
@@ -324,3 +324,5 @@ export const AnimatedInput: React.FC<AnimatedInputProps> = ({
     </div>
   );
 };
+
+export const AnimatedInput = React.memo(AnimatedInputBase);

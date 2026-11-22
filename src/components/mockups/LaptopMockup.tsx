@@ -33,7 +33,7 @@ const FINISH_COLORS: Record<string, string> = {
   starlight: '#e8e4dc',
 };
 
-export const LaptopMockup: React.FC<LaptopMockupProps> = ({
+const LaptopMockupBase: React.FC<LaptopMockupProps> = ({
   model: modelProp,
   preset,
   width,
@@ -87,28 +87,32 @@ export const LaptopMockup: React.FC<LaptopMockupProps> = ({
     frameColor ??
     '#1e2430';
 
-  // 1. Resolve geometry & physical dimensions
-  const dims = resolveLaptopDimensions({
-    model,
-    width,
-    height,
-    screenAspectRatio,
-    bezelThickness,
-    borderRadius,
-    screenRadius,
-    baseHeight,
-  });
+  // 1. Resolve geometry & physical dimensions (memoized across frames)
+  const dims = React.useMemo(() => {
+    return resolveLaptopDimensions({
+      model,
+      width,
+      height,
+      screenAspectRatio,
+      bezelThickness,
+      borderRadius,
+      screenRadius,
+      baseHeight,
+    });
+  }, [model, width, height, screenAspectRatio, bezelThickness, borderRadius, screenRadius, baseHeight]);
 
-  // 2. Resolve entrance & exit kinetics
-  const animConfig = resolveDeviceFrameAnimationConfig({
-    animation,
-    animate,
-    delay,
-    durationInFrames,
-    slideDirection,
-    easing,
-    springPreset,
-  });
+  // 2. Resolve entrance & exit kinetics (memoized across frames)
+  const animConfig = React.useMemo(() => {
+    return resolveDeviceFrameAnimationConfig({
+      animation,
+      animate,
+      delay,
+      durationInFrames,
+      slideDirection,
+      easing,
+      springPreset,
+    });
+  }, [animation, animate, delay, durationInFrames, slideDirection, easing, springPreset]);
 
   const motion = calculateDeviceMotion({
     currentFrame,
@@ -428,3 +432,5 @@ export const LaptopMockup: React.FC<LaptopMockupProps> = ({
     </div>
   );
 };
+
+export const LaptopMockup = React.memo(LaptopMockupBase);

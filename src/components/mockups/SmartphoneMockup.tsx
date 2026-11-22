@@ -19,7 +19,7 @@ import {
   SMARTPHONE_PRESETS,
 } from './smartphoneMockupStyle.ts';
 
-export const SmartphoneMockup: React.FC<SmartphoneMockupProps> = ({
+const SmartphoneMockupBase: React.FC<SmartphoneMockupProps> = ({
   model = 'flagship',
   width,
   height,
@@ -66,23 +66,25 @@ export const SmartphoneMockup: React.FC<SmartphoneMockupProps> = ({
   const currentFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // 1. Resolve model preset fallback
-  const presetKey = model !== 'custom' ? model : undefined;
-  const preset = presetKey ? SMARTPHONE_PRESETS[presetKey] : undefined;
+  // 1. Resolve geometry & concentric dimensions (memoized across frames)
+  const dims = React.useMemo(() => {
+    return resolveSmartphoneDimensions({
+      model,
+      width,
+      height,
+      aspectRatio,
+      frameThickness,
+      borderRadius,
+      screenRadius,
+    });
+  }, [model, width, height, aspectRatio, frameThickness, borderRadius, screenRadius]);
 
-  // 2. Resolve geometry & concentric dimensions
-  const dims = resolveSmartphoneDimensions({
-    model,
-    width,
-    height,
-    aspectRatio,
-    frameThickness,
-    borderRadius,
-    screenRadius,
-  });
-
-  // 3. Resolve camera cutout
-  const resolvedNotch = resolveCameraCutout(showCamera, cameraCutout, preset?.notch);
+  // 2. Resolve camera cutout (memoized across frames)
+  const resolvedNotch = React.useMemo(() => {
+    const presetKey = model !== 'custom' ? model : undefined;
+    const preset = presetKey ? SMARTPHONE_PRESETS[presetKey] : undefined;
+    return resolveCameraCutout(showCamera, cameraCutout, preset?.notch);
+  }, [model, showCamera, cameraCutout]);
 
   const effectiveDelay = delay !== 0 ? delay : (startFrame ?? 0);
 
@@ -266,3 +268,5 @@ export const SmartphoneMockup: React.FC<SmartphoneMockupProps> = ({
     </div>
   );
 };
+
+export const SmartphoneMockup = React.memo(SmartphoneMockupBase);

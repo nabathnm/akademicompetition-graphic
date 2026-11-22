@@ -23,7 +23,7 @@ export {
   createDeterministicShuffle,
 };
 
-export const SplitText: React.FC<SplitTextProps> = ({
+const SplitTextBase: React.FC<SplitTextProps> = ({
   text,
   segments: customSegments,
   splitBy = 'word',
@@ -261,3 +261,5 @@ export const SplitText: React.FC<SplitTextProps> = ({
     </Component>
   );
 };
+
+export const SplitText = React.memo(SplitTextBase);

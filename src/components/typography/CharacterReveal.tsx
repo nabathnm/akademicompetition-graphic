@@ -19,7 +19,7 @@ export {
   calculateCharacterRevealTiming,
 };
 
-export const CharacterReveal: React.FC<CharacterRevealProps> = ({
+const CharacterRevealBase: React.FC<CharacterRevealProps> = ({
   text,
   variant = 'fade-slide-up',
   startFrame = 0,
@@ -180,3 +180,5 @@ export const CharacterReveal: React.FC<CharacterRevealProps> = ({
     </Component>
   );
 };
+
+export const CharacterReveal = React.memo(CharacterRevealBase);

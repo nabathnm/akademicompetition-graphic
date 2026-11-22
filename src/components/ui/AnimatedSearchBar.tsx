@@ -33,7 +33,7 @@ import { Colors } from '../../styles/colors.ts';
 import { Spacing } from '../../styles/spacing.ts';
 import { Typography } from '../../styles/typography.ts';
 
-export const AnimatedSearchBar: React.FC<AnimatedSearchBarProps> = ({
+const AnimatedSearchBarBase: React.FC<AnimatedSearchBarProps> = ({
   value = '',
   placeholder = 'Search destinations, rides, or places...',
   suggestions = [],
@@ -479,3 +479,5 @@ export const AnimatedSearchBar: React.FC<AnimatedSearchBarProps> = ({
     </div>
   );
 };
+
+export const AnimatedSearchBar = React.memo(AnimatedSearchBarBase);

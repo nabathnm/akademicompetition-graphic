@@ -26,7 +26,7 @@ const DEFAULT_BUTTONS: DeviceButtonConfig[] = [
   { side: 'right', position: 22, length: 58, thickness: 3, color: 'rgba(255, 255, 255, 0.22)' },
 ];
 
-export const DeviceFrame: React.FC<DeviceFrameProps> = ({
+const DeviceFrameBase: React.FC<DeviceFrameProps> = ({
   width = 320,
   height = 640,
   frameThickness = 12,
@@ -68,27 +68,31 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({
   const currentFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // 1. Compute concentric dimensions
-  const dims = calculateDeviceDimensions({
-    width,
-    height,
-    frameThickness,
-    borderRadius,
-    screenRadius,
-  });
+  // 1. Compute concentric dimensions (memoized across frames)
+  const dims = React.useMemo(() => {
+    return calculateDeviceDimensions({
+      width,
+      height,
+      frameThickness,
+      borderRadius,
+      screenRadius,
+    });
+  }, [width, height, frameThickness, borderRadius, screenRadius]);
 
   const effectiveDelay = delay !== 0 ? delay : (startFrame ?? 0);
 
-  // 2. Resolve animation kinematics
-  const animConfig = resolveDeviceFrameAnimationConfig({
-    animation,
-    animate,
-    delay: effectiveDelay,
-    durationInFrames,
-    slideDirection,
-    easing,
-    springPreset,
-  });
+  // 2. Resolve animation kinematics (memoized across frames)
+  const animConfig = React.useMemo(() => {
+    return resolveDeviceFrameAnimationConfig({
+      animation,
+      animate,
+      delay: effectiveDelay,
+      durationInFrames,
+      slideDirection,
+      easing,
+      springPreset,
+    });
+  }, [animation, animate, effectiveDelay, durationInFrames, slideDirection, easing, springPreset]);
 
   const motion = calculateDeviceMotion({
     currentFrame,
@@ -99,8 +103,10 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({
     exitAnimation,
   });
 
-  // 3. Resolve 2D depth shadow
-  const resolvedShadow = resolveDeviceShadow(shadow, shadowColor);
+  // 3. Resolve 2D depth shadow (memoized across frames)
+  const resolvedShadow = React.useMemo(() => {
+    return resolveDeviceShadow(shadow, shadowColor);
+  }, [shadow, shadowColor]);
 
   // 4. Resolve hardware buttons
   const resolvedButtons: DeviceButtonConfig[] = React.useMemo(() => {
@@ -452,3 +458,5 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({
     </div>
   );
 };
+
+export const DeviceFrame = React.memo(DeviceFrameBase);

@@ -33,7 +33,130 @@ import { BackgroundMusic } from '../../components/audio/BackgroundMusic.tsx';
 import { SoundEffectGroup } from '../../components/audio/SoundEffectGroup.tsx';
 import { AnimationConfigProvider } from '../../config/animation/AnimationConfigContext.tsx';
 
-export const AdvertisementComposition: React.FC<AdvertisementCompositionProps> = (
+interface AdvertisementTelemetryHudProps {
+  schedule: SceneScheduleItem[];
+  effectiveDuration: number;
+  effectiveFps: number;
+  effectiveWidth: number;
+  effectiveHeight: number;
+  compositionId: string;
+  audioTrackCount: number;
+  validation: { isValid: boolean; errors: string[]; warnings: string[] };
+}
+
+/**
+ * Isolated Telemetry HUD component subscribing to useCurrentFrame()
+ * to prevent frame-by-frame re-rendering of the entire composition hierarchy.
+ */
+const AdvertisementTelemetryHud: React.FC<AdvertisementTelemetryHudProps> = ({
+  schedule,
+  effectiveDuration,
+  effectiveFps,
+  effectiveWidth,
+  effectiveHeight,
+  compositionId,
+  audioTrackCount,
+  validation,
+}) => {
+  const frame = useCurrentFrame();
+  const activeScene = getActiveSceneAtFrame(schedule, frame);
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        bottom: 16,
+        left: 16,
+        right: 16,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 6,
+        backgroundColor: 'rgba(5, 10, 20, 0.92)',
+        backdropFilter: 'blur(12px)',
+        border: `1px solid ${Colors.border.default}`,
+        borderRadius: 8,
+        padding: '10px 16px',
+        fontFamily: Typography.fontFamily.mono,
+        fontSize: 11,
+        color: Colors.text.primary,
+        zIndex: 10000,
+        pointerEvents: 'none',
+      }}
+    >
+      {/* Timeline progress bar */}
+      <div
+        style={{
+          width: '100%',
+          height: 4,
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          borderRadius: 2,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            width: `${(frame / Math.max(1, effectiveDuration)) * 100}%`,
+            height: '100%',
+            backgroundColor: Colors.accent.cyan,
+          }}
+        />
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 12,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ color: Colors.accent.cyan, fontWeight: 700 }}>
+            ● {compositionId}
+          </span>
+          <span>
+            FRAME {frame} / {effectiveDuration} ({((frame / effectiveDuration) * 100).toFixed(1)}%)
+          </span>
+          <span>
+            {effectiveWidth}x{effectiveHeight} @ {effectiveFps} FPS
+          </span>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {activeScene ? (
+            <span style={{ color: '#10b981', fontWeight: 700 }}>
+              ACTIVE SCENE: {activeScene.name ?? activeScene.id} ({activeScene.computedStartFrame}f - {activeScene.computedEndFrame}f)
+            </span>
+          ) : (
+            <span style={{ color: Colors.text.tertiary }}>
+              NO ACTIVE SCENE
+            </span>
+          )}
+          {audioTrackCount > 0 && (
+            <span style={{ color: '#ec4899' }}>
+              AUDIO: {audioTrackCount} TRACK{audioTrackCount > 1 ? 'S' : ''}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Validation Warnings / Errors Display */}
+      {validation.errors.length > 0 && (
+        <div style={{ color: '#ef4444', fontSize: 10 }}>
+          ERRORS: {validation.errors.join(' | ')}
+        </div>
+      )}
+      {validation.warnings.length > 0 && (
+        <div style={{ color: '#f59e0b', fontSize: 10 }}>
+          WARNINGS: {validation.warnings.join(' | ')}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const AdvertisementCompositionBase: React.FC<AdvertisementCompositionProps> = (
   props,
 ) => {
   const {
@@ -56,8 +179,7 @@ export const AdvertisementComposition: React.FC<AdvertisementCompositionProps> =
     children,
   } = props;
 
-  // Remotion context
-  const frame = useCurrentFrame();
+  // Remotion context - only query video dimensions & fps (static across frames)
   const videoConfig = useVideoConfig();
 
   // Resolve effective dimensions and timing
@@ -111,11 +233,6 @@ export const AdvertisementComposition: React.FC<AdvertisementCompositionProps> =
     background,
     backgroundColor,
   );
-
-  // Active scene lookup for telemetry
-  const activeScene = useMemo(() => {
-    return getActiveSceneAtFrame(schedule, frame);
-  }, [schedule, frame]);
 
   // Normalize audio tracks
   const audioTracks: AudioTrackConfig[] = useMemo(() => {
@@ -181,98 +298,19 @@ export const AdvertisementComposition: React.FC<AdvertisementCompositionProps> =
 
       {/* 5. Telemetry & Debugging HUD Overlay */}
       {debug && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 16,
-            left: 16,
-            right: 16,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 6,
-            backgroundColor: 'rgba(5, 10, 20, 0.92)',
-            backdropFilter: 'blur(12px)',
-            border: `1px solid ${Colors.border.default}`,
-            borderRadius: 8,
-            padding: '10px 16px',
-            fontFamily: Typography.fontFamily.mono,
-            fontSize: 11,
-            color: Colors.text.primary,
-            zIndex: 10000,
-            pointerEvents: 'none',
-          }}
-        >
-          {/* Timeline progress bar */}
-          <div
-            style={{
-              width: '100%',
-              height: 4,
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              borderRadius: 2,
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{
-                width: `${(frame / Math.max(1, effectiveDuration)) * 100}%`,
-                height: '100%',
-                backgroundColor: Colors.accent.cyan,
-              }}
-            />
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: 12,
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <span style={{ color: Colors.accent.cyan, fontWeight: 700 }}>
-                ● {compositionId}
-              </span>
-              <span>
-                FRAME {frame} / {effectiveDuration} ({((frame / effectiveDuration) * 100).toFixed(1)}%)
-              </span>
-              <span>
-                {effectiveWidth}x{effectiveHeight} @ {effectiveFps} FPS
-              </span>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              {activeScene ? (
-                <span style={{ color: '#10b981', fontWeight: 700 }}>
-                  ACTIVE SCENE: {activeScene.name ?? activeScene.id} ({activeScene.computedStartFrame}f - {activeScene.computedEndFrame}f)
-                </span>
-              ) : (
-                <span style={{ color: Colors.text.tertiary }}>
-                  NO ACTIVE SCENE
-                </span>
-              )}
-              {audioTracks.length > 0 && (
-                <span style={{ color: '#ec4899' }}>
-                  AUDIO: {audioTracks.length} TRACK{audioTracks.length > 1 ? 'S' : ''}
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Validation Warnings / Errors Display */}
-          {validation.errors.length > 0 && (
-            <div style={{ color: '#ef4444', fontSize: 10 }}>
-              ERRORS: {validation.errors.join(' | ')}
-            </div>
-          )}
-          {validation.warnings.length > 0 && (
-            <div style={{ color: '#f59e0b', fontSize: 10 }}>
-              WARNINGS: {validation.warnings.join(' | ')}
-            </div>
-          )}
-        </div>
+        <AdvertisementTelemetryHud
+          schedule={schedule}
+          effectiveDuration={effectiveDuration}
+          effectiveFps={effectiveFps}
+          effectiveWidth={effectiveWidth}
+          effectiveHeight={effectiveHeight}
+          compositionId={compositionId}
+          audioTrackCount={audioTracks.length}
+          validation={validation}
+        />
       )}
     </AbsoluteFill>
   );
 };
+
+export const AdvertisementComposition = React.memo(AdvertisementCompositionBase);

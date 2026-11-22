@@ -19,7 +19,7 @@ import { Colors } from '../../styles/colors.ts';
 import { Spacing } from '../../styles/spacing.ts';
 import { Typography } from '../../styles/typography.ts';
 
-export const AnimatedCard: React.FC<AnimatedCardProps> = ({
+const AnimatedCardBase: React.FC<AnimatedCardProps> = ({
   children,
   title,
   description,
@@ -293,3 +293,5 @@ export const AnimatedCard: React.FC<AnimatedCardProps> = ({
     </div>
   );
 };
+
+export const AnimatedCard = React.memo(AnimatedCardBase);

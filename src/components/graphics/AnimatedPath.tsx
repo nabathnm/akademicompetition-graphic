@@ -17,7 +17,7 @@ import {
 } from './animatedPathStyle.ts';
 import { Colors } from '../../styles/colors.ts';
 
-export const AnimatedPath: React.FC<AnimatedPathProps> = (props) => {
+const AnimatedPathBase: React.FC<AnimatedPathProps> = (props) => {
   const {
     d,
     fill = 'none',
@@ -255,3 +255,5 @@ export const AnimatedPath: React.FC<AnimatedPathProps> = (props) => {
     </div>
   );
 };
+
+export const AnimatedPath = React.memo(AnimatedPathBase);

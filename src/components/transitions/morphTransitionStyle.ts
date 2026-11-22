@@ -112,10 +112,27 @@ export interface MorphPoint {
 }
 
 /**
+ * Bounded cache for sampled path points to eliminate repeated path sampling
+ * across transition frames.
+ */
+const MORPH_SAMPLE_CACHE = new Map<string, MorphPoint[]>();
+const MAX_MORPH_SAMPLE_CACHE = 128;
+
+export function clearMorphSampleCache(): void {
+  MORPH_SAMPLE_CACHE.clear();
+}
+
+/**
  * Samples N equidistant coordinates along an SVG path.
  */
 export function samplePathPoints(d: string, pointCount = 48): MorphPoint[] {
   const resolvedD = resolveMorphPath(d);
+  const cacheKey = `${pointCount}:${resolvedD}`;
+  const cached = MORPH_SAMPLE_CACHE.get(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const parsed = parseSvgPath(resolvedD);
 
   if (!parsed || parsed.segments.length === 0 || parsed.totalLength <= 0) {
@@ -128,6 +145,11 @@ export function samplePathPoints(d: string, pointCount = 48): MorphPoint[] {
         y: sanitizeMorphNumber(50 + 40 * Math.sin(angle)),
       });
     }
+    if (MORPH_SAMPLE_CACHE.size >= MAX_MORPH_SAMPLE_CACHE) {
+      const first = MORPH_SAMPLE_CACHE.keys().next().value;
+      if (first !== undefined) MORPH_SAMPLE_CACHE.delete(first);
+    }
+    MORPH_SAMPLE_CACHE.set(cacheKey, fallback);
     return fallback;
   }
 
@@ -142,6 +164,12 @@ export function samplePathPoints(d: string, pointCount = 48): MorphPoint[] {
       y: sanitizeMorphNumber(pt.y),
     });
   }
+
+  if (MORPH_SAMPLE_CACHE.size >= MAX_MORPH_SAMPLE_CACHE) {
+    const first = MORPH_SAMPLE_CACHE.keys().next().value;
+    if (first !== undefined) MORPH_SAMPLE_CACHE.delete(first);
+  }
+  MORPH_SAMPLE_CACHE.set(cacheKey, points);
 
   return points;
 }

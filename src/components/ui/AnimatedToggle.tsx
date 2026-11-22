@@ -19,7 +19,7 @@ import {
 import { Colors } from '../../styles/colors.ts';
 import { Typography } from '../../styles/typography.ts';
 
-export const AnimatedToggle: React.FC<AnimatedToggleProps> = ({
+const AnimatedToggleBase: React.FC<AnimatedToggleProps> = ({
   checked,
   defaultChecked,
   startFrame = 0,
@@ -290,3 +290,5 @@ export const AnimatedToggle: React.FC<AnimatedToggleProps> = ({
     </div>
   );
 };
+
+export const AnimatedToggle = React.memo(AnimatedToggleBase);

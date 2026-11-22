@@ -18,7 +18,7 @@ import {
 } from './animatedCheckboxStyle.ts';
 import { Colors } from '../../styles/colors.ts';
 
-export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
+const AnimatedCheckboxBase: React.FC<AnimatedCheckboxProps> = ({
   checked,
   defaultChecked,
   indeterminate,
@@ -243,3 +243,5 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
     </div>
   );
 };
+
+export const AnimatedCheckbox = React.memo(AnimatedCheckboxBase);

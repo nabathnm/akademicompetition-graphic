@@ -13,7 +13,7 @@ import { MOTION } from '../../styles/motion';
 export { calculateAnimatedTextStyle };
 export type { CalculatedAnimatedStyle };
 
-export const AnimatedText: React.FC<AnimatedTextProps> = ({
+const AnimatedTextBase: React.FC<AnimatedTextProps> = ({
   children,
   text,
   variant = 'fade',
@@ -79,3 +79,5 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
     </Component>
   );
 };
+
+export const AnimatedText = React.memo(AnimatedTextBase);

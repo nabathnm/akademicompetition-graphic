@@ -75,6 +75,33 @@ export const createDeterministicShuffle = (
   return indices;
 };
 
+type IntlSegmenterInstance = {
+  segment: (input: string) => Iterable<{ segment: string }>;
+};
+
+let cachedSentenceSegmenter: IntlSegmenterInstance | null = null;
+let sentenceSegmenterChecked = false;
+
+function getSharedSentenceSegmenter(): IntlSegmenterInstance | null {
+  if (sentenceSegmenterChecked) {
+    return cachedSentenceSegmenter;
+  }
+  sentenceSegmenterChecked = true;
+  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+    try {
+      type IntlSegmenterConstructor = new (
+        locales?: string | string[],
+        options?: { granularity?: 'grapheme' | 'word' | 'sentence' }
+      ) => IntlSegmenterInstance;
+      const SegmenterClass = (Intl as unknown as { Segmenter: IntlSegmenterConstructor }).Segmenter;
+      cachedSentenceSegmenter = new SegmenterClass(undefined, { granularity: 'sentence' });
+    } catch {
+      cachedSentenceSegmenter = null;
+    }
+  }
+  return cachedSentenceSegmenter;
+}
+
 /**
  * Splits text into segments according to splitBy mode:
  * - 'line': splits on \r?\n, preserving empty lines
@@ -118,17 +145,9 @@ export const splitTextIntoSegments = (
 
   // 3. Sentence mode
   if (splitBy === 'sentence') {
-    // Try Intl.Segmenter with sentence granularity if available
-    if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+    const segmenter = getSharedSentenceSegmenter();
+    if (segmenter) {
       try {
-        type IntlSegmenterConstructor = new (
-          locales?: string | string[],
-          options?: { granularity?: 'grapheme' | 'word' | 'sentence' }
-        ) => {
-          segment: (input: string) => Iterable<{ segment: string }>;
-        };
-        const SegmenterClass = (Intl as unknown as { Segmenter: IntlSegmenterConstructor }).Segmenter;
-        const segmenter = new SegmenterClass(undefined, { granularity: 'sentence' });
         const sParts = Array.from(segmenter.segment(text), (s) => s.segment);
         if (sParts.length > 0) {
           return sParts.map((sentence, idx) => ({

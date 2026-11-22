@@ -313,9 +313,25 @@ function arcToCubicBeziers(
 }
 
 /**
+ * Bounded LRU cache for parsed SVG paths to eliminate redundant parsing
+ * across frame renders and component mounts.
+ */
+const PARSED_PATH_CACHE = new Map<string, ParsedPath>();
+const MAX_PARSED_PATH_CACHE = 256;
+
+export function clearParsedPathCache(): void {
+  PARSED_PATH_CACHE.clear();
+}
+
+/**
  * Parses an SVG path data string into an array of measurable geometric segments.
  */
 export function parseSvgPath(d: string): ParsedPath {
+  const cached = PARSED_PATH_CACHE.get(d);
+  if (cached) {
+    return cached;
+  }
+
   const tokens = tokenizeSvgPath(d);
   const segments: PathSegment[] = [];
 
@@ -655,7 +671,7 @@ export function parseSvgPath(d: string): ParsedPath {
     maxY = 100;
   }
 
-  return {
+  const result: ParsedPath = {
     d,
     segments,
     totalLength: totalCumulative,
@@ -665,6 +681,16 @@ export function parseSvgPath(d: string): ParsedPath {
     maxX,
     maxY,
   };
+
+  if (PARSED_PATH_CACHE.size >= MAX_PARSED_PATH_CACHE) {
+    const firstKey = PARSED_PATH_CACHE.keys().next().value;
+    if (firstKey !== undefined) {
+      PARSED_PATH_CACHE.delete(firstKey);
+    }
+  }
+  PARSED_PATH_CACHE.set(d, result);
+
+  return result;
 }
 
 /**

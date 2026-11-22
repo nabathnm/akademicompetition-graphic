@@ -17,7 +17,7 @@ import {
 } from './animatedLineStyle.ts';
 import { Colors } from '../../styles/colors.ts';
 
-export const AnimatedLine: React.FC<AnimatedLineProps> = (props) => {
+const AnimatedLineBase: React.FC<AnimatedLineProps> = (props) => {
   const {
     stroke = Colors.accent.brand,
     strokeWidth = 2,
@@ -133,3 +133,5 @@ export const AnimatedLine: React.FC<AnimatedLineProps> = (props) => {
     </div>
   );
 };
+
+export const AnimatedLine = React.memo(AnimatedLineBase);

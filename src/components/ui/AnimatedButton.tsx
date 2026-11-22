@@ -29,7 +29,7 @@ export {
   calculateButtonShake,
 };
 
-export const AnimatedButton: React.FC<AnimatedButtonProps> = (props) => {
+const AnimatedButtonBase: React.FC<AnimatedButtonProps> = (props) => {
   const {
     children,
     label,
@@ -279,3 +279,5 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = (props) => {
     </button>
   );
 };
+
+export const AnimatedButton = React.memo(AnimatedButtonBase);

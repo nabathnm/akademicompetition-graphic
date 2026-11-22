@@ -22,7 +22,7 @@ import { Colors } from '../../styles/colors.ts';
 import { Spacing } from '../../styles/spacing.ts';
 import { Typography } from '../../styles/typography.ts';
 
-export const AnimatedNotification: React.FC<AnimatedNotificationProps> = ({
+const AnimatedNotificationBase: React.FC<AnimatedNotificationProps> = ({
   type = 'info',
   variant = 'toast',
   title,
@@ -300,3 +300,5 @@ export const AnimatedNotification: React.FC<AnimatedNotificationProps> = ({
     </div>
   );
 };
+
+export const AnimatedNotification = React.memo(AnimatedNotificationBase);

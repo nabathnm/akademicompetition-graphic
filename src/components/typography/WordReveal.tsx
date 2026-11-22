@@ -15,7 +15,7 @@ import {
 
 export { segmentText, calculateWordRevealStyle, calculateWordRevealTiming };
 
-export const WordReveal: React.FC<WordRevealProps> = ({
+const WordRevealBase: React.FC<WordRevealProps> = ({
   text,
   variant = 'fade-slide-up',
   startFrame = 0,
@@ -165,3 +165,5 @@ export const WordReveal: React.FC<WordRevealProps> = ({
     </Component>
   );
 };
+
+export const WordReveal = React.memo(WordRevealBase);

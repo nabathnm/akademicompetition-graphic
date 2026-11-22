@@ -23,6 +23,33 @@ import { MOTION } from '../../styles/motion.ts';
 
 export type { CalculatedAnimatedStyle };
 
+type IntlSegmenterInstance = {
+  segment: (input: string) => Iterable<{ segment: string }>;
+};
+
+let cachedGraphemeSegmenter: IntlSegmenterInstance | null = null;
+let segmenterChecked = false;
+
+function getSharedGraphemeSegmenter(): IntlSegmenterInstance | null {
+  if (segmenterChecked) {
+    return cachedGraphemeSegmenter;
+  }
+  segmenterChecked = true;
+  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+    try {
+      type IntlSegmenterConstructor = new (
+        locales?: string | string[],
+        options?: { granularity?: 'grapheme' | 'word' | 'sentence' }
+      ) => IntlSegmenterInstance;
+      const SegmenterClass = (Intl as unknown as { Segmenter: IntlSegmenterConstructor }).Segmenter;
+      cachedGraphemeSegmenter = new SegmenterClass(undefined, { granularity: 'grapheme' });
+    } catch {
+      cachedGraphemeSegmenter = null;
+    }
+  }
+  return cachedGraphemeSegmenter;
+}
+
 /**
  * Grapheme-aware character segmenter.
  * Uses Intl.Segmenter with grapheme granularity when available, preserving:
@@ -36,18 +63,10 @@ export const getGraphemes = (text: string): string[] => {
     return [];
   }
 
-  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+  const segmenter = getSharedGraphemeSegmenter();
+  if (segmenter) {
     try {
-      type IntlSegmenterConstructor = new (
-        locales?: string | string[],
-        options?: { granularity?: 'grapheme' | 'word' | 'sentence' }
-      ) => {
-        segment: (input: string) => Iterable<{ segment: string }>;
-      };
-
-      const SegmenterClass = (Intl as unknown as { Segmenter: IntlSegmenterConstructor }).Segmenter;
-      const segmenter = new SegmenterClass(undefined, { granularity: 'grapheme' });
-      return Array.from(segmenter.segment(text), (s: { segment: string }) => s.segment);
+      return Array.from(segmenter.segment(text), (s) => s.segment);
     } catch {
       // Fallback below
     }

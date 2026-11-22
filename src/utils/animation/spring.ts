@@ -40,7 +40,7 @@ export const createSpring = ({
   config,
 }: SpringAnimationOptions): number => {
   const baseConfig = MOTION.spring[preset] ?? MOTION.spring.smooth;
-  const mergedConfig = { ...baseConfig, ...config };
+  const mergedConfig = config ? { ...baseConfig, ...config } : baseConfig;
 
   const effectiveFrom = reverse ? to : from;
   const effectiveTo = reverse ? from : to;

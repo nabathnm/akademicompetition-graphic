@@ -19,7 +19,7 @@ import { useCurrentFrame } from 'remotion';
 import type { SplitTransitionProps } from './types.ts';
 import { calculateSplitMetrics, normalizeSplitMode } from './splitTransitionStyle.ts';
 
-export const SplitTransition: React.FC<SplitTransitionProps> = ({
+const SplitTransitionBase: React.FC<SplitTransitionProps> = ({
   splitDirection = 'vertical',
   panelCount,
   rows,
@@ -94,6 +94,25 @@ export const SplitTransition: React.FC<SplitTransitionProps> = ({
     const outgoing = fromContent ?? outgoingContent ?? childrenArray[0] ?? null;
     const incoming = toContent ?? incomingContent ?? childrenArray[1] ?? null;
 
+    // Optimization: When replace transition is fully complete, avoid mounting outgoing panels
+    if (metrics.isComplete) {
+      return (
+        <div
+          className={className}
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            overflow,
+            backgroundColor,
+            ...style,
+          }}
+        >
+          {incoming}
+        </div>
+      );
+    }
+
     return (
       <div
         className={className}
@@ -150,6 +169,26 @@ export const SplitTransition: React.FC<SplitTransitionProps> = ({
   // -------------------------------------------------------------------------
   // Standard Modes (Enter, Exit, Enter-Exit)
   // -------------------------------------------------------------------------
+
+  // Optimization: When enter transition has fully settled, bypass panel duplication
+  if (normalizedMode === 'enter' && metrics.isComplete) {
+    return (
+      <div
+        className={className}
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          overflow,
+          backgroundColor,
+          ...style,
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div
       className={className}
@@ -185,3 +224,5 @@ export const SplitTransition: React.FC<SplitTransitionProps> = ({
     </div>
   );
 };
+
+export const SplitTransition = React.memo(SplitTransitionBase);

@@ -80,7 +80,7 @@ function renderParticleShape(p: ParticleLiveState): React.ReactNode {
   }
 }
 
-export const ParticleSystem: React.FC<ParticleSystemProps> = (props) => {
+const ParticleSystemBase: React.FC<ParticleSystemProps> = (props) => {
   const {
     seed,
     particleCount,
@@ -119,6 +119,14 @@ export const ParticleSystem: React.FC<ParticleSystemProps> = (props) => {
   const width = bounds.width || DEFAULT_BOUNDS.width;
   const height = bounds.height || DEFAULT_BOUNDS.height;
 
+  // Memoize stable serialization keys for array/object parameters to prevent invalidating static particles
+  const sizeKey = Array.isArray(size) ? size.join(',') : String(size);
+  const colorKey = Array.isArray(color) ? color.join(',') : String(color);
+  const shapeKey = Array.isArray(shape) ? shape.join(',') : String(shape);
+  const boundsKey = `${width}x${height}`;
+  const originKey = origin ? `${origin.x},${origin.y}` : '';
+  const customPosKey = customPositions ? customPositions.map((p) => `${p.x},${p.y}`).join('|') : '';
+
   // 1. Memoize static particle generation per configuration parameters
   const particles = React.useMemo(() => {
     return generateParticles({
@@ -137,21 +145,22 @@ export const ParticleSystem: React.FC<ParticleSystemProps> = (props) => {
       rotationSpeed,
       customPositions,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     seed,
     particleCount,
-    shape,
+    shapeKey,
     distribution,
     direction,
     angle,
-    bounds,
-    origin,
-    size,
-    color,
+    boundsKey,
+    originKey,
+    sizeKey,
+    colorKey,
     opacity,
     speed,
     rotationSpeed,
-    customPositions,
+    customPosKey,
   ]);
 
   // 2. Compute instantaneous frame-accurate positions and transforms
@@ -231,6 +240,16 @@ export const ParticleSystem: React.FC<ParticleSystemProps> = (props) => {
             return null;
           }
 
+          // Cull particles that have drifted beyond visible rendering bounds
+          if (
+            particle.x < -80 ||
+            particle.x > width + 80 ||
+            particle.y < -80 ||
+            particle.y > height + 80
+          ) {
+            return null;
+          }
+
           const transform = `translate(${particle.x.toFixed(2)}, ${particle.y.toFixed(2)}) rotate(${particle.rotation.toFixed(1)}) scale(${particle.scale.toFixed(3)})`;
 
           return (
@@ -252,3 +271,5 @@ export const ParticleSystem: React.FC<ParticleSystemProps> = (props) => {
     </div>
   );
 };
+
+export const ParticleSystem = React.memo(ParticleSystemBase);

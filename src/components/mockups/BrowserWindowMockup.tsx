@@ -34,7 +34,7 @@ import {
   resolveBrowserThemeColors,
 } from './browserWindowMockupStyle.ts';
 
-export const BrowserWindowMockup: React.FC<BrowserWindowMockupProps> = ({
+const BrowserWindowMockupBase: React.FC<BrowserWindowMockupProps> = ({
   width = 800,
   height = 520,
   variant = 'full',
@@ -81,31 +81,37 @@ export const BrowserWindowMockup: React.FC<BrowserWindowMockupProps> = ({
   const currentFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // 1. Resolve theme palette
-  const colors = resolveBrowserThemeColors(theme, themeColors);
+  // 1. Resolve theme palette (memoized across frames)
+  const colors = React.useMemo(() => {
+    return resolveBrowserThemeColors(theme, themeColors);
+  }, [theme, themeColors]);
   const resolvedBorderColor = borderColor ?? colors.borderColor;
 
-  // 2. Resolve geometry & viewport dimensions
-  const dims = resolveBrowserDimensions({
-    width,
-    height,
-    variant,
-    showToolbar,
-    showTabs,
-    borderRadius,
-    borderWidth,
-  });
+  // 2. Resolve geometry & viewport dimensions (memoized across frames)
+  const dims = React.useMemo(() => {
+    return resolveBrowserDimensions({
+      width,
+      height,
+      variant,
+      showToolbar,
+      showTabs,
+      borderRadius,
+      borderWidth,
+    });
+  }, [width, height, variant, showToolbar, showTabs, borderRadius, borderWidth]);
 
-  // 3. Resolve entrance & exit kinetics
-  const animConfig = resolveDeviceFrameAnimationConfig({
-    animation,
-    animate,
-    delay,
-    durationInFrames,
-    slideDirection,
-    easing,
-    springPreset,
-  });
+  // 3. Resolve entrance & exit kinetics (memoized across frames)
+  const animConfig = React.useMemo(() => {
+    return resolveDeviceFrameAnimationConfig({
+      animation,
+      animate,
+      delay,
+      durationInFrames,
+      slideDirection,
+      easing,
+      springPreset,
+    });
+  }, [animation, animate, delay, durationInFrames, slideDirection, easing, springPreset]);
 
   const motion = calculateDeviceMotion({
     currentFrame,
@@ -543,3 +549,5 @@ export const BrowserWindowMockup: React.FC<BrowserWindowMockupProps> = ({
     </div>
   );
 };
+
+export const BrowserWindowMockup = React.memo(BrowserWindowMockupBase);
