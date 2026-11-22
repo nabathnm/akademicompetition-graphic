@@ -7,6 +7,7 @@
  * Converts seconds to exact integer frames at the given FPS.
  */
 export const secondsToFrames = (seconds: number, fps: number): number => {
+  if (seconds < 0 || fps <= 0) return 0;
   return Math.round(seconds * fps);
 };
 
@@ -21,7 +22,7 @@ export const millisecondsToFrames = (ms: number, fps: number): number => {
  * Converts frame count to fractional seconds at the given FPS.
  */
 export const framesToSeconds = (frames: number, fps: number): number => {
-  if (fps <= 0) return 0;
+  if (fps <= 0 || frames < 0) return 0;
   return Number((frames / fps).toFixed(3));
 };
 

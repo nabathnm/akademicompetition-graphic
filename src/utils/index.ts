@@ -2,6 +2,6 @@
  * Central Utilities Export
  */
 
-export * from './animation';
-export * from './timing';
-export * from './helpers';
+export * from './animation/index.ts';
+export * from './timing/index.ts';
+export * from './helpers/index.ts';

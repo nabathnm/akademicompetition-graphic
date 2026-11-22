@@ -19,3 +19,6 @@ export * from './morphTransitionStyle';
 export * from './MorphTransition';
 export * from './glitchTransitionStyle';
 export * from './GlitchTransition';
+export * from './transitionControllerTypes';
+export * from './transitionControllerStyle';
+export * from './TransitionController';

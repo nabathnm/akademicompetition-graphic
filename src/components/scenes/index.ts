@@ -24,3 +24,5 @@ export * from './callToActionSceneStyle.ts';
 export * from './CallToActionScene.tsx';
 export * from './outroSceneStyle.ts';
 export * from './OutroScene.tsx';
+export * from './sceneSequenceStyle.ts';
+export * from './SceneSequence.tsx';

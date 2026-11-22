@@ -11,3 +11,5 @@ export * as UIComponents from './ui';
 export * as MockupComponents from './mockups';
 export * as GraphicComponents from './graphics';
 export * as TransitionComponents from './transitions';
+export * as AudioComponents from './audio';
+export * from './audio';

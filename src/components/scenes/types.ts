@@ -963,3 +963,136 @@ export interface OutroSceneProps {
   /** Custom CSS class name */
   className?: string;
 }
+
+/* ========================================================================= */
+/* SceneSequence Types                                                       */
+/* ========================================================================= */
+
+export type SceneTransitionType =
+  | 'fade'
+  | 'slide'
+  | 'zoom'
+  | 'wipe'
+  | 'mask'
+  | 'split'
+  | 'morph'
+  | 'glitch'
+  | 'none'
+  | 'cut';
+
+export interface SceneTransitionConfig {
+  /** Transition type preset */
+  type?: SceneTransitionType;
+  /** Transition duration in frames (default: 15) */
+  durationInFrames?: number;
+  /** Direction for directional transitions (slide, wipe, split) */
+  direction?: 'left' | 'right' | 'top' | 'bottom' | string;
+  /** Easing curve preset name */
+  easing?: EasingPresetName;
+  /** Whether transition is disabled */
+  disabled?: boolean;
+  /** Additional custom props passed to transition */
+  customProps?: Record<string, unknown>;
+}
+
+export interface SceneItemRenderProps {
+  /** Local frame within the scene (0 to durationInFrames - 1) */
+  frame: number;
+  /** Total duration allocated for this scene */
+  durationInFrames: number;
+  /** Unique ID of this scene */
+  sceneId: string;
+  /** Whether the scene is currently active */
+  isActive: boolean;
+  /** Progress through this scene's lifespan (0 to 1) */
+  progress: number;
+  /** Global frame in the parent composition timeline */
+  globalFrame: number;
+}
+
+export interface SceneSequenceItemConfig {
+  /** Unique scene identifier */
+  id: string;
+  /** Human-readable scene name for debugging, logging, and telemetry */
+  name?: string;
+  /** Scene component element, FC, or render function */
+  component:
+    | React.ReactNode
+    | React.FC<SceneItemRenderProps>
+    | ((props: SceneItemRenderProps) => React.ReactNode);
+  /** Duration in frames allocated for this scene */
+  durationInFrames: number;
+  /** Explicit starting frame offset (if omitted, auto-calculated sequentially from previous scene) */
+  startFrame?: number;
+  /** Optional delay in frames before this scene starts */
+  delayBefore?: number;
+  /** Optional delay in frames after this scene finishes before next scene starts */
+  delayAfter?: number;
+  /** Optional transition configuration (applies to entrance or both in/out) */
+  transition?: SceneTransitionConfig;
+  /** Optional transition specifically for scene entrance */
+  entranceTransition?: SceneTransitionConfig;
+  /** Optional transition specifically for scene exit */
+  exitTransition?: SceneTransitionConfig;
+  /** Explicit flag to permit overlap with preceding scene (default: false) */
+  allowOverlap?: boolean;
+  /** Scene-specific custom arbitrary properties passed down to render callback */
+  props?: Record<string, unknown>;
+  /** Optional inline style override for this scene's sequence wrapper */
+  style?: React.CSSProperties;
+  /** Optional className for this scene's sequence wrapper */
+  className?: string;
+}
+
+export interface ScheduledSceneItem extends SceneSequenceItemConfig {
+  /** Resolved frame where scene begins in the parent sequence */
+  computedStartFrame: number;
+  /** Resolved frame where scene ends in the parent sequence */
+  computedEndFrame: number;
+  /** Resolved index in the sequence order */
+  sequenceIndex: number;
+}
+
+export interface SceneSequenceValidationResult {
+  isValid: boolean;
+  errors: string[];
+  warnings: string[];
+  totalCalculatedDuration: number;
+}
+
+export interface SequenceScheduleOptions {
+  /** Default delay in frames between scenes when delayBefore is omitted */
+  defaultDelay?: number;
+  /** Global flag to permit scene overlap when startFrame is manually set (default: false) */
+  allowOverlap?: boolean;
+  /** Total timeline duration to clamp or pad against */
+  totalDurationInFrames?: number;
+}
+
+export interface SceneSequenceProps {
+  /** Array of scene configurations to sequence */
+  scenes?: SceneSequenceItemConfig[];
+  /** Default duration in frames between scenes when delayBefore is not specified (default: 0) */
+  defaultDelay?: number;
+  /** Default transition applied to scenes without explicit transition configuration */
+  defaultTransition?: SceneTransitionConfig;
+  /** Global flag to permit scene overlap when startFrame is manually set (default: false) */
+  allowOverlap?: boolean;
+  /** Visual telemetry debugging overlay (scene list, active frame, timing boundaries) */
+  debug?: boolean;
+  /** Custom inline style for container */
+  style?: React.CSSProperties;
+  /** Custom CSS class name */
+  className?: string;
+  /** Callback fired with calculated schedule for external telemetry/controls */
+  onScheduleCalculated?: (schedule: ScheduledSceneItem[]) => void;
+  /** Declarative JSX children (supports <SceneSequenceItem> components or standard React nodes) */
+  children?: React.ReactNode;
+}
+
+export interface SceneSequenceItemProps extends Omit<SceneSequenceItemConfig, 'component'> {
+  children?:
+    | React.ReactNode
+    | React.FC<SceneItemRenderProps>
+    | ((props: SceneItemRenderProps) => React.ReactNode);
+}

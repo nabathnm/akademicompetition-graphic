@@ -55,6 +55,13 @@ import { DeviceShowcaseSceneShowcase } from './showcases/DeviceShowcaseSceneShow
 import { ComparisonSceneShowcase } from './showcases/ComparisonSceneShowcase';
 import { CallToActionSceneShowcase } from './showcases/CallToActionSceneShowcase';
 import { OutroSceneShowcase } from './showcases/OutroSceneShowcase';
+import { AdvertisementCompositionShowcase } from './showcases/AdvertisementCompositionShowcase';
+import { SceneSequenceShowcase } from './showcases/SceneSequenceShowcase';
+import { TimelineManagerShowcase } from './showcases/TimelineManagerShowcase';
+import { TransitionControllerShowcase } from './showcases/TransitionControllerShowcase';
+import { AudioTrackShowcase } from './showcases/AudioTrackShowcase';
+import { BackgroundMusicShowcase } from './showcases/BackgroundMusicShowcase';
+import { SoundEffectShowcase } from './showcases/SoundEffectShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -87,6 +94,7 @@ import { MaskTransition } from '../components/transitions/MaskTransition';
 import { SplitTransition } from '../components/transitions/SplitTransition';
 import { MorphTransition } from '../components/transitions/MorphTransition';
 import { GlitchTransition } from '../components/transitions/GlitchTransition';
+import { TransitionController } from '../components/transitions/TransitionController';
 import { SceneContainer } from '../components/scenes/SceneContainer';
 import { HeroScene } from '../components/scenes/HeroScene';
 import { ProductShowcaseScene } from '../components/scenes/ProductShowcaseScene';
@@ -96,6 +104,7 @@ import { DeviceShowcaseScene } from '../components/scenes/DeviceShowcaseScene';
 import { ComparisonScene } from '../components/scenes/ComparisonScene';
 import { CallToActionScene } from '../components/scenes/CallToActionScene';
 import { OutroScene } from '../components/scenes/OutroScene';
+import { AdvertisementComposition } from '../compositions/advertisements/AdvertisementComposition';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -144,8 +153,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
   const [mockupsTab, setMockupsTab] = React.useState<'all' | 'tablet' | 'laptop' | 'browser' | 'smartphone' | 'device-frame'>('all');
   const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'particle-system' | 'all'>('all');
-  const [transitionsTab, setTransitionsTab] = React.useState<'all' | 'glitch' | 'morph' | 'split' | 'mask' | 'wipe' | 'zoom' | 'slide' | 'fade'>('all');
-  const [scenesTab, setScenesTab] = React.useState<'all' | 'container' | 'hero' | 'product' | 'feature' | 'typography' | 'device' | 'comparison' | 'cta' | 'outro'>('all');
+  const [transitionsTab, setTransitionsTab] = React.useState<'all' | 'controller' | 'glitch' | 'morph' | 'split' | 'mask' | 'wipe' | 'zoom' | 'slide' | 'fade'>('all');
+  const [scenesTab, setScenesTab] = React.useState<'all' | 'container' | 'hero' | 'product' | 'feature' | 'typography' | 'device' | 'comparison' | 'cta' | 'outro' | 'ad-comp' | 'scene-sequence' | 'timeline-manager' | 'transition-controller' | 'audio-track' | 'background-music' | 'sound-effect'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -653,6 +662,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All Transitions' },
+              { id: 'controller', label: 'TransitionController' },
               { id: 'glitch', label: 'GlitchTransition' },
               { id: 'morph', label: 'MorphTransition' },
               { id: 'split', label: 'SplitTransition' },
@@ -770,6 +780,17 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
               <GlitchTransitionShowcase />
             </div>
           )}
+
+          {(transitionsTab === 'all' || transitionsTab === 'controller') && (
+            <div style={{ marginTop: transitionsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {transitionsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brand, marginBottom: Spacing.scale.sm }}>
+                  SECTION I: TRANSITIONCONTROLLER ORCHESTRATOR
+                </div>
+              )}
+              <TransitionControllerShowcase />
+            </div>
+          )}
         </div>
       )}
 
@@ -802,6 +823,13 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
               { id: 'comparison', label: 'ComparisonScene' },
               { id: 'cta', label: 'CallToActionScene' },
               { id: 'outro', label: 'OutroScene' },
+              { id: 'ad-comp', label: 'AdvertisementComposition' },
+              { id: 'scene-sequence', label: 'SceneSequence' },
+              { id: 'timeline-manager', label: 'TimelineManager' },
+              { id: 'transition-controller', label: 'TransitionController' },
+              { id: 'audio-track', label: 'AudioTrack' },
+              { id: 'background-music', label: 'BackgroundMusic' },
+              { id: 'sound-effect', label: 'SoundEffect' },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -920,6 +948,83 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                 </div>
               )}
               <OutroSceneShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'ad-comp') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION J: ADVERTISEMENTCOMPOSITION PIPELINE
+                </div>
+              )}
+              <AdvertisementCompositionShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'scene-sequence') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
+                  SECTION K: SCENESEQUENCE TIMELINE
+                </div>
+              )}
+              <SceneSequenceShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'timeline-manager') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.electricViolet, marginBottom: Spacing.scale.sm }}>
+                  SECTION L: TIMELINEMANAGER MULTI-TRACK SYSTEM
+                </div>
+              )}
+              <TimelineManagerShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'transition-controller') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.brand, marginBottom: Spacing.scale.sm }}>
+                  SECTION M: TRANSITIONCONTROLLER BRIDGE
+                </div>
+              )}
+              <TransitionControllerShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'audio-track') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION N: AUDIOTRACK SOUND LAYERS
+                </div>
+              )}
+              <AudioTrackShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'background-music') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.electricViolet, marginBottom: Spacing.scale.sm }}>
+                  SECTION O: BACKGROUNDMUSIC AUDIO ABSTRACTION
+                </div>
+              )}
+              <BackgroundMusicShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'sound-effect') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: '#ec4899', marginBottom: Spacing.scale.sm }}>
+                  SECTION P: SOUNDEFFECT EVENT SEQUENCER
+                </div>
+              )}
+              <SoundEffectShowcase />
             </div>
           )}
         </div>
@@ -2460,6 +2565,73 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                           ● PRODUCTION READY COMPONENT
                         </span>
                       </div>
+                    ) : item.id === 'trans-controller' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <TransitionController
+                          boundaryFrame={15}
+                          transition={{ type: 'slide', direction: 'left', durationInFrames: 15 }}
+                          style={{ width: '100%', height: 90 }}
+                          fromContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#0B132B',
+                                border: `1px solid ${Colors.accent.brand}80`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 6,
+                              }}
+                            >
+                              <span style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.accent.brand, fontWeight: 700 }}>
+                                SCENE ALPHA
+                              </span>
+                            </div>
+                          }
+                          toContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#1C2541',
+                                border: `1px solid ${Colors.accent.cyan}80`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 6,
+                              }}
+                            >
+                              <span style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.accent.cyan, fontWeight: 700 }}>
+                                SCENE BETA
+                              </span>
+                            </div>
+                          }
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.brand,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● ORCHESTRATOR READY
+                        </span>
+                      </div>
                     ) : item.id === 'scene-container' ? (
                       <div
                         style={{
@@ -2822,6 +2994,205 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             fontSize: 10,
                             fontFamily: Typography.fontFamily.mono,
                             color: '#ec4899',
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-advertisement-composition' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <AdvertisementComposition
+                          durationInFrames={150}
+                          safeArea={false}
+                          debug={false}
+                          background="linear-gradient(135deg, #091326 0%, #040711 100%)"
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid ${Colors.accent.cyan}40` }}
+                        >
+                          <div
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              textAlign: 'center',
+                            }}
+                          >
+                            <span style={{ fontSize: 9, color: Colors.accent.cyan, fontFamily: Typography.fontFamily.mono, fontWeight: 700 }}>
+                              MULTI-SCENE PIPELINE
+                            </span>
+                          </div>
+                        </AdvertisementComposition>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.cyan,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-sequence' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '100%',
+                            height: 95,
+                            borderRadius: Spacing.radius.sm,
+                            border: `1px solid ${Colors.accent.emerald}40`,
+                            background: 'linear-gradient(135deg, #021a12 0%, #03080e 100%)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: 6,
+                            padding: 8,
+                          }}
+                        >
+                          <div style={{ display: 'flex', gap: 6, width: '90%', height: 18, background: 'rgba(255,255,255,0.06)', borderRadius: 4, padding: 3 }}>
+                            <div style={{ flex: 1, height: '100%', background: Colors.accent.cyan, borderRadius: 2 }} />
+                            <div style={{ flex: 2, height: '100%', background: Colors.accent.electricViolet, borderRadius: 2 }} />
+                            <div style={{ flex: 1, height: '100%', background: Colors.accent.emerald, borderRadius: 2 }} />
+                          </div>
+                          <span style={{ fontSize: 9, color: Colors.accent.emerald, fontFamily: Typography.fontFamily.mono, fontWeight: 700 }}>
+                            SEQUENTIAL TIMELINE ENGINE
+                          </span>
+                        </div>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'timeline-manager' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '100%',
+                            height: 95,
+                            borderRadius: Spacing.radius.sm,
+                            border: `1px solid ${Colors.accent.electricViolet}40`,
+                            background: 'linear-gradient(135deg, #130924 0%, #03060f 100%)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: 6,
+                            padding: 8,
+                          }}
+                        >
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 3, width: '90%' }}>
+                            <div style={{ height: 6, background: Colors.accent.cyan, borderRadius: 2, width: '80%' }} />
+                            <div style={{ height: 4, background: Colors.accent.electricViolet, borderRadius: 2, width: '40%', marginLeft: '20%' }} />
+                            <div style={{ height: 5, background: '#ec4899', borderRadius: 2, width: '100%' }} />
+                          </div>
+                          <span style={{ fontSize: 9, color: Colors.accent.electricViolet, fontFamily: Typography.fontFamily.mono, fontWeight: 700 }}>
+                            CENTRAL TIMING SYSTEM
+                          </span>
+                        </div>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.electricViolet,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'audio-track' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '100%',
+                            height: 95,
+                            borderRadius: Spacing.radius.sm,
+                            border: `1px solid ${Colors.accent.cyan}40`,
+                            background: 'linear-gradient(135deg, #061e29 0%, #030811 100%)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: 8,
+                            padding: 10,
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 4, height: 24 }}>
+                            {[12, 20, 16, 24, 18, 10, 22, 14, 8].map((h, i) => (
+                              <div
+                                key={i}
+                                style={{
+                                  width: 4,
+                                  height: `${h}px`,
+                                  backgroundColor: Colors.accent.cyan,
+                                  borderRadius: 2,
+                                  opacity: 0.85,
+                                }}
+                              />
+                            ))}
+                          </div>
+                          <span style={{ fontSize: 9, color: Colors.accent.cyan, fontFamily: Typography.fontFamily.mono, fontWeight: 700 }}>
+                            DETERMINISTIC AUDIO LAYER
+                          </span>
+                        </div>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.cyan,
                             marginTop: Spacing.scale.xs,
                           }}
                         >
