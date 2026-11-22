@@ -17,7 +17,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="MotionPlayground"
         component={MotionPlayground}
-        durationInFrames={300} // 10 seconds at 30 FPS
+        durationInFrames={150} // 10 seconds at 30 FPS
         fps={VideoPresets.LANDSCAPE_1080P.fps}
         width={VideoPresets.LANDSCAPE_1080P.width}
         height={VideoPresets.LANDSCAPE_1080P.height}

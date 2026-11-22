@@ -14,6 +14,7 @@ export type PlaygroundViewMode =
   | 'mockups'
   | 'graphics'
   | 'transitions'
+  | 'scenes'
   | 'comparison'
   | 'isolated';
 

@@ -24,6 +24,7 @@ const CATEGORIES: Array<{ id: ComponentCategory | 'all'; label: string }> = [
   { id: 'mockups', label: 'Mockups' },
   { id: 'graphics', label: 'Graphics' },
   { id: 'transitions', label: 'Transitions' },
+  { id: 'scenes', label: 'Scenes' },
 ];
 
 export const PlaygroundShell: React.FC<PlaygroundShellProps> = ({

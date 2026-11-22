@@ -13,7 +13,8 @@ export type ComponentCategory =
   | 'ui'
   | 'mockups'
   | 'graphics'
-  | 'transitions';
+  | 'transitions'
+  | 'scenes';
 
 /**
  * Standard motion properties shared by all animatable components.

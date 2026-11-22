@@ -43,6 +43,18 @@ import { SlideTransitionShowcase } from './showcases/SlideTransitionShowcase';
 import { ZoomTransitionShowcase } from './showcases/ZoomTransitionShowcase';
 import { WipeTransitionShowcase } from './showcases/WipeTransitionShowcase';
 import { MaskTransitionShowcase } from './showcases/MaskTransitionShowcase';
+import { SplitTransitionShowcase } from './showcases/SplitTransitionShowcase';
+import { MorphTransitionShowcase } from './showcases/MorphTransitionShowcase';
+import { GlitchTransitionShowcase } from './showcases/GlitchTransitionShowcase';
+import { SceneContainerShowcase } from './showcases/SceneContainerShowcase';
+import { HeroSceneShowcase } from './showcases/HeroSceneShowcase';
+import { ProductShowcaseSceneShowcase } from './showcases/ProductShowcaseSceneShowcase';
+import { FeatureHighlightSceneShowcase } from './showcases/FeatureHighlightSceneShowcase';
+import { TypographySceneShowcase } from './showcases/TypographySceneShowcase';
+import { DeviceShowcaseSceneShowcase } from './showcases/DeviceShowcaseSceneShowcase';
+import { ComparisonSceneShowcase } from './showcases/ComparisonSceneShowcase';
+import { CallToActionSceneShowcase } from './showcases/CallToActionSceneShowcase';
+import { OutroSceneShowcase } from './showcases/OutroSceneShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -72,6 +84,18 @@ import { SlideTransition } from '../components/transitions/SlideTransition';
 import { ZoomTransition } from '../components/transitions/ZoomTransition';
 import { WipeTransition } from '../components/transitions/WipeTransition';
 import { MaskTransition } from '../components/transitions/MaskTransition';
+import { SplitTransition } from '../components/transitions/SplitTransition';
+import { MorphTransition } from '../components/transitions/MorphTransition';
+import { GlitchTransition } from '../components/transitions/GlitchTransition';
+import { SceneContainer } from '../components/scenes/SceneContainer';
+import { HeroScene } from '../components/scenes/HeroScene';
+import { ProductShowcaseScene } from '../components/scenes/ProductShowcaseScene';
+import { FeatureHighlightScene } from '../components/scenes/FeatureHighlightScene';
+import { TypographyScene } from '../components/scenes/TypographyScene';
+import { DeviceShowcaseScene } from '../components/scenes/DeviceShowcaseScene';
+import { ComparisonScene } from '../components/scenes/ComparisonScene';
+import { CallToActionScene } from '../components/scenes/CallToActionScene';
+import { OutroScene } from '../components/scenes/OutroScene';
 import { Search, ArrowRight } from 'lucide-react';
 import { ComponentCategory } from '../components/types';
 import { Colors } from '../styles/colors';
@@ -103,6 +127,10 @@ const CATEGORY_METADATA: Record<ComponentCategory, { title: string; description:
     title: 'Transition Components',
     description: 'Directional wipes, camera slides, and cross-scene transitions.',
   },
+  scenes: {
+    title: 'Scene Templates',
+    description: 'Foundational container primitives, commercial hero compositions, and layout structures.',
+  },
 };
 
 export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
@@ -116,7 +144,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
   const [uiTab, setUiTab] = React.useState<'animated-checkbox' | 'animated-toggle' | 'animated-notification' | 'animated-card' | 'animated-search-bar' | 'animated-button' | 'animated-input' | 'all'>('all');
   const [mockupsTab, setMockupsTab] = React.useState<'all' | 'tablet' | 'laptop' | 'browser' | 'smartphone' | 'device-frame'>('all');
   const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'particle-system' | 'all'>('all');
-  const [transitionsTab, setTransitionsTab] = React.useState<'all' | 'mask' | 'wipe' | 'zoom' | 'slide' | 'fade'>('all');
+  const [transitionsTab, setTransitionsTab] = React.useState<'all' | 'glitch' | 'morph' | 'split' | 'mask' | 'wipe' | 'zoom' | 'slide' | 'fade'>('all');
+  const [scenesTab, setScenesTab] = React.useState<'all' | 'container' | 'hero' | 'product' | 'feature' | 'typography' | 'device' | 'comparison' | 'cta' | 'outro'>('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -624,6 +653,9 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
             </span>
             {[
               { id: 'all', label: 'All Transitions' },
+              { id: 'glitch', label: 'GlitchTransition' },
+              { id: 'morph', label: 'MorphTransition' },
+              { id: 'split', label: 'SplitTransition' },
               { id: 'mask', label: 'MaskTransition' },
               { id: 'wipe', label: 'WipeTransition' },
               { id: 'zoom', label: 'ZoomTransition' },
@@ -703,6 +735,191 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                 </div>
               )}
               <MaskTransitionShowcase />
+            </div>
+          )}
+
+          {(transitionsTab === 'all' || transitionsTab === 'split') && (
+            <div style={{ marginTop: transitionsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {transitionsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
+                  SECTION F: SPLITTRANSITION COMPONENT SUITE
+                </div>
+              )}
+              <SplitTransitionShowcase />
+            </div>
+          )}
+
+          {(transitionsTab === 'all' || transitionsTab === 'morph') && (
+            <div style={{ marginTop: transitionsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {transitionsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION G: MORPHTRANSITION COMPONENT SUITE
+                </div>
+              )}
+              <MorphTransitionShowcase />
+            </div>
+          )}
+
+          {(transitionsTab === 'all' || transitionsTab === 'glitch') && (
+            <div style={{ marginTop: transitionsTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {transitionsTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: '#ec4899', marginBottom: Spacing.scale.sm }}>
+                  SECTION H: GLITCHTRANSITION COMPONENT SUITE
+                </div>
+              )}
+              <GlitchTransitionShowcase />
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 0.6 Scene Components Showcase Mode */}
+      {viewMode === 'scenes' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: Spacing.scale.xl }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: Spacing.scale.sm,
+              backgroundColor: Colors.dark.surface1,
+              padding: Spacing.scale.sm,
+              borderRadius: Spacing.radius.md,
+              border: `1px solid ${Colors.border.default}`,
+              flexWrap: 'wrap',
+            }}
+          >
+            <span style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.text.tertiary, marginRight: Spacing.scale.sm }}>
+              SCENE TEMPLATES:
+            </span>
+            {[
+              { id: 'all', label: 'All Scenes' },
+              { id: 'container', label: 'SceneContainer' },
+              { id: 'hero', label: 'HeroScene' },
+              { id: 'product', label: 'ProductShowcaseScene' },
+              { id: 'feature', label: 'FeatureHighlightScene' },
+              { id: 'typography', label: 'TypographyScene' },
+              { id: 'device', label: 'DeviceShowcaseScene' },
+              { id: 'comparison', label: 'ComparisonScene' },
+              { id: 'cta', label: 'CallToActionScene' },
+              { id: 'outro', label: 'OutroScene' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setScenesTab(tab.id as typeof scenesTab)}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: Spacing.radius.xs,
+                  backgroundColor: scenesTab === tab.id ? Colors.accent.cyan : Colors.dark.surface2,
+                  border: `1px solid ${scenesTab === tab.id ? Colors.accent.cyan : Colors.border.default}`,
+                  color: scenesTab === tab.id ? '#000000' : Colors.text.secondary,
+                  fontFamily: Typography.fontFamily.mono,
+                  fontSize: 11,
+                  fontWeight: scenesTab === tab.id ? 700 : 500,
+                  cursor: 'pointer',
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {(scenesTab === 'all' || scenesTab === 'container') && (
+            <div>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION A: SCENECONTAINER FOUNDATION
+                </div>
+              )}
+              <SceneContainerShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'hero') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: '#ec4899', marginBottom: Spacing.scale.sm }}>
+                  SECTION B: HEROSCENE TEMPLATE
+                </div>
+              )}
+              <HeroSceneShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'product') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION C: PRODUCTSHOWCASESCENE TEMPLATE
+                </div>
+              )}
+              <ProductShowcaseSceneShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'feature') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.emerald, marginBottom: Spacing.scale.sm }}>
+                  SECTION D: FEATUREHIGHLIGHTSCENE TEMPLATE
+                </div>
+              )}
+              <FeatureHighlightSceneShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'typography') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION E: TYPOGRAPHYSCENE TEMPLATE
+                </div>
+              )}
+              <TypographySceneShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'device') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: '#ec4899', marginBottom: Spacing.scale.sm }}>
+                  SECTION F: DEVICESHOWCASESCENE TEMPLATE
+                </div>
+              )}
+              <DeviceShowcaseSceneShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'comparison') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION G: COMPARISONSCENE TEMPLATE
+                </div>
+              )}
+              <ComparisonSceneShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'cta') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: '#10b981', marginBottom: Spacing.scale.sm }}>
+                  SECTION H: CALLTOACTIONSCENE TEMPLATE
+                </div>
+              )}
+              <CallToActionSceneShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'outro') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: '#ec4899', marginBottom: Spacing.scale.sm }}>
+                  SECTION I: OUTROSCENE TEMPLATE
+                </div>
+              )}
+              <OutroSceneShowcase />
             </div>
           )}
         </div>
@@ -2055,6 +2272,556 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                             fontSize: 10,
                             fontFamily: Typography.fontFamily.mono,
                             color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'trans-split' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <SplitTransition
+                          splitDirection="vertical"
+                          panelCount={3}
+                          mode="replace"
+                          movementDirection="outward"
+                          duration={25}
+                          delay={0}
+                          staggerDelay={2}
+                          style={{ width: '100%', height: 90 }}
+                          fromContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#1e1b4b',
+                                border: `1px solid ${Colors.accent.electricViolet}40`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{ fontSize: 10, color: Colors.accent.electricViolet, fontWeight: 700 }}>
+                                Outgoing Scene A
+                              </span>
+                            </div>
+                          }
+                          toContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#064e3b',
+                                border: `1px solid ${Colors.accent.emerald}40`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <span style={{ fontSize: 10, color: Colors.accent.emerald, fontWeight: 700 }}>
+                                Split Scene B
+                              </span>
+                            </div>
+                          }
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'trans-morph' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <MorphTransition
+                          fromPath="circle"
+                          toPath="star"
+                          fromFill="#06b6d4"
+                          toFill="#a855f7"
+                          fromStroke="#22d3ee"
+                          toStroke="#c084fc"
+                          fromStrokeWidth={2}
+                          toStrokeWidth={3}
+                          initialRotation={0}
+                          finalRotation={180}
+                          duration={30}
+                          delay={0}
+                          width={80}
+                          height={80}
+                          style={{ filter: 'drop-shadow(0 0 12px rgba(6, 182, 212, 0.4))' }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.cyan,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'trans-glitch' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <GlitchTransition
+                          mode="replace"
+                          intensity={1.2}
+                          frequency={0.8}
+                          duration={30}
+                          sliceCount={8}
+                          seed={2077}
+                          style={{ width: '100%', height: 90 }}
+                          fromContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#030712',
+                                border: `1px solid ${Colors.accent.cyan}60`,
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 6,
+                              }}
+                            >
+                              <span style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: Colors.accent.cyan, fontWeight: 700 }}>
+                                SIGNAL ALPHA
+                              </span>
+                            </div>
+                          }
+                          toContent={
+                            <div
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#180512',
+                                border: '1px solid #ec489980',
+                                borderRadius: Spacing.radius.sm,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 6,
+                              }}
+                            >
+                              <span style={{ fontSize: 11, fontFamily: Typography.fontFamily.mono, color: '#ec4899', fontWeight: 700 }}>
+                                BREACH OVERRIDE
+                              </span>
+                            </div>
+                          }
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: '#ec4899',
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-container' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <SceneContainer
+                          layout="centered"
+                          background="radial-gradient(circle at 50% 30%, rgba(6, 182, 212, 0.25) 0%, #050811 75%)"
+                          safeArea={16}
+                          padding={12}
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid ${Colors.accent.cyan}40` }}
+                        >
+                          <span style={{ fontSize: 9, fontFamily: Typography.fontFamily.mono, color: Colors.accent.cyan, letterSpacing: '0.05em' }}>
+                            SCENE CONTAINER
+                          </span>
+                          <span style={{ fontSize: 13, fontWeight: 800, color: '#ffffff', marginTop: 2 }}>
+                            Standardized Canvas
+                          </span>
+                        </SceneContainer>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.cyan,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-hero' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <HeroScene
+                          layout="split-left"
+                          headline="Autonomous AI"
+                          subtitle="Core Engine v2"
+                          eyebrow="HERO"
+                          staggerDelay={2}
+                          safeArea={false}
+                          padding={10}
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid ${Colors.accent.emerald}40` }}
+                        >
+                          <div
+                            style={{
+                              width: 50,
+                              height: 70,
+                              backgroundColor: '#0a101d',
+                              border: `1px solid ${Colors.accent.cyan}60`,
+                              borderRadius: 6,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <span style={{ fontSize: 8, color: Colors.accent.cyan, fontFamily: Typography.fontFamily.mono }}>
+                              DEVICE
+                            </span>
+                          </div>
+                        </HeroScene>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-product-showcase' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <ProductShowcaseScene
+                          layout="center-product"
+                          title="Aura Pro"
+                          subtitle="Spatial Engine"
+                          safeArea={false}
+                          padding={10}
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid ${Colors.accent.cyan}40` }}
+                        >
+                          <div
+                            style={{
+                              width: 50,
+                              height: 70,
+                              backgroundColor: '#0a101d',
+                              border: `1px solid ${Colors.accent.cyan}60`,
+                              borderRadius: 6,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <span style={{ fontSize: 8, color: Colors.accent.cyan, fontFamily: Typography.fontFamily.mono }}>
+                              AURA
+                            </span>
+                          </div>
+                        </ProductShowcaseScene>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.cyan,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-feature-highlight' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <FeatureHighlightScene
+                          layout="text-left"
+                          title="Edge Ingest"
+                          benefit="10x Faster"
+                          description="Real-time consensus"
+                          safeArea={false}
+                          padding={10}
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid ${Colors.accent.emerald}40` }}
+                        >
+                          <div
+                            style={{
+                              width: 50,
+                              height: 70,
+                              backgroundColor: '#050a14',
+                              border: `1px solid ${Colors.accent.emerald}60`,
+                              borderRadius: 6,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <span style={{ fontSize: 8, color: Colors.accent.emerald, fontFamily: Typography.fontFamily.mono }}>
+                              EDGE
+                            </span>
+                          </div>
+                        </FeatureHighlightScene>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.emerald,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-typography' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <TypographyScene
+                          layout="centered"
+                          eyebrow="TYPO"
+                          headline="Autonomous Scale"
+                          highlightedWords={['scale']}
+                          safeArea={false}
+                          padding={10}
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid ${Colors.accent.cyan}40` }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.cyan,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-device-showcase' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <DeviceShowcaseScene
+                          layout="single-centered"
+                          label="ECOSYSTEM"
+                          title="Unified OS"
+                          safeArea={false}
+                          padding={8}
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid #ec489940` }}
+                        >
+                          <div
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              backgroundColor: '#090e1a',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <span style={{ fontSize: 7, color: '#ec4899', fontFamily: Typography.fontFamily.mono }}>
+                              APP
+                            </span>
+                          </div>
+                        </DeviceShowcaseScene>
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: '#ec4899',
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-comparison' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <ComparisonScene
+                          layout="side-by-side"
+                          label="VS"
+                          leftLabel="OLD"
+                          rightLabel="NEW"
+                          leftContent={<div style={{ width: '100%', height: 40, backgroundColor: '#090d16', borderRadius: 4 }} />}
+                          rightContent={<div style={{ width: '100%', height: 40, backgroundColor: '#071626', border: `1px solid ${Colors.accent.cyan}60`, borderRadius: 4 }} />}
+                          safeArea={false}
+                          padding={8}
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid ${Colors.accent.cyan}40` }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: Colors.accent.cyan,
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-cta' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <CallToActionScene
+                          layout="centered"
+                          brand="CTA"
+                          headline="Launch Now"
+                          primaryAction="Explore"
+                          safeArea={false}
+                          padding={8}
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid #10b98140` }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: '#10b981',
+                            marginTop: Spacing.scale.xs,
+                          }}
+                        >
+                          ● PRODUCTION READY COMPONENT
+                        </span>
+                      </div>
+                    ) : item.id === 'scene-outro' ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: Spacing.scale.sm,
+                          padding: Spacing.scale.md,
+                          width: '100%',
+                          minHeight: 140,
+                        }}
+                      >
+                        <OutroScene
+                          layout="centered-brand"
+                          brandName="ANTIGRAVITY"
+                          website="antigravity.io"
+                          safeArea={false}
+                          padding={8}
+                          style={{ width: '100%', height: 95, borderRadius: Spacing.radius.sm, border: `1px solid #ec489940` }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 10,
+                            fontFamily: Typography.fontFamily.mono,
+                            color: '#ec4899',
                             marginTop: Spacing.scale.xs,
                           }}
                         >

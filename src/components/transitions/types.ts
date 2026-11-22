@@ -530,3 +530,306 @@ export interface MaskTransitionProps {
   /** Child content elements */
   children?: React.ReactNode;
 }
+
+export type SplitDirection =
+  | 'horizontal'
+  | 'vertical'
+  | 'quadrants'
+  | 'grid';
+
+export type SplitMovementDirection =
+  | 'outward'
+  | 'inward'
+  | 'opposite'
+  | 'alternate'
+  | 'directional'
+  | 'left'
+  | 'right'
+  | 'up'
+  | 'down';
+
+export type SplitTransitionMode =
+  | 'enter'
+  | 'in'
+  | 'exit'
+  | 'out'
+  | 'enter-exit'
+  | 'in-out'
+  | 'replace'
+  | 'reveal'
+  | 'hide';
+
+export type SplitStaggerOrder =
+  | 'start-to-end'
+  | 'end-to-start'
+  | 'center-out'
+  | 'edges-in';
+
+export interface SplitPanelMetrics {
+  index: number;
+  row: number;
+  col: number;
+  totalRows: number;
+  totalCols: number;
+  clipPath: string;
+  translateX: string;
+  translateY: string;
+  rawX: number;
+  rawY: number;
+  opacity: number;
+  progress: number;
+}
+
+export interface SplitTransitionMetrics {
+  panels: SplitPanelMetrics[];
+  progress: number;
+  isComplete: boolean;
+  phase: 'pending' | 'in' | 'hold' | 'out' | 'complete';
+  outgoingPanels?: SplitPanelMetrics[];
+  incomingPanels?: SplitPanelMetrics[];
+}
+
+export interface SplitTransitionProps {
+  /** Split orientation: 'horizontal' (rows), 'vertical' (columns), 'quadrants' (2x2), or 'grid' (default: 'vertical') */
+  splitDirection?: SplitDirection;
+  /** Number of panels for 1D splits, or total panels for grid (default: 2) */
+  panelCount?: number;
+  /** Number of grid rows (for 'grid' splitDirection, default: 2) */
+  rows?: number;
+  /** Number of grid columns (for 'grid' splitDirection, default: 2) */
+  cols?: number;
+  /** Transition mode ('enter' | 'exit' | 'enter-exit' | 'replace', default: 'enter') */
+  mode?: SplitTransitionMode;
+  /** Movement behavior ('outward' | 'inward' | 'opposite' | 'alternate' | 'directional', default: 'outward') */
+  movementDirection?: SplitMovementDirection;
+  /** Movement travel distance (e.g. 100, '100%', default: '100%') */
+  distance?: number | string;
+  /** Gap between panels in pixels (default: 0) */
+  panelGap?: number;
+  /** Frame stagger delay between sequential panel animations (default: 0) */
+  staggerDelay?: number;
+  /** Stagger sequencing order ('start-to-end' | 'end-to-start' | 'center-out' | 'edges-in', default: 'start-to-end') */
+  staggerOrder?: SplitStaggerOrder;
+  /** Total animation duration in frames (default: 25) */
+  duration?: number;
+  /** Duration in frames alias (matches Remotion standard) */
+  durationInFrames?: number;
+  /** Frame delay before transition begins (default: 0) */
+  delay?: number;
+  /** Easing curve preset or custom easing function (default: 'easeOut') */
+  easing?: EasingPresetName | EasingFunction;
+  /** Simultaneous opacity fade along with panel motion (default: false) */
+  fade?: boolean;
+  /** Explicit starting opacity override */
+  fromOpacity?: number;
+  /** Explicit ending opacity override */
+  toOpacity?: number;
+  /** Physics-based spring motion (boolean or spring preset name) */
+  spring?: boolean | string;
+  /** Spring preset alias */
+  springPreset?: string;
+  /** Whether to allow spring overshoot */
+  overshoot?: boolean;
+  /** Inverts the transition timing progress (default: false) */
+  reverse?: boolean;
+  /** Container overflow override (default: 'hidden') */
+  overflow?: 'hidden' | 'visible';
+  /** Duration of entrance phase in 'enter-exit' mode */
+  inDuration?: number;
+  /** Duration of hold phase in 'enter-exit' mode */
+  holdDuration?: number;
+  /** Duration of exit phase in 'enter-exit' mode */
+  outDuration?: number;
+  /** Outgoing layer for replace mode */
+  fromContent?: React.ReactNode;
+  /** Outgoing layer alias for replace mode */
+  outgoingContent?: React.ReactNode;
+  /** Incoming layer for replace mode */
+  toContent?: React.ReactNode;
+  /** Incoming layer alias for replace mode */
+  incomingContent?: React.ReactNode;
+  /** Optional container background color */
+  backgroundColor?: string;
+  /** Custom container style */
+  style?: React.CSSProperties;
+  /** Custom container class name */
+  className?: string;
+  /** Child content elements */
+  children?: React.ReactNode;
+}
+
+export interface MorphTransitionMetrics {
+  d: string;
+  fill: string;
+  stroke: string;
+  strokeWidth: number;
+  opacity: number;
+  rotation: number;
+  scale: number;
+  progress: number;
+  isComplete: boolean;
+  phase: 'pending' | 'in' | 'complete';
+  viewBox: string;
+}
+
+export interface MorphTransitionProps {
+  /** Starting SVG path data string or shape preset name */
+  fromPath: string;
+  /** Ending target SVG path data string or shape preset name */
+  toPath: string;
+  /** Total animation duration in frames (default: 30) */
+  duration?: number;
+  /** Duration in frames alias (matches Remotion standard) */
+  durationInFrames?: number;
+  /** Frame delay before morphing begins (default: 0) */
+  delay?: number;
+  /** Easing curve preset or custom easing function (default: 'easeInOut') */
+  easing?: EasingPresetName | EasingFunction;
+  /** Starting fill color (default: '#06b6d4') */
+  fromFill?: string;
+  /** Ending fill color (default: '#ec4899') */
+  toFill?: string;
+  /** Starting stroke color (optional) */
+  fromStroke?: string;
+  /** Ending stroke color (optional) */
+  toStroke?: string;
+  /** Starting stroke width in pixels (default: 0) */
+  fromStrokeWidth?: number;
+  /** Ending stroke width in pixels (default: 0) */
+  toStrokeWidth?: number;
+  /** Starting opacity (default: 1.0) */
+  fromOpacity?: number;
+  /** Ending opacity (default: 1.0) */
+  toOpacity?: number;
+  /** Starting rotation angle in degrees (default: 0) */
+  initialRotation?: number;
+  /** Ending rotation angle in degrees (default: 0) */
+  finalRotation?: number;
+  /** Starting scale multiplier (default: 1.0) */
+  initialScale?: number;
+  /** Ending scale multiplier (default: 1.0) */
+  finalScale?: number;
+  /** Transform origin pivot (e.g. 'center', '50% 50%', default: 'center') */
+  transformOrigin?: string;
+  /** SVG canvas width in pixels or CSS value (default: 200) */
+  width?: number | string;
+  /** SVG canvas height in pixels or CSS value (default: 200) */
+  height?: number | string;
+  /** SVG viewBox coordinate space (default: '0 0 100 100') */
+  viewBox?: string;
+  /** Number of sampling points along paths for resampling morph (default: 48) */
+  samplePoints?: number;
+  /** Physics-based spring motion (boolean or spring preset name) */
+  spring?: boolean | string;
+  /** Spring preset alias */
+  springPreset?: string;
+  /** Whether to allow spring overshoot */
+  overshoot?: boolean;
+  /** Inverts the transition timing progress (default: false) */
+  reverse?: boolean;
+  /** Optional container style */
+  style?: React.CSSProperties;
+  /** Optional container class name */
+  className?: string;
+  /** Optional child elements to render alongside or within the SVG */
+  children?: React.ReactNode;
+}
+
+export type GlitchTransitionMode = 'in' | 'out' | 'replace' | 'burst' | 'continuous';
+
+export interface GlitchSliceData {
+  index: number;
+  topPercent: number;
+  bottomPercent: number;
+  displacementX: number;
+  displacementY: number;
+  rgbOffsetX: number;
+  isGlitching: boolean;
+}
+
+export interface GlitchBlockData {
+  id: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  color: string;
+  opacity: number;
+}
+
+export interface GlitchTransitionMetrics {
+  progress: number;
+  envelope: number;
+  isGlitchFrame: boolean;
+  opacity: number;
+  jitterX: number;
+  jitterY: number;
+  rgbOffsetX: number;
+  rgbOffsetY: number;
+  flickerBrightness: number;
+  slices: GlitchSliceData[];
+  noiseBlocks: GlitchBlockData[];
+  scanlineOpacity: number;
+  activeLayer: 'from' | 'to' | 'both';
+  isComplete: boolean;
+  phase: 'pending' | 'in' | 'active' | 'out' | 'complete';
+}
+
+export interface GlitchTransitionProps {
+  /** Mode of the glitch transition ('in' | 'out' | 'replace' | 'burst' | 'continuous', default: 'in') */
+  mode?: GlitchTransitionMode;
+  /** Transition intensity multiplier (0 to 2, default: 1.0) */
+  intensity?: number;
+  /** Glitch trigger frequency/probability per frame (0 to 1, default: 0.6) */
+  frequency?: number;
+  /** Total animation duration in frames (default: 30) */
+  duration?: number;
+  /** Duration in frames alias (matches Remotion standard) */
+  durationInFrames?: number;
+  /** Frame delay before the transition begins (default: 0) */
+  delay?: number;
+  /** Number of horizontal displacement slices (default: 8, range: 2 to 32) */
+  sliceCount?: number;
+  /** Maximum RGB chromatic aberration offset in pixels (default: 12) */
+  rgbOffset?: number;
+  /** Maximum vertical jitter in pixels (default: 6) */
+  jitter?: number;
+  /** Digital noise / scanlines / blocks intensity (0 to 1, default: 0.4) */
+  noise?: number;
+  /** Seed for deterministic pseudo-random number generator (default: 42) */
+  seed?: number | string;
+  /** Pixel quantization size for blocky distortion (default: 4, 0 or 1 for smooth) */
+  pixelSize?: number;
+  /** Enable/disable RGB chromatic aberration separation (default: true) */
+  enableRgbSplit?: boolean;
+  /** Enable/disable horizontal slice displacement (default: true) */
+  enableSlices?: boolean;
+  /** Enable/disable vertical jitter (default: true) */
+  enableJitter?: boolean;
+  /** Enable/disable digital noise blocks (default: true) */
+  enableNoise?: boolean;
+  /** Enable/disable frame flicker / strobe (default: true) */
+  enableFlicker?: boolean;
+  /** Enable/disable horizontal CRT scanlines (default: true) */
+  enableScanlines?: boolean;
+  /** Inverts the transition timing progress (default: false) */
+  reverse?: boolean;
+  /** Outgoing content layer for replace mode */
+  fromContent?: React.ReactNode;
+  /** Outgoing content layer alias for replace mode */
+  outgoingContent?: React.ReactNode;
+  /** Incoming content layer for replace mode */
+  toContent?: React.ReactNode;
+  /** Incoming content layer alias for replace mode */
+  incomingContent?: React.ReactNode;
+  /** Container width (default: '100%') */
+  width?: number | string;
+  /** Container height (default: '100%') */
+  height?: number | string;
+  /** Custom container style */
+  style?: React.CSSProperties;
+  /** Custom container class name */
+  className?: string;
+  /** Children to be transitioned */
+  children?: React.ReactNode;
+}
