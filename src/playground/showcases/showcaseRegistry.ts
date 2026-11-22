@@ -687,6 +687,22 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     variants: ['MultiCueTimeline', 'UiClickSync', 'TransitionWhoosh', 'NotificationChime', 'PitchRateTuning'],
     status: 'ready',
   },
+  {
+    id: 'global-animation-config',
+    name: 'GlobalAnimationConfig',
+    category: 'scenes',
+    description: 'Centralized animation configuration system standardizing durations, easings, speed multipliers, and reduced-motion modes across compositions',
+    variants: ['DefaultConfig', 'HighSpeed', 'CinematicSlow', 'CustomTransitions', 'ComponentOverride', 'ReducedMotion'],
+    status: 'ready',
+  },
+  {
+    id: 'advertisement-preview',
+    name: 'AdvertisementPreview',
+    category: 'scenes',
+    description: 'Unified studio preview entry point assembling multi-scene compositions, transitions, background score, sound effects, and safe area guides',
+    variants: ['MultiSceneFlow', 'MinimalTwoScene', 'AudiovisualMix', 'FastCommercial', 'ReducedMotion'],
+    status: 'ready',
+  },
 ];
 
 

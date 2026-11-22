@@ -30,6 +30,7 @@ import { VideoPresets } from '../../config/video.ts';
 import { SceneSequence } from '../../components/scenes/SceneSequence.tsx';
 import { AudioTrack } from '../../components/audio/AudioTrack.tsx';
 import { SoundEffectGroup } from '../../components/audio/SoundEffectGroup.tsx';
+import { AnimationConfigProvider } from '../../config/animation/AnimationConfigContext.tsx';
 
 export const AdvertisementComposition: React.FC<AdvertisementCompositionProps> = (
   props,
@@ -42,6 +43,7 @@ export const AdvertisementComposition: React.FC<AdvertisementCompositionProps> =
     backgroundColor,
     backgroundContent,
     scenes = [],
+    animation,
     audio,
     soundEffects,
     safeArea = true,
@@ -136,13 +138,15 @@ export const AdvertisementComposition: React.FC<AdvertisementCompositionProps> =
 
       {/* 2. Main Content Canvas */}
       <div style={resolved.contentStyle}>
-        {/* Render Sequenced Scenes via SceneSequence orchestrator */}
-        {scenes.length > 0 && (
-          <SceneSequence scenes={scenes} />
-        )}
+        <AnimationConfigProvider value={animation}>
+          {/* Render Sequenced Scenes via SceneSequence orchestrator */}
+          {scenes.length > 0 && (
+            <SceneSequence scenes={scenes} />
+          )}
 
-        {/* Direct Children (alternative or complement to scenes array) */}
-        {children}
+          {/* Direct Children (alternative or complement to scenes array) */}
+          {children}
+        </AnimationConfigProvider>
       </div>
 
       {/* 3. Audio Layers */}

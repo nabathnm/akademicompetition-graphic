@@ -53,3 +53,5 @@ export * from './TransitionControllerShowcase';
 export * from './AudioTrackShowcase';
 export * from './BackgroundMusicShowcase';
 export * from './SoundEffectShowcase';
+export * from './GlobalAnimationConfigShowcase';
+export * from './AdvertisementPreviewShowcase';

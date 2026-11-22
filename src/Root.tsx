@@ -14,6 +14,8 @@ import { TransitionControllerShowcase } from './playground/showcases/TransitionC
 import { AudioTrackShowcase } from './playground/showcases/AudioTrackShowcase';
 import { BackgroundMusicShowcase } from './playground/showcases/BackgroundMusicShowcase';
 import { SoundEffectShowcase } from './playground/showcases/SoundEffectShowcase';
+import { GlobalAnimationConfigShowcase } from './playground/showcases/GlobalAnimationConfigShowcase';
+import { AdvertisementPreviewShowcase } from './playground/showcases/AdvertisementPreviewShowcase';
 import { VideoPresets } from './config/video';
 import './styles/global.css';
 
@@ -121,6 +123,26 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="SoundEffect"
         component={SoundEffectShowcase}
+        durationInFrames={180}
+        fps={VideoPresets.LANDSCAPE_1080P.fps}
+        width={VideoPresets.LANDSCAPE_1080P.width}
+        height={VideoPresets.LANDSCAPE_1080P.height}
+      />
+
+      {/* Layer 1 / Layer 4: GlobalAnimationConfig Central Center */}
+      <Composition
+        id="GlobalAnimationConfig"
+        component={GlobalAnimationConfigShowcase}
+        durationInFrames={180}
+        fps={VideoPresets.LANDSCAPE_1080P.fps}
+        width={VideoPresets.LANDSCAPE_1080P.width}
+        height={VideoPresets.LANDSCAPE_1080P.height}
+      />
+
+      {/* Layer 4: AdvertisementPreview Studio Player */}
+      <Composition
+        id="AdvertisementPreview"
+        component={AdvertisementPreviewShowcase}
         durationInFrames={180}
         fps={VideoPresets.LANDSCAPE_1080P.fps}
         width={VideoPresets.LANDSCAPE_1080P.width}

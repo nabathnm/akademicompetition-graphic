@@ -20,6 +20,7 @@ import type {
   SceneSequenceItemProps,
 } from '../components/scenes/types.ts';
 import type { SoundEffectProps } from '../components/audio/soundEffectTypes.ts';
+import type { GlobalAnimationConfig } from '../config/animation/animationConfigTypes.ts';
 
 export type {
   SceneTransitionType,
@@ -32,6 +33,7 @@ export type {
   SceneSequenceProps,
   SceneSequenceItemProps,
   SoundEffectProps,
+  GlobalAnimationConfig,
 };
 
 export interface SceneSequenceItem {
@@ -80,7 +82,7 @@ export interface PlaceholderAdProps {
 export type SceneItemConfig = SceneSequenceItemConfig;
 export type SceneScheduleItem = ScheduledSceneItem;
 
-export interface AdvertisementAnimationConfig {
+export interface AdvertisementAnimationConfig extends GlobalAnimationConfig {
   /** Global stagger delay multiplier for child scenes */
   staggerDelay?: number;
   /** Global entrance animation preset */
