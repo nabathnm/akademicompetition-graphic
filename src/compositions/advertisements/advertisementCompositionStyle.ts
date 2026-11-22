@@ -88,6 +88,35 @@ export function validateAdvertisementConfig(
     });
   }
 
+  // Background music validation
+  if (props.backgroundMusic) {
+    const bgm = props.backgroundMusic;
+    if (typeof bgm.volume === 'number' && (bgm.volume < 0 || bgm.volume > 1)) {
+      warnings.push(`Background music volume (${bgm.volume}) is outside normal 0.0 - 1.0 range.`);
+    }
+    if (bgm.fadeInFrames !== undefined && bgm.fadeInFrames < 0) {
+      errors.push(`Background music has negative fadeInFrames: ${bgm.fadeInFrames}`);
+    }
+    if (bgm.fadeOutFrames !== undefined && bgm.fadeOutFrames < 0) {
+      errors.push(`Background music has negative fadeOutFrames: ${bgm.fadeOutFrames}`);
+    }
+  }
+
+  // Sound effects validation
+  if (props.soundEffects && props.soundEffects.length > 0) {
+    props.soundEffects.forEach((sfx, index) => {
+      const trigger = sfx.triggerFrame ?? sfx.startFrame ?? sfx.startAtFrame ?? 0;
+      if (trigger < 0) {
+        errors.push(`Sound effect at index ${index} has negative triggerFrame: ${trigger}`);
+      }
+      if (props.durationInFrames !== undefined && trigger >= props.durationInFrames) {
+        warnings.push(
+          `Sound effect '${sfx.id || index}' triggers at or after composition end (${trigger} >= ${props.durationInFrames}f).`,
+        );
+      }
+    });
+  }
+
   return {
     isValid: errors.length === 0,
     errors,
@@ -103,6 +132,7 @@ export function calculateSceneSchedule(
   scenes: SceneItemConfig[] = [],
   compositionDuration?: number,
 ): SceneScheduleItem[] {
+  void compositionDuration;
   let currentOffset = 0;
 
   return scenes.map((scene, index) => {

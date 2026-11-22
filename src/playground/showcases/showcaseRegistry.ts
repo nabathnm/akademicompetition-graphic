@@ -703,6 +703,38 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     variants: ['MultiSceneFlow', 'MinimalTwoScene', 'AudiovisualMix', 'FastCommercial', 'ReducedMotion'],
     status: 'ready',
   },
+  {
+    id: 'component-integration',
+    name: 'ComponentIntegration',
+    category: 'scenes',
+    description: 'Multi-library component integration demonstrating combined Typography, UI, Mockups, Graphics, and Scenes with standardized props',
+    variants: [
+      'CardTypography',
+      'ButtonDevice',
+      'GraphicsTypography',
+      'SmartphoneUi',
+      'SceneTransitions',
+      'AllInScene',
+    ],
+    status: 'ready',
+  },
+  {
+    id: 'audio-timeline-sync',
+    name: 'AudioTimelineSync',
+    category: 'scenes',
+    description: 'Frame-accurate audio and visual timeline synchronization testbed demonstrating BackgroundMusic, SoundEffect, AudioTrack, and ducking across scenes',
+    variants: [
+      'BgmFullSpan',
+      'SfxTextSync',
+      'SfxTransitionSync',
+      'SfxOverlap',
+      'BgmFadeEnvelopes',
+      'MultiAudioStagger',
+      'NoAudioSafety',
+      'AudioDisabledBypass',
+    ],
+    status: 'ready',
+  },
 ];
 
 

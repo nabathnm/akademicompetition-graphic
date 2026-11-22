@@ -8,6 +8,7 @@
  */
 
 import { clamp } from '../animation/clamp.ts';
+import { SILENT_AUDIO_DATA_URI } from '../../components/audio/audioTrackStyle.ts';
 import {
   secondsToFrames,
   framesToSeconds,
@@ -293,11 +294,12 @@ export function calculateAudioTimeline(
     );
     const span = createTimelineSpan(startFrame, duration, fps);
 
+    const resolvedSrc = track.src || SILENT_AUDIO_DATA_URI;
     return {
       ...span,
-      id: track.id ?? `audio-${idx}-${track.src}`,
+      id: track.id ?? `audio-${idx}-${track.src ? track.src : idx}`,
       name: track.name ?? `Audio Track ${idx + 1}`,
-      src: track.src,
+      src: resolvedSrc,
       volume: track.volume ?? 1,
       fadeInFrames: Math.max(0, Math.round(track.fadeInFrames ?? 0)),
       fadeOutFrames: Math.max(0, Math.round(track.fadeOutFrames ?? 0)),
@@ -323,8 +325,28 @@ export function buildTimelineComposition(config: TimelineInputConfig): TimelineC
   const scenesEndFrame = scenes.length > 0 ? Math.max(...scenes.map((s) => s.endFrame)) : 0;
   const initialDuration = Math.max(config.totalDurationInFrames ?? 0, scenesEndFrame);
 
-  // 3. Calculate audio timeline
-  const audioTracks = calculateAudioTimeline(config.audio, initialDuration, fps);
+  // 3. Assemble and calculate multi-track audio timeline (BGM, sound effects, voice/audio)
+  const audioList: TimelineAudioInput[] = [];
+  if (config.backgroundMusic) {
+    audioList.push({
+      ...config.backgroundMusic,
+      id: config.backgroundMusic.id ?? 'background-music',
+      name: config.backgroundMusic.name ?? 'Background Music',
+      loop: config.backgroundMusic.loop ?? true,
+    });
+  }
+  if (config.audio) {
+    if (Array.isArray(config.audio)) {
+      audioList.push(...config.audio);
+    } else {
+      audioList.push(config.audio);
+    }
+  }
+  if (config.soundEffects && config.soundEffects.length > 0) {
+    audioList.push(...config.soundEffects);
+  }
+
+  const audioTracks = calculateAudioTimeline(audioList, initialDuration, fps);
 
   // 4. Resolve absolute total composition duration
   const audioEndFrame = audioTracks.length > 0 ? Math.max(...audioTracks.map((a) => a.endFrame)) : 0;

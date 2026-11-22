@@ -253,7 +253,6 @@ const AudioTrackHUD: React.FC<AudioTrackHUDProps> = ({
                 backgroundColor:
                   percent > 85 ? '#EF4444' : percent > 60 ? '#F59E0B' : Colors.accent.cyan,
                 borderRadius: 1,
-                transition: 'height 0.05s ease',
               }}
             />
           ))}

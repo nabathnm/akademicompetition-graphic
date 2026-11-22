@@ -1,10 +1,19 @@
-/**
+﻿/**
  * Scene Components Type Definitions
  * Layer 3 of the Motion Graphics Framework.
  */
 
 import React from 'react';
 import type { EasingFunction, EasingPresetName } from '../../utils/animation/easing';
+export type {
+  SceneAnimationType,
+  SceneSlideDirection,
+  SceneAnimationConfig,
+} from '../../config/animation/animationConfigTypes';
+import type {
+  SceneAnimationType,
+  SceneAnimationConfig,
+} from '../../config/animation/animationConfigTypes';
 
 export type SceneLayoutMode =
   | 'centered'
@@ -32,32 +41,6 @@ export interface ScenePaddingObject {
 }
 
 export type ScenePadding = ScenePaddingValue | ScenePaddingObject;
-
-export type SceneAnimationType = 'fade' | 'slide' | 'scale' | 'zoom' | 'none';
-export type SceneSlideDirection = 'left' | 'right' | 'top' | 'bottom';
-
-export interface SceneAnimationConfig {
-  /** Animation preset type ('fade' | 'slide' | 'scale' | 'zoom' | 'none') */
-  type?: SceneAnimationType;
-  /** Duration of entrance animation in frames (default: 15) */
-  enterDuration?: number;
-  /** Delay before entrance animation starts in frames (default: 0) */
-  enterDelay?: number;
-  /** Duration of exit animation in frames (default: 0) */
-  exitDuration?: number;
-  /** Direction for slide entrance animation (default: 'bottom') */
-  slideDirection?: SceneSlideDirection;
-  /** Slide distance in pixels (default: 60) */
-  slideDistance?: number;
-  /** Initial scale for scale/zoom animations (default: 0.9 for scale, 0.5 for zoom) */
-  initialScale?: number;
-  /** Target scale at completion (default: 1.0) */
-  finalScale?: number;
-  /** Initial opacity for entrance animation (default: 0) */
-  initialOpacity?: number;
-  /** Easing curve function or preset name */
-  easing?: EasingPresetName | EasingFunction;
-}
 
 export interface SceneContainerProps {
   /** Scene container width in pixels or CSS value (default: composition width or '100%') */
@@ -987,8 +970,8 @@ export interface SceneTransitionConfig {
   durationInFrames?: number;
   /** Direction for directional transitions (slide, wipe, split) */
   direction?: 'left' | 'right' | 'top' | 'bottom' | string;
-  /** Easing curve preset name */
-  easing?: EasingPresetName;
+  /** Easing curve preset name or custom function */
+  easing?: EasingPresetName | EasingFunction;
   /** Whether transition is disabled */
   disabled?: boolean;
   /** Additional custom props passed to transition */
@@ -1016,10 +999,12 @@ export interface SceneSequenceItemConfig {
   /** Human-readable scene name for debugging, logging, and telemetry */
   name?: string;
   /** Scene component element, FC, or render function */
-  component:
+  component?:
     | React.ReactNode
     | React.FC<SceneItemRenderProps>
     | ((props: SceneItemRenderProps) => React.ReactNode);
+  /** Alternative alias for component */
+  scene?: React.ReactNode;
   /** Duration in frames allocated for this scene */
   durationInFrames: number;
   /** Explicit starting frame offset (if omitted, auto-calculated sequentially from previous scene) */

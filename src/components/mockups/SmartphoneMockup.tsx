@@ -48,6 +48,7 @@ export const SmartphoneMockup: React.FC<SmartphoneMockupProps> = ({
   animation = 'spring',
   animate = true,
   delay = 0,
+  startFrame,
   durationInFrames = 25,
   slideDirection = 'up',
   easing,
@@ -83,19 +84,21 @@ export const SmartphoneMockup: React.FC<SmartphoneMockupProps> = ({
   // 3. Resolve camera cutout
   const resolvedNotch = resolveCameraCutout(showCamera, cameraCutout, preset?.notch);
 
+  const effectiveDelay = delay !== 0 ? delay : (startFrame ?? 0);
+
   // 4. Resolve continuous kinetics (deterministic sinusoidal motion)
   const floatY = calculateContinuousFloating({
     currentFrame,
     fps,
     config: floating,
-    delay,
+    delay: effectiveDelay,
   });
 
   const tiltAngle = calculateContinuousTilt({
     currentFrame,
     fps,
     config: tilt,
-    delay,
+    delay: effectiveDelay,
   });
 
   // 5. Resolve sequential screen reveal transition
@@ -218,7 +221,7 @@ export const SmartphoneMockup: React.FC<SmartphoneMockupProps> = ({
         homeBar={showHomeIndicator}
         animation={animation}
         animate={animate}
-        delay={delay}
+        delay={effectiveDelay}
         durationInFrames={durationInFrames}
         slideDirection={slideDirection}
         easing={easing}

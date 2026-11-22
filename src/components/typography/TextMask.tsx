@@ -24,6 +24,7 @@ export const TextMask: React.FC<TextMaskProps> = ({
   text,
   variant = 'bottom-reveal',
   startFrame = 0,
+  delay,
   durationInFrames = 20,
   exitFrame,
   exitDurationInFrames = 14,
@@ -46,16 +47,19 @@ export const TextMask: React.FC<TextMaskProps> = ({
   const currentFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const effectiveStartFrame = delay !== undefined && startFrame === 0 ? delay : startFrame;
+  const resolvedText = text ?? (typeof children === 'string' ? children : '');
+
   // If variant is line-reveal, parse text into discrete lines
   const parsedLines = useMemo(
-    () => (variant === 'line-reveal' ? parseMaskLines(text, lines) : []),
-    [variant, text, lines]
+    () => (variant === 'line-reveal' ? parseMaskLines(resolvedText, lines) : []),
+    [variant, resolvedText, lines]
   );
 
   // Line-by-line reveal branch
   if (variant === 'line-reveal' && parsedLines.length > 0) {
     const timing = calculateLineMaskTiming(parsedLines.length, {
-      startFrame,
+      startFrame: effectiveStartFrame,
       staggerDelay,
       lineDuration,
       durationInFrames,
@@ -122,7 +126,7 @@ export const TextMask: React.FC<TextMaskProps> = ({
     currentFrame,
     fps,
     variant,
-    startFrame,
+    startFrame: effectiveStartFrame,
     durationInFrames,
     exitFrame,
     exitDurationInFrames,

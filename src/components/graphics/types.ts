@@ -133,6 +133,8 @@ export interface AnimatedShapeProps {
   animate?: boolean;
   /** Frame delay before animation begins (shorthand for animation.delay) */
   delay?: number;
+  /** Starting frame for animation (alias for delay) */
+  startFrame?: number;
   /** Duration in frames (shorthand for animation.duration) */
   durationInFrames?: number;
   /** Easing preset or function */
@@ -266,6 +268,8 @@ export interface AnimatedLineProps {
   animate?: boolean;
   /** Frame delay before animation begins (shorthand for animation.delay) */
   delay?: number;
+  /** Starting frame for animation (alias for delay) */
+  startFrame?: number;
   /** Duration in frames (shorthand for animation.duration) */
   durationInFrames?: number;
   /** Easing preset name or custom function */
@@ -406,6 +410,8 @@ export interface AnimatedCircleProps {
   animate?: boolean;
   /** Frame delay before animation begins (shorthand for animation.delay) */
   delay?: number;
+  /** Starting frame for animation (alias for delay) */
+  startFrame?: number;
   /** Duration in frames (shorthand for animation.duration) */
   durationInFrames?: number;
   /** Easing preset or custom function */
@@ -569,6 +575,8 @@ export interface AnimatedArrowProps {
   animate?: boolean;
   /** Frame delay before animation begins (shorthand for animation.delay) */
   delay?: number;
+  /** Starting frame for animation (alias for delay) */
+  startFrame?: number;
   /** Duration in frames (shorthand for animation.duration) */
   durationInFrames?: number;
   /** Easing preset or custom function */
@@ -729,6 +737,8 @@ export interface AnimatedPathProps {
   animate?: boolean;
   /** Frame delay before animation begins (shorthand for animation.delay) */
   delay?: number;
+  /** Starting frame for animation (alias for delay) */
+  startFrame?: number;
   /** Duration in frames (shorthand for animation.duration) */
   durationInFrames?: number;
   /** Easing preset or custom function */

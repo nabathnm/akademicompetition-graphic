@@ -24,6 +24,7 @@ export const TextHighlight: React.FC<TextHighlightProps> = ({
   segments,
   variant = 'background',
   startFrame = 0,
+  delay,
   durationInFrames = 18,
   exitFrame,
   exitDurationInFrames = 12,
@@ -49,12 +50,15 @@ export const TextHighlight: React.FC<TextHighlightProps> = ({
   const currentFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const effectiveStartFrame = delay !== undefined && startFrame === 0 ? delay : startFrame;
+  const resolvedText = text ?? (typeof children === 'string' ? children : '');
+
   // 1. Calculate deterministic highlight animation progress & styles
   const motionStyle = calculateTextHighlightStyle({
     currentFrame,
     fps,
     variant,
-    startFrame,
+    startFrame: effectiveStartFrame,
     durationInFrames,
     exitFrame,
     exitDurationInFrames,
@@ -65,8 +69,8 @@ export const TextHighlight: React.FC<TextHighlightProps> = ({
 
   // 2. Parse text into structured segments (targeted vs unhighlighted)
   const parsedSegments = useMemo(
-    () => parseTextSegments(text, highlight, segments),
-    [text, highlight, segments]
+    () => parseTextSegments(resolvedText, highlight, segments),
+    [resolvedText, highlight, segments]
   );
 
   // Helper renderer for the visual highlight effect behind/around a target node

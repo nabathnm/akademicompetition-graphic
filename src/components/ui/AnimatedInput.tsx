@@ -36,6 +36,7 @@ export const AnimatedInput: React.FC<AnimatedInputProps> = ({
   label,
   helperText,
   startFrame = 0,
+  delay,
   focusFrame = 10,
   typingStartFrame = 16,
   typingSpeed = 2,
@@ -87,10 +88,12 @@ export const AnimatedInput: React.FC<AnimatedInputProps> = ({
   const displayedText = typingResult.displayedText;
   const hasContent = displayedText.length > 0;
 
+  const effectiveStartFrame = delay !== undefined && startFrame === 0 ? delay : startFrame;
+
   // 2. Derive Current Interaction State
   const activeState = deriveAnimatedInputState({
     currentFrame,
-    startFrame,
+    startFrame: effectiveStartFrame,
     focusFrame,
     typingStartFrame,
     isTyping: typingResult.isTyping,
@@ -117,7 +120,7 @@ export const AnimatedInput: React.FC<AnimatedInputProps> = ({
   // 4. Entrance Motion Style
   const entranceMotion = calculateInputEntrance({
     currentFrame,
-    startFrame,
+    startFrame: effectiveStartFrame,
     duration: entranceDuration,
     entrance,
   });

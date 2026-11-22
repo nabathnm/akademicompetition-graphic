@@ -408,7 +408,7 @@ export const TransitionControllerShowcase: React.FC = () => {
           </label>
           <select
             value={direction}
-            onChange={(e) => setDirection(e.target.value as any)}
+            onChange={(e) => setDirection(e.target.value as 'left' | 'right' | 'top' | 'bottom')}
             style={{
               width: '100%',
               padding: '6px 10px',

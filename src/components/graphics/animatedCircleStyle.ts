@@ -135,7 +135,8 @@ export function resolveCircleAnimationConfig(
   const {
     animation,
     animate = true,
-    delay = 0,
+    delay: propDelay = 0,
+    startFrame,
     durationInFrames = 20,
     easing = 'easeOutCubic',
     springPreset,
@@ -143,6 +144,8 @@ export function resolveCircleAnimationConfig(
     from,
     to,
   } = props;
+
+  const delay = propDelay !== 0 ? propDelay : (startFrame ?? 0);
 
   if (!animate) {
     return { type: 'none', delay: 0, duration: 0 };

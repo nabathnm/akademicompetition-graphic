@@ -39,6 +39,7 @@ export const AnimatedSearchBar: React.FC<AnimatedSearchBarProps> = ({
   suggestions = [],
   results = [],
   startFrame = 0,
+  delay,
   focusFrame = 10,
   typingStartFrame = 16,
   suggestionStartFrame = 28,
@@ -70,10 +71,12 @@ export const AnimatedSearchBar: React.FC<AnimatedSearchBarProps> = ({
 }) => {
   const currentFrame = useCurrentFrame();
 
+  const effectiveStartFrame = delay !== undefined && startFrame === 0 ? delay : startFrame;
+
   // 1. Determine Active Interaction Stage
   const stage = deriveSearchBarStage({
     currentFrame,
-    startFrame,
+    startFrame: effectiveStartFrame,
     focusFrame,
     typingStartFrame,
     suggestionStartFrame,
@@ -100,7 +103,7 @@ export const AnimatedSearchBar: React.FC<AnimatedSearchBarProps> = ({
   // 4. Container Entrance Styles
   const containerMotion = calculateContainerEntranceStyles({
     currentFrame,
-    startFrame,
+    startFrame: effectiveStartFrame,
     entrance: containerEntrance,
     duration: entranceDuration,
     width,

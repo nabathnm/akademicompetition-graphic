@@ -40,7 +40,6 @@ export function validateAdvertisementPreviewConfig(
 
   // 2. Scene Inspection
   const sceneCount = props.scenes?.length ?? 0;
-  let totalSceneDuration = 0;
   let maxComputedEnd = 0;
 
   if (sceneCount > 0 && props.scenes) {
@@ -71,7 +70,6 @@ export function validateAdvertisementPreviewConfig(
       const delayAfter = scene.delayAfter ?? 0;
 
       currentOffset = end + delayAfter;
-      totalSceneDuration += Math.max(0, scene.durationInFrames);
       maxComputedEnd = Math.max(maxComputedEnd, end);
     });
   } else if (!props.children) {

@@ -821,7 +821,7 @@ export function resolvePathAnimationConfig(props: Partial<AnimatedPathProps>): P
   if (typeof props.animation === 'object' && props.animation !== null) {
     return {
       type: props.animation.type ?? 'draw-in',
-      delay: props.animation.delay ?? props.delay ?? 0,
+      delay: props.animation.delay ?? props.delay ?? props.startFrame ?? 0,
       duration: props.animation.duration ?? props.durationInFrames ?? 30,
       easing: props.animation.easing ?? props.easing,
       springPreset: props.animation.springPreset ?? props.springPreset,
@@ -836,7 +836,7 @@ export function resolvePathAnimationConfig(props: Partial<AnimatedPathProps>): P
 
   return {
     type: animType,
-    delay: props.delay ?? 0,
+    delay: props.delay ?? props.startFrame ?? 0,
     duration: props.durationInFrames ?? 30,
     easing: props.easing,
     springPreset: props.springPreset,

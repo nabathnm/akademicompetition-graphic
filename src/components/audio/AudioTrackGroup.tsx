@@ -8,7 +8,7 @@
 
 import React, { useMemo } from 'react';
 import { useCurrentFrame, useVideoConfig } from 'remotion';
-import type { AudioDuckingConfig, AudioTrackGroupProps } from './audioTrackTypes.ts';
+import type { AudioDuckingConfig, AudioTrackGroupProps, AudioVolumeMetrics } from './audioTrackTypes.ts';
 import { AudioTrack } from './AudioTrack.tsx';
 import {
   calculateDuckedVolume,
@@ -72,7 +72,7 @@ export const AudioTrackGroup: React.FC<AudioTrackGroupProps> = ({
           ? (f: number) => {
               const baseVol =
                 typeof trackVolume === 'function'
-                  ? trackVolume(f, {} as any)
+                  ? trackVolume(f, {} as AudioVolumeMetrics)
                   : typeof trackVolume === 'number'
                     ? trackVolume
                     : 1.0;

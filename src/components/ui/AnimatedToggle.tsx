@@ -23,6 +23,7 @@ export const AnimatedToggle: React.FC<AnimatedToggleProps> = ({
   checked,
   defaultChecked,
   startFrame = 0,
+  delay,
   toggleFrame,
   durationInFrames = 12,
   variant,
@@ -63,12 +64,14 @@ export const AnimatedToggle: React.FC<AnimatedToggleProps> = ({
 
   const sizeMetrics = resolveToggleSize(size, trackWidth, trackHeight, thumbSize);
 
+  const effectiveStartFrame = delay !== undefined && startFrame === 0 ? delay : startFrame;
+
   const motion = calculateToggleMotion({
     currentFrame,
     fps,
     checked,
     defaultChecked,
-    startFrame,
+    startFrame: effectiveStartFrame,
     toggleFrame,
     durationInFrames,
     animationVariant: finalAnimationVariant,

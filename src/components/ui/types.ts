@@ -64,6 +64,8 @@ export interface AnimatedInputProps {
   helperText?: string;
   /** Starting frame for the component entrance animation (default: 0) */
   startFrame?: number;
+  /** Delay in frames before entrance begins (alias for startFrame) */
+  delay?: number;
   /** Frame at which input acquires focus (default: 10) */
   focusFrame?: number;
   /** Frame at which character typing begins (default: 16) */
@@ -176,6 +178,8 @@ export interface AnimatedButtonProps {
   state?: AnimatedButtonState;
   /** Starting frame for entrance animation (default: 0) */
   startFrame?: number;
+  /** Delay in frames before entrance begins (alias for startFrame) */
+  delay?: number;
   /** Total animation duration in frames (optional) */
   durationInFrames?: number;
   /** Frame at which hover interaction begins */
@@ -306,6 +310,8 @@ export interface AnimatedSearchBarProps {
   results?: SearchResult[];
   /** Starting frame for container entrance animation (default: 0) */
   startFrame?: number;
+  /** Delay in frames before entrance begins (alias for startFrame) */
+  delay?: number;
   /** Frame at which search input acquires focus (default: 10) */
   focusFrame?: number;
   /** Frame at which character typing begins (default: 16) */
@@ -552,6 +558,8 @@ export interface AnimatedNotificationProps {
   action?: React.ReactNode;
   /** Starting frame for entrance animation (default: 0) */
   startFrame?: number;
+  /** Delay in frames before entrance begins (alias for startFrame) */
+  delay?: number;
   /** Duration in frames for entrance animation (default: 12) */
   durationInFrames?: number;
   /** Display duration before exit animation begins (default: 50) */
@@ -642,6 +650,8 @@ export interface AnimatedToggleProps {
   defaultChecked?: boolean;
   /** Starting baseline frame (default: 0) */
   startFrame?: number;
+  /** Delay in frames before entrance begins (alias for startFrame) */
+  delay?: number;
   /** Frame at which toggle transition occurs */
   toggleFrame?: number;
   /** Duration in frames for transition animation (default: 12) */
@@ -765,6 +775,8 @@ export interface AnimatedCheckboxProps {
   indeterminate?: boolean;
   /** Starting baseline frame (default: 0) */
   startFrame?: number;
+  /** Delay in frames before entrance begins (alias for startFrame) */
+  delay?: number;
   /** Frame at which checkbox state transition occurs */
   checkFrame?: number;
   /** Duration in frames for the transition animation (default: 12) */

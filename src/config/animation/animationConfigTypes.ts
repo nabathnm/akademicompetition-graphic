@@ -9,7 +9,32 @@
 import React from 'react';
 import type { EasingFunction, EasingPresetName } from '../../utils/animation/easing.ts';
 import type { SpringPhysicsConfig } from '../../utils/animation/spring.ts';
-import type { SceneAnimationConfig } from '../../components/scenes/types.ts';
+
+export type SceneAnimationType = 'fade' | 'slide' | 'scale' | 'zoom' | 'none';
+export type SceneSlideDirection = 'left' | 'right' | 'top' | 'bottom';
+
+export interface SceneAnimationConfig {
+  /** Animation preset type ('fade' | 'slide' | 'scale' | 'zoom' | 'none') */
+  type?: SceneAnimationType;
+  /** Duration of entrance animation in frames (default: 15) */
+  enterDuration?: number;
+  /** Delay before entrance animation starts in frames (default: 0) */
+  enterDelay?: number;
+  /** Duration of exit animation in frames (default: 0) */
+  exitDuration?: number;
+  /** Direction for slide entrance animation (default: 'bottom') */
+  slideDirection?: SceneSlideDirection;
+  /** Slide distance in pixels (default: 60) */
+  slideDistance?: number;
+  /** Initial scale for scale/zoom animations (default: 0.9 for scale, 0.5 for zoom) */
+  initialScale?: number;
+  /** Target scale at completion (default: 1.0) */
+  finalScale?: number;
+  /** Initial opacity for entrance animation (default: 0) */
+  initialOpacity?: number;
+  /** Easing curve function or preset name */
+  easing?: EasingPresetName | EasingFunction;
+}
 
 /**
  * Global animation configuration interface.

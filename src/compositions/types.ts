@@ -20,9 +20,11 @@ import type {
   SceneSequenceItemProps,
 } from '../components/scenes/types.ts';
 import type { SoundEffectProps } from '../components/audio/soundEffectTypes.ts';
+import type { BackgroundMusicProps } from '../components/audio/backgroundMusicTypes.ts';
 import type { GlobalAnimationConfig } from '../config/animation/animationConfigTypes.ts';
 
 export type {
+  ScenePadding,
   SceneTransitionType,
   SceneTransitionConfig,
   SceneItemRenderProps,
@@ -33,6 +35,7 @@ export type {
   SceneSequenceProps,
   SceneSequenceItemProps,
   SoundEffectProps,
+  BackgroundMusicProps,
   GlobalAnimationConfig,
 };
 
@@ -50,6 +53,10 @@ export interface AudioTrackConfig {
   volume?: number | ((frame: number) => number);
   /** Frame at which the audio track begins playing (default: 0) */
   startAtFrame?: number;
+  /** Playback duration in frames */
+  durationInFrames?: number;
+  /** Ending frame boundary in composition timeline */
+  endFrame?: number;
   /** Number of frames for initial volume fade-in (default: 0) */
   fadeInFrames?: number;
   /** Number of frames for final volume fade-out (default: 0) */
@@ -114,6 +121,8 @@ export interface AdvertisementCompositionProps {
   animation?: AdvertisementAnimationConfig;
   /** Single audio track or multiple layered audio tracks */
   audio?: AudioTrackConfig | AudioTrackConfig[];
+  /** Optional background music soundtrack spanning the composition */
+  backgroundMusic?: BackgroundMusicProps;
   /** Optional sound effects array placed across the advertisement timeline */
   soundEffects?: SoundEffectProps[];
   /** Broadcast safe area margin (boolean for default 60px or custom pixel number) */

@@ -64,6 +64,8 @@ import { BackgroundMusicShowcase } from './showcases/BackgroundMusicShowcase';
 import { SoundEffectShowcase } from './showcases/SoundEffectShowcase';
 import { GlobalAnimationConfigShowcase } from './showcases/GlobalAnimationConfigShowcase';
 import { AdvertisementPreviewShowcase } from './showcases/AdvertisementPreviewShowcase';
+import { ComponentIntegrationShowcase } from './showcases/ComponentIntegrationShowcase';
+import { AudioTimelineSyncShowcase } from './showcases/AudioTimelineSyncShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -156,7 +158,29 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
   const [mockupsTab, setMockupsTab] = React.useState<'all' | 'tablet' | 'laptop' | 'browser' | 'smartphone' | 'device-frame'>('all');
   const [graphicsTab, setGraphicsTab] = React.useState<'animated-arrow' | 'animated-circle' | 'animated-line' | 'animated-shape' | 'animated-path' | 'particle-system' | 'all'>('all');
   const [transitionsTab, setTransitionsTab] = React.useState<'all' | 'controller' | 'glitch' | 'morph' | 'split' | 'mask' | 'wipe' | 'zoom' | 'slide' | 'fade'>('all');
-  const [scenesTab, setScenesTab] = React.useState<'all' | 'container' | 'hero' | 'product' | 'feature' | 'typography' | 'device' | 'comparison' | 'cta' | 'outro' | 'ad-comp' | 'scene-sequence' | 'timeline-manager' | 'transition-controller' | 'audio-track' | 'background-music' | 'sound-effect' | 'global-animation-config' | 'advertisement-preview'>('all');
+  const [scenesTab, setScenesTab] = React.useState<
+    | 'all'
+    | 'container'
+    | 'hero'
+    | 'product'
+    | 'feature'
+    | 'typography'
+    | 'device'
+    | 'comparison'
+    | 'cta'
+    | 'outro'
+    | 'ad-comp'
+    | 'scene-sequence'
+    | 'timeline-manager'
+    | 'transition-controller'
+    | 'audio-track'
+    | 'background-music'
+    | 'sound-effect'
+    | 'global-animation-config'
+    | 'advertisement-preview'
+    | 'component-integration'
+    | 'audio-timeline-sync'
+  >('all');
 
   // Filter registered showcases
   const filteredShowcases =
@@ -834,6 +858,8 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
               { id: 'sound-effect', label: 'SoundEffect' },
               { id: 'global-animation-config', label: 'GlobalAnimationConfig' },
               { id: 'advertisement-preview', label: 'AdvertisementPreview' },
+              { id: 'component-integration', label: 'ComponentIntegration' },
+              { id: 'audio-timeline-sync', label: 'AudioTimelineSync' },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -1046,11 +1072,33 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
           {(scenesTab === 'all' || scenesTab === 'advertisement-preview') && (
             <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
               {scenesTab === 'all' && (
-                <div style={{ ...Typography.caption.eyebrow, color: '#3b82f6', marginBottom: Spacing.scale.sm }}>
+                <div style={{ ...Typography.caption.eyebrow, color: '#10b981', marginBottom: Spacing.scale.sm }}>
                   SECTION R: ADVERTISEMENTPREVIEW STUDIO PLAYER
                 </div>
               )}
               <AdvertisementPreviewShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'component-integration') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: Colors.accent.cyan, marginBottom: Spacing.scale.sm }}>
+                  SECTION S: COMPONENT INTEGRATION TESTBED (ALL 5 LIBRARIES)
+                </div>
+              )}
+              <ComponentIntegrationShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'audio-timeline-sync') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: '#F59E0B', marginBottom: Spacing.scale.sm }}>
+                  SECTION T: AUDIO & TIMELINE SYNCHRONIZATION TESTBED
+                </div>
+              )}
+              <AudioTimelineSyncShowcase />
             </div>
           )}
         </div>

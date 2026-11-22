@@ -22,6 +22,8 @@ export type ComponentCategory =
 export interface BaseMotionProps {
   /** Delay in frames before the component starts animating */
   delay?: number;
+  /** Frame at which animation begins (alias for delay) */
+  startFrame?: number;
   /** Custom duration in frames (defaults to token preset if omitted) */
   durationInFrames?: number;
   /** Spring physics preset when using physics-based motion */

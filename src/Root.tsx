@@ -16,6 +16,8 @@ import { BackgroundMusicShowcase } from './playground/showcases/BackgroundMusicS
 import { SoundEffectShowcase } from './playground/showcases/SoundEffectShowcase';
 import { GlobalAnimationConfigShowcase } from './playground/showcases/GlobalAnimationConfigShowcase';
 import { AdvertisementPreviewShowcase } from './playground/showcases/AdvertisementPreviewShowcase';
+import { ComponentIntegrationShowcase } from './playground/showcases/ComponentIntegrationShowcase';
+import { AudioTimelineSyncShowcase } from './playground/showcases/AudioTimelineSyncShowcase';
 import { VideoPresets } from './config/video';
 import './styles/global.css';
 
@@ -143,6 +145,26 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="AdvertisementPreview"
         component={AdvertisementPreviewShowcase}
+        durationInFrames={180}
+        fps={VideoPresets.LANDSCAPE_1080P.fps}
+        width={VideoPresets.LANDSCAPE_1080P.width}
+        height={VideoPresets.LANDSCAPE_1080P.height}
+      />
+
+      {/* Layer 5: Component Integration Testbed (Multi-library compositions) */}
+      <Composition
+        id="ComponentIntegration"
+        component={ComponentIntegrationShowcase}
+        durationInFrames={180}
+        fps={VideoPresets.LANDSCAPE_1080P.fps}
+        width={VideoPresets.LANDSCAPE_1080P.width}
+        height={VideoPresets.LANDSCAPE_1080P.height}
+      />
+
+      {/* Layer 5: Audio & Timeline Synchronization Testbed */}
+      <Composition
+        id="AudioTimelineSync"
+        component={AudioTimelineSyncShowcase}
         durationInFrames={180}
         fps={VideoPresets.LANDSCAPE_1080P.fps}
         width={VideoPresets.LANDSCAPE_1080P.width}

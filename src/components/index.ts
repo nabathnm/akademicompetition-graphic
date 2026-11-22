@@ -13,3 +13,4 @@ export * as GraphicComponents from './graphics';
 export * as TransitionComponents from './transitions';
 export * as AudioComponents from './audio';
 export * from './audio';
+export * as SceneComponents from './scenes';

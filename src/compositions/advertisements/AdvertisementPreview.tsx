@@ -20,8 +20,6 @@ import { Colors } from '../../styles/colors.ts';
 import { Typography } from '../../styles/typography.ts';
 import { VideoPresets } from '../../config/video.ts';
 import { AdvertisementComposition } from './AdvertisementComposition.tsx';
-import { BackgroundMusic } from '../../components/audio/BackgroundMusic.tsx';
-import { SoundEffectGroup } from '../../components/audio/SoundEffectGroup.tsx';
 import { formatTimecode } from '../../utils/timing/frame.ts';
 import type { AdvertisementPreviewProps } from './advertisementPreviewTypes.ts';
 import {
@@ -123,26 +121,13 @@ export const AdvertisementPreview: React.FC<AdvertisementPreviewProps> = (props)
           scenes={resolvedScenes}
           animation={animation}
           audio={audio}
+          backgroundMusic={backgroundMusic}
           soundEffects={soundEffects}
           safeArea={safeArea}
           padding={padding}
           debug={debug}
           compositionId={compositionId}
         >
-          {/* Background Music Layer */}
-          {backgroundMusic && (
-            <BackgroundMusic
-              id="preview-bgm"
-              name="Preview Soundtrack"
-              {...backgroundMusic}
-            />
-          )}
-
-          {/* Sound Effects Group */}
-          {soundEffects && soundEffects.length > 0 && (
-            <SoundEffectGroup effects={soundEffects} />
-          )}
-
           {/* Direct Child Elements */}
           {children}
         </AdvertisementComposition>

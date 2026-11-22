@@ -215,6 +215,8 @@ export interface TextHighlightProps {
   variant?: TextHighlightVariant;
   /** Frame at which the highlight animation begins (default: 0) */
   startFrame?: number;
+  /** Delay in frames before highlight begins (alias for startFrame) */
+  delay?: number;
   /** Duration of highlight entrance animation in frames (default: 18) */
   durationInFrames?: number;
   /** Frame at which exit animation starts (optional) */
@@ -291,6 +293,8 @@ export interface TextMaskProps {
   variant?: TextMaskVariant;
   /** Frame at which the reveal animation starts (default: 0) */
   startFrame?: number;
+  /** Delay in frames before reveal begins (alias for startFrame) */
+  delay?: number;
   /** Duration of reveal animation in frames (default: 20) */
   durationInFrames?: number;
   /** Frame at which exit animation starts (optional) */
@@ -565,6 +569,8 @@ export interface WordRevealStyleOptions {
 export interface AnimatedTextProps {
   /** The text content or child elements to animate */
   children?: React.ReactNode;
+  /** Plain text string to animate (alternative or fallback to children) */
+  text?: string;
   /** Animation preset variant (default: 'fade') */
   variant?: AnimatedTextVariant;
   /** Frame at which the entrance animation starts (default: 0) */

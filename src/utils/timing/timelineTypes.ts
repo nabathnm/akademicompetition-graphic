@@ -40,7 +40,7 @@ export interface TimelineTransitionConfig {
   type?: TimelineTransitionType;
   durationInFrames?: number;
   direction?: 'left' | 'right' | 'top' | 'bottom' | string;
-  easing?: string;
+  easing?: string | ((t: number) => number);
 }
 
 export interface TimelineSceneInput {
@@ -106,6 +106,10 @@ export interface TimelineInputConfig {
   scenes?: TimelineSceneInput[];
   /** Audio track or tracks to synchronize */
   audio?: TimelineAudioInput | TimelineAudioInput[];
+  /** Optional background music track spanning composition */
+  backgroundMusic?: TimelineAudioInput;
+  /** Optional sound effect cues placed on timeline */
+  soundEffects?: TimelineAudioInput[];
   /** Default frame delay between sequential scenes (default: 0) */
   defaultDelay?: number;
   /** Global overlap permission toggle (default: false) */

@@ -15,6 +15,7 @@ export type { CalculatedAnimatedStyle };
 
 export const AnimatedText: React.FC<AnimatedTextProps> = ({
   children,
+  text,
   variant = 'fade',
   startFrame = 0,
   durationInFrames = MOTION.duration.normal,
@@ -74,7 +75,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
 
   return (
     <Component className={className} style={elementStyle}>
-      {children}
+      {children ?? text}
     </Component>
   );
 };

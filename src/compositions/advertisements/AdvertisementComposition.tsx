@@ -29,6 +29,7 @@ import { Typography } from '../../styles/typography.ts';
 import { VideoPresets } from '../../config/video.ts';
 import { SceneSequence } from '../../components/scenes/SceneSequence.tsx';
 import { AudioTrack } from '../../components/audio/AudioTrack.tsx';
+import { BackgroundMusic } from '../../components/audio/BackgroundMusic.tsx';
 import { SoundEffectGroup } from '../../components/audio/SoundEffectGroup.tsx';
 import { AnimationConfigProvider } from '../../config/animation/AnimationConfigContext.tsx';
 
@@ -45,6 +46,7 @@ export const AdvertisementComposition: React.FC<AdvertisementCompositionProps> =
     scenes = [],
     animation,
     audio,
+    backgroundMusic,
     soundEffects,
     safeArea = true,
     debug = false,
@@ -150,6 +152,15 @@ export const AdvertisementComposition: React.FC<AdvertisementCompositionProps> =
       </div>
 
       {/* 3. Audio Layers */}
+      {backgroundMusic && (
+        <BackgroundMusic
+          id="advertisement-bgm"
+          name="Advertisement Soundtrack"
+          debug={debug}
+          {...backgroundMusic}
+        />
+      )}
+
       {audioTracks.map((track, idx) => (
         <AudioTrack
           key={`audio-${idx}-${track.src}`}

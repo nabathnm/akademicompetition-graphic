@@ -23,6 +23,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
   defaultChecked,
   indeterminate,
   startFrame = 0,
+  delay,
   checkFrame,
   durationInFrames = 12,
   variant,
@@ -63,13 +64,15 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
 
   const sizeMetrics = resolveCheckboxSize(size, finalVisualVariant, boxSize, borderRadius);
 
+  const effectiveStartFrame = delay !== undefined && startFrame === 0 ? delay : startFrame;
+
   const motion = calculateCheckboxMotion({
     currentFrame,
     fps,
     checked,
     defaultChecked,
     indeterminate,
-    startFrame,
+    startFrame: effectiveStartFrame,
     checkFrame,
     durationInFrames,
     animationVariant: finalAnimationVariant,

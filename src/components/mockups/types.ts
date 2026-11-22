@@ -130,6 +130,8 @@ export interface DeviceFrameProps {
   animate?: boolean;
   /** Frame delay before entrance begins */
   delay?: number;
+  /** Starting frame for entrance animation (alias for delay) */
+  startFrame?: number;
   /** Duration in frames for entrance */
   durationInFrames?: number;
   /** Direction for slide entrance ('up' | 'down' | 'left' | 'right') */
@@ -242,6 +244,8 @@ export interface SmartphoneMockupProps {
   animate?: boolean;
   /** Frame delay before entrance starts (default: 0) */
   delay?: number;
+  /** Starting frame for entrance animation (alias for delay) */
+  startFrame?: number;
   /** Entrance animation duration in frames (default: 25) */
   durationInFrames?: number;
   /** Direction for slide entrance */
@@ -403,6 +407,8 @@ export interface BrowserWindowMockupProps {
   animate?: boolean;
   /** Frame delay before entrance starts (default: 0) */
   delay?: number;
+  /** Starting frame for entrance animation (alias for delay) */
+  startFrame?: number;
   /** Entrance animation duration in frames (default: 25) */
   durationInFrames?: number;
   /** Direction for slide entrance */
@@ -536,6 +542,8 @@ export interface LaptopMockupProps {
   animate?: boolean;
   /** Frame delay before entrance starts (default: 0) */
   delay?: number;
+  /** Starting frame for entrance animation (alias for delay) */
+  startFrame?: number;
   /** Entrance animation duration in frames (default: 25) */
   durationInFrames?: number;
   /** Direction for slide entrance */
@@ -679,6 +687,8 @@ export interface TabletMockupProps {
   animate?: boolean;
   /** Frame delay before entrance starts (default: 0) */
   delay?: number;
+  /** Starting frame for entrance animation (alias for delay) */
+  startFrame?: number;
   /** Entrance animation duration in frames (default: 25) */
   durationInFrames?: number;
   /** Direction for slide entrance */

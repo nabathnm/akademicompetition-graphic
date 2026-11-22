@@ -32,6 +32,7 @@ export const AnimatedNotification: React.FC<AnimatedNotificationProps> = ({
   actionLabel,
   action,
   startFrame = 0,
+  delay,
   durationInFrames = 12,
   displayDuration = 50,
   exitFrame: explicitExitFrame,
@@ -54,8 +55,10 @@ export const AnimatedNotification: React.FC<AnimatedNotificationProps> = ({
   const currentFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const effectiveStartFrame = delay !== undefined && startFrame === 0 ? delay : startFrame;
+
   // 1. Resolve Effective Exit Frame
-  const exitFrame = explicitExitFrame !== undefined ? explicitExitFrame : startFrame + displayDuration;
+  const exitFrame = explicitExitFrame !== undefined ? explicitExitFrame : effectiveStartFrame + displayDuration;
   const effectiveProgressDuration = progressDuration !== undefined ? progressDuration : displayDuration;
 
   // 2. Resolve Semantic Theme & Layout Styles
@@ -66,7 +69,7 @@ export const AnimatedNotification: React.FC<AnimatedNotificationProps> = ({
   // 3. Calculate Deterministic Motion
   const motion = calculateNotificationMotion({
     currentFrame,
-    startFrame,
+    startFrame: effectiveStartFrame,
     durationInFrames,
     exitFrame,
     exitDurationInFrames,

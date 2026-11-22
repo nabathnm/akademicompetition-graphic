@@ -284,3 +284,52 @@ export function createSoundCue(
     ...overrides,
   };
 }
+
+/**
+ * Calculates the exact trigger frame to synchronize a sound effect with a text reveal token.
+ *
+ * @param textStartFrame Frame where text animation begins
+ * @param tokenIndex Index of the revealed word or character (0-indexed)
+ * @param staggerInterval Frames between consecutive revealed tokens
+ * @param frameOffset Optional micro-offset to align with visual pop
+ * @returns Synchronized target trigger frame
+ */
+export function syncSoundWithTextReveal(
+  textStartFrame: number,
+  tokenIndex: number,
+  staggerInterval: number,
+  frameOffset = 0,
+): number {
+  return Math.max(0, textStartFrame + tokenIndex * staggerInterval + frameOffset);
+}
+
+/**
+ * Generates an array of synchronized SoundEffect configurations for a multi-token text reveal.
+ */
+export function generateTextRevealSoundCues(params: {
+  textStartFrame: number;
+  tokenCount: number;
+  staggerInterval: number;
+  preset?: SoundEffectPresetName;
+  volume?: number;
+  frameOffset?: number;
+  maxCues?: number;
+}): SoundEffectProps[] {
+  const {
+    textStartFrame,
+    tokenCount,
+    staggerInterval,
+    preset = 'pop',
+    volume = 0.6,
+    frameOffset = 0,
+    maxCues = 8,
+  } = params;
+
+  const count = Math.min(tokenCount, maxCues);
+  return Array.from({ length: count }, (_, index) => ({
+    id: `text-reveal-sfx-${index}`,
+    triggerFrame: syncSoundWithTextReveal(textStartFrame, index, staggerInterval, frameOffset),
+    preset,
+    volume,
+  }));
+}

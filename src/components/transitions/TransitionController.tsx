@@ -80,7 +80,7 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
     };
 
     const resolved = resolveAdjacentTransition(mergedConfig);
-    const window = calculateTransitionWindow({
+    const transitionWindow = calculateTransitionWindow({
       boundaryFrame,
       durationInFrames: resolved.durationInFrames,
       alignment: resolved.alignment,
@@ -99,7 +99,7 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
     }
 
     // Direct cut if disabled, duration is zero, or type is 'none' / 'cut'
-    if (resolved.disabled || window.durationInFrames <= 0 || resolved.type === 'none' || resolved.type === 'cut') {
+    if (resolved.disabled || transitionWindow.durationInFrames <= 0 || resolved.type === 'none' || resolved.type === 'cut') {
       const activeCut = currentFrame < boundaryFrame ? outgoingScene : incomingScene;
       return (
         <div className={className} style={{ width: '100%', height: '100%', position: 'relative', ...style }}>
@@ -110,14 +110,14 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
               type="cut"
               currentFrame={currentFrame}
               boundaryFrame={boundaryFrame}
-              window={window}
+              window={transitionWindow}
             />
           )}
         </div>
       );
     }
 
-    const phase = window.getTransitionPhase(currentFrame);
+    const phase = transitionWindow.getTransitionPhase(currentFrame);
 
     // Before transition window: render outgoing scene cleanly
     if (phase === 'before') {
@@ -130,7 +130,7 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
               type={resolved.type}
               currentFrame={currentFrame}
               boundaryFrame={boundaryFrame}
-              window={window}
+              window={transitionWindow}
             />
           )}
         </div>
@@ -148,7 +148,7 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
               type={resolved.type}
               currentFrame={currentFrame}
               boundaryFrame={boundaryFrame}
-              window={window}
+              window={transitionWindow}
             />
           )}
         </div>
@@ -164,8 +164,8 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
           <SlideTransition
             mode="replace"
             direction={(resolved.direction as SlideDirection) || 'left'}
-            durationInFrames={window.durationInFrames}
-            delay={window.startFrame}
+            durationInFrames={transitionWindow.durationInFrames}
+            delay={transitionWindow.startFrame}
             easing={resolved.easing}
             fade={resolved.fade}
             spring={resolved.spring}
@@ -183,8 +183,8 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
         transitionElement = (
           <ZoomTransition
             mode="replace"
-            durationInFrames={window.durationInFrames}
-            delay={window.startFrame}
+            durationInFrames={transitionWindow.durationInFrames}
+            delay={transitionWindow.startFrame}
             easing={resolved.easing}
             fade={resolved.fade}
             spring={resolved.spring}
@@ -203,8 +203,8 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
           <WipeTransition
             mode="replace"
             direction={(resolved.direction as WipeDirection) || 'left-to-right'}
-            durationInFrames={window.durationInFrames}
-            delay={window.startFrame}
+            durationInFrames={transitionWindow.durationInFrames}
+            delay={transitionWindow.startFrame}
             easing={resolved.easing}
             fade={resolved.fade}
             edgeStyle={resolved.edgeStyle}
@@ -230,8 +230,8 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
             cornerRadius={resolved.cornerRadius}
             rotation={resolved.rotation}
             scaleMultiplier={resolved.scaleMultiplier}
-            durationInFrames={window.durationInFrames}
-            delay={window.startFrame}
+            durationInFrames={transitionWindow.durationInFrames}
+            delay={transitionWindow.startFrame}
             easing={resolved.easing}
             fade={resolved.fade}
             fromContent={outgoingScene}
@@ -255,8 +255,8 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
             panelGap={resolved.panelGap}
             staggerDelay={resolved.staggerDelay}
             staggerOrder={resolved.staggerOrder}
-            durationInFrames={window.durationInFrames}
-            delay={window.startFrame}
+            durationInFrames={transitionWindow.durationInFrames}
+            delay={transitionWindow.startFrame}
             easing={resolved.easing}
             fade={resolved.fade}
             fromContent={outgoingScene}
@@ -285,8 +285,8 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
             enableNoise={resolved.enableNoise ?? true}
             enableFlicker={resolved.enableFlicker ?? true}
             enableScanlines={resolved.enableScanlines ?? true}
-            durationInFrames={window.durationInFrames}
-            delay={window.startFrame}
+            durationInFrames={transitionWindow.durationInFrames}
+            delay={transitionWindow.startFrame}
             fromContent={outgoingScene}
             toContent={incomingScene}
             style={{ width: '100%', height: '100%' }}
@@ -300,8 +300,8 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
           <div style={{ position: 'relative', width: '100%', height: '100%' }}>
             <FadeTransition
               mode="crossfade"
-              durationInFrames={window.durationInFrames}
-              delay={window.startFrame}
+              durationInFrames={transitionWindow.durationInFrames}
+              delay={transitionWindow.startFrame}
               fromContent={outgoingScene}
               toContent={incomingScene}
               style={{ width: '100%', height: '100%' }}
@@ -325,8 +325,8 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
                 toStroke={resolved.toStroke}
                 fromStrokeWidth={resolved.fromStrokeWidth}
                 toStrokeWidth={resolved.toStrokeWidth}
-                durationInFrames={window.durationInFrames}
-                delay={window.startFrame}
+                durationInFrames={transitionWindow.durationInFrames}
+                delay={transitionWindow.startFrame}
                 easing={resolved.easing}
                 {...(resolved.customProps || {})}
               />
@@ -340,8 +340,8 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
         transitionElement = (
           <FadeTransition
             mode="crossfade"
-            durationInFrames={window.durationInFrames}
-            delay={window.startFrame}
+            durationInFrames={transitionWindow.durationInFrames}
+            delay={transitionWindow.startFrame}
             easing={resolved.easing}
             fromContent={outgoingScene}
             toContent={incomingScene}
@@ -361,7 +361,7 @@ export const TransitionController: React.FC<TransitionControllerProps> = (props)
             type={resolved.type}
             currentFrame={currentFrame}
             boundaryFrame={boundaryFrame}
-            window={window}
+            window={transitionWindow}
           />
         )}
       </div>

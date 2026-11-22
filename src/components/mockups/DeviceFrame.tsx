@@ -53,6 +53,7 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({
   animation = 'spring',
   animate = true,
   delay = 0,
+  startFrame,
   durationInFrames = 25,
   slideDirection = 'up',
   easing,
@@ -76,11 +77,13 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({
     screenRadius,
   });
 
+  const effectiveDelay = delay !== 0 ? delay : (startFrame ?? 0);
+
   // 2. Resolve animation kinematics
   const animConfig = resolveDeviceFrameAnimationConfig({
     animation,
     animate,
-    delay,
+    delay: effectiveDelay,
     durationInFrames,
     slideDirection,
     easing,
