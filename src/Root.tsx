@@ -18,6 +18,8 @@ import { GlobalAnimationConfigShowcase } from './playground/showcases/GlobalAnim
 import { AdvertisementPreviewShowcase } from './playground/showcases/AdvertisementPreviewShowcase';
 import { ComponentIntegrationShowcase } from './playground/showcases/ComponentIntegrationShowcase';
 import { AudioTimelineSyncShowcase } from './playground/showcases/AudioTimelineSyncShowcase';
+import { AkademiCompetitionRelaunch } from './compositions/advertisements/AkademiCompetitionRelaunch';
+import { AkademiCompetitionRelaunchShowcase } from './playground/showcases/AkademiCompetitionRelaunchShowcase';
 import { VideoPresets } from './config/video';
 import './styles/global.css';
 
@@ -166,6 +168,30 @@ export const RemotionRoot: React.FC = () => {
         id="AudioTimelineSync"
         component={AudioTimelineSyncShowcase}
         durationInFrames={180}
+        fps={VideoPresets.LANDSCAPE_1080P.fps}
+        width={VideoPresets.LANDSCAPE_1080P.width}
+        height={VideoPresets.LANDSCAPE_1080P.height}
+      />
+
+      {/* Layer 4: Commercial Campaign Production - Akademi Competition Relaunch (Vertical 9:16) */}
+      <Composition
+        id="AkademiCompetitionRelaunch"
+        component={AkademiCompetitionRelaunch}
+        durationInFrames={840} // 28.0 seconds at 30 FPS
+        fps={VideoPresets.VERTICAL_1080P.fps}
+        width={VideoPresets.VERTICAL_1080P.width}
+        height={VideoPresets.VERTICAL_1080P.height}
+        defaultProps={{
+          debug: false,
+          showBackgroundParticles: true,
+        }}
+      />
+
+      {/* Layer 1: Akademi Competition Relaunch Motion Playground Showcase */}
+      <Composition
+        id="AkademiCompetitionRelaunchShowcase"
+        component={AkademiCompetitionRelaunchShowcase}
+        durationInFrames={840}
         fps={VideoPresets.LANDSCAPE_1080P.fps}
         width={VideoPresets.LANDSCAPE_1080P.width}
         height={VideoPresets.LANDSCAPE_1080P.height}

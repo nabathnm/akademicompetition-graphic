@@ -66,6 +66,7 @@ import { GlobalAnimationConfigShowcase } from './showcases/GlobalAnimationConfig
 import { AdvertisementPreviewShowcase } from './showcases/AdvertisementPreviewShowcase';
 import { ComponentIntegrationShowcase } from './showcases/ComponentIntegrationShowcase';
 import { AudioTimelineSyncShowcase } from './showcases/AudioTimelineSyncShowcase';
+import { AkademiCompetitionRelaunchShowcase } from './showcases/AkademiCompetitionRelaunchShowcase';
 import { AnimatedText } from '../components/typography/AnimatedText';
 import { WordReveal } from '../components/typography/WordReveal';
 import { CharacterReveal } from '../components/typography/CharacterReveal';
@@ -180,6 +181,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
     | 'advertisement-preview'
     | 'component-integration'
     | 'audio-timeline-sync'
+    | 'ad-relaunch'
   >('all');
 
   // Filter registered showcases
@@ -860,6 +862,7 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
               { id: 'advertisement-preview', label: 'AdvertisementPreview' },
               { id: 'component-integration', label: 'ComponentIntegration' },
               { id: 'audio-timeline-sync', label: 'AudioTimelineSync' },
+              { id: 'ad-relaunch', label: 'AkademiCompetitionRelaunch' },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -1099,6 +1102,17 @@ export const MotionPlayground: React.FC<MotionPlaygroundProps> = ({
                 </div>
               )}
               <AudioTimelineSyncShowcase />
+            </div>
+          )}
+
+          {(scenesTab === 'all' || scenesTab === 'ad-relaunch') && (
+            <div style={{ marginTop: scenesTab === 'all' ? Spacing.scale.xxl : 0 }}>
+              {scenesTab === 'all' && (
+                <div style={{ ...Typography.caption.eyebrow, color: '#00F0FF', marginBottom: Spacing.scale.sm }}>
+                  SECTION U: AKADEMI COMPETITION RELAUNCH CAMPAIGN (28s • 840f • 9:16)
+                </div>
+              )}
+              <AkademiCompetitionRelaunchShowcase />
             </div>
           )}
         </div>

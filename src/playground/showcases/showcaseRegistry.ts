@@ -735,6 +735,14 @@ export const SHOWCASE_REGISTRY: ShowcaseDefinition[] = [
     ],
     status: 'ready',
   },
+  {
+    id: 'ad-akademi-competition-relaunch',
+    name: 'AkademiCompetitionRelaunch',
+    category: 'scenes',
+    description: 'Complete 28-second vertical social media advertisement campaign announcing Akademi Competition relaunch and new domain',
+    variants: ['Reels', 'TikTok', 'Shorts', 'SafeAreas', 'NoParticles'],
+    status: 'ready',
+  },
 ];
 
 

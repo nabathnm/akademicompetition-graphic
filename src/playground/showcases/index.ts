@@ -55,3 +55,4 @@ export * from './BackgroundMusicShowcase';
 export * from './SoundEffectShowcase';
 export * from './GlobalAnimationConfigShowcase';
 export * from './AdvertisementPreviewShowcase';
+export * from './AkademiCompetitionRelaunchShowcase.tsx';

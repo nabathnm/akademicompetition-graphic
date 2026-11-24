@@ -10,3 +10,5 @@ export const AssetPaths = {
   icons: '/assets/icons',
   fonts: '/assets/fonts',
 } as const;
+
+export * from './icons/AkademiLogo.tsx';
